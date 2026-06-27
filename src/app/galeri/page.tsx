@@ -173,9 +173,9 @@ export default function GaleriPage() {
 
   return (
     <div 
-      className="min-h-screen flex flex-col relative overflow-x-clip"
+      className="min-h-screen flex flex-col relative overflow-x-clip bg-cover bg-center bg-no-repeat bg-fixed"
       style={{
-        background: "radial-gradient(circle, #5C1010 0%, #2E0505 70%, #150000 100%)",
+        backgroundImage: "url('/assets/background/background_7.png')",
       }}
     >
       <Navbar />
@@ -233,14 +233,14 @@ export default function GaleriPage() {
             >
               {/* Title and Subtitle */}
               <div className="text-center flex flex-col items-center gap-4 mb-16 select-none">
-                <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-[#C5960C] flex items-center justify-center gap-4 md:gap-8">
-                  <span className="w-16 md:w-28 h-[1.5px] bg-gradient-to-r from-transparent to-[#C5960C]" /> 
+                <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-secondary flex items-center justify-center gap-4 md:gap-8">
+                  <span className="w-16 md:w-28 h-[1.5px] bg-linear-to-r from-transparent to-secondary" /> 
                   GALERI 
-                  <span className="w-16 md:w-28 h-[1.5px] bg-gradient-to-l from-transparent to-[#C5960C]" />
+                  <span className="w-16 md:w-28 h-[1.5px] bg-linear-to-l from-transparent to-secondary" />
                 </h1>
                 <p className="font-sans text-sm md:text-base lg:text-lg text-text-light/95 tracking-wide max-w-2xl font-light leading-relaxed">
                   Jelajahi ragam motif Sasirangan dari berbagai daerah di{" "}
-                  <span className="text-[#C5960C] font-semibold">Kalimantan Selatan</span>
+                  <span className="text-secondary font-semibold">Kalimantan Selatan</span>
                 </p>
               </div>
 
@@ -256,7 +256,7 @@ export default function GaleriPage() {
                       transition={{ duration: 0.6, delay: idx * 0.1 }}
                       whileHover={{ scale: 1.05, y: -4 }}
                       onClick={() => setSelectedFolderId(item.id)}
-                      className="w-full max-w-[230px] aspect-[1.52] relative cursor-pointer"
+                      className="w-full max-w-57.5 aspect-[1.52] relative cursor-pointer"
                     >
                       <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
                         <Image
@@ -282,7 +282,7 @@ export default function GaleriPage() {
                       transition={{ duration: 0.6, delay: (idx + 3) * 0.08 }}
                       whileHover={{ scale: 1.05, y: -4 }}
                       onClick={() => setSelectedFolderId(item.id)}
-                      className="w-full max-w-[210px] aspect-[1.52] relative cursor-pointer"
+                      className="w-full max-w-52.5 aspect-[1.52] relative cursor-pointer"
                     >
                       <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
                         <Image
@@ -307,7 +307,7 @@ export default function GaleriPage() {
                       transition={{ duration: 0.6, delay: (idx + 8) * 0.08 }}
                       whileHover={{ scale: 1.05, y: -4 }}
                       onClick={() => setSelectedFolderId(item.id)}
-                      className="w-full max-w-[210px] aspect-[1.52] relative cursor-pointer"
+                      className="w-full max-w-52.5 aspect-[1.52] relative cursor-pointer"
                     >
                       <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
                         <Image
@@ -334,7 +334,7 @@ export default function GaleriPage() {
                     transition={{ duration: 0.5, delay: (idx % 3) * 0.08 }}
                     whileHover={{ scale: 1.05 }}
                     onClick={() => setSelectedFolderId(item.id)}
-                    className="w-full aspect-[1.52] relative mx-auto max-w-[240px] cursor-pointer"
+                    className="w-full aspect-[1.52] relative mx-auto max-w-60 cursor-pointer"
                   >
                     <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_20px_rgba(197,150,12,0.4)] transition-all duration-300">
                       <Image
@@ -361,11 +361,11 @@ export default function GaleriPage() {
             >
               
               {/* Left Sidebar - Folder Stack */}
-              <div className="w-full md:w-[200px] lg:w-[240px] flex flex-col shrink-0 md:sticky md:top-32 self-start z-30">
+              <div className="w-full md:w-50 lg:w-60 flex flex-col shrink-0 md:sticky md:top-32 self-start z-30">
                 {/* Back button */}
                 <button
                   onClick={() => setSelectedFolderId(null)}
-                  className="flex items-center gap-2 text-text-light/80 hover:text-[#C5960C] font-semibold text-xs tracking-wider uppercase mb-6 cursor-pointer self-start transition-colors duration-300"
+                  className="flex items-center gap-2 text-text-light/80 hover:text-secondary font-semibold text-xs tracking-wider uppercase mb-6 cursor-pointer self-start transition-colors duration-300"
                 >
                   ← Kembali ke Galeri
                 </button>
@@ -378,7 +378,7 @@ export default function GaleriPage() {
                       <button
                         key={item.id}
                         onClick={() => setSelectedFolderId(item.id)}
-                        className={`w-32 md:w-full max-w-[170px] lg:max-w-[190px] aspect-[1.52] relative transition-all duration-300 block shrink-0 cursor-pointer ${
+                        className={`w-32 md:w-full max-w-42.5 lg:max-w-47.5 aspect-[1.52] relative transition-all duration-300 block shrink-0 cursor-pointer ${
                           isActive 
                             ? "opacity-100 scale-100 drop-shadow-[0_4px_12px_rgba(197,150,12,0.25)]" 
                             : "opacity-25 hover:opacity-55 scale-95"
@@ -408,7 +408,7 @@ export default function GaleriPage() {
                   <h2 className="font-serif text-3xl md:text-4xl font-bold text-white tracking-wide">
                     {activeFolder?.titleDetail}
                   </h2>
-                  <div className="w-28 h-[2px] bg-[#C5960C] mt-2.5" />
+                  <div className="w-28 h-0.5 bg-secondary mt-2.5" />
                 </div>
 
                 {/* Motifs Grid */}
@@ -424,7 +424,7 @@ export default function GaleriPage() {
                         onClick={() => setLightboxImage(motif)}
                       >
                         {/* Image Container with Yellow/Gold Border */}
-                        <div className="w-full aspect-[4/3] relative rounded-2xl border-[3px] border-[#C5960C] bg-white/5 overflow-hidden shadow-md group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(197,150,12,0.4)] transition-all duration-300 flex items-center justify-center p-0.5">
+                        <div className="w-full aspect-4/3 relative rounded-2xl border-[3px] border-secondary bg-white/5 overflow-hidden shadow-md group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(197,150,12,0.4)] transition-all duration-300 flex items-center justify-center p-0.5">
                           <Image
                             src={motif.path}
                             alt={motif.name}
@@ -439,7 +439,7 @@ export default function GaleriPage() {
                         </div>
 
                         {/* Motif Name */}
-                        <p className="text-center font-serif text-xs md:text-sm text-text-light/95 font-medium mt-3.5 group-hover:text-[#C5960C] transition-colors leading-tight px-1 select-none">
+                        <p className="text-center font-serif text-xs md:text-sm text-white/95 font-medium mt-3.5 group-hover:text-secondary transition-colors leading-tight px-1 select-none">
                           {motif.name}
                         </p>
                       </motion.div>
@@ -483,7 +483,7 @@ export default function GaleriPage() {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#FFFDF9] rounded-3xl border-4 border-[#C5960C] shadow-2xl p-4 md:p-6 max-w-3xl w-full flex flex-col gap-4 relative cursor-default"
+              className="bg-[#FFFDF9] rounded-3xl border-4 border-secondary shadow-2xl p-4 md:p-6 max-w-3xl w-full flex flex-col gap-4 relative cursor-default"
             >
               {/* Close Button */}
               <button
@@ -495,7 +495,7 @@ export default function GaleriPage() {
               </button>
 
               {/* Large Image */}
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-secondary/15 bg-stone-100 flex items-center justify-center shadow-inner">
+              <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden border border-secondary/15 bg-stone-100 flex items-center justify-center shadow-inner">
                 <Image
                   src={lightboxImage.path}
                   alt={lightboxImage.name}
