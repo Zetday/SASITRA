@@ -371,7 +371,7 @@ export default function GaleriPage() {
                 </button>
 
                 {/* Sidebar Scroll Container */}
-                <div className="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-y-auto md:max-h-[calc(100vh-180px)] w-full pb-4 md:pb-0 pr-0 md:pr-2 scrollbar-thin select-none">
+                <div className="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-y-auto md:max-h-[calc(100vh-180px)] w-full pb-4 md:pb-0 pr-0 md:pr-2 scrollbar-gallery select-none">
                   {GALLERY_ITEMS.map((item) => {
                     const isActive = item.id === selectedFolderId;
                     return (

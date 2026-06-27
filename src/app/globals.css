@@ -73,6 +73,26 @@ body {
   background: #8B1A1A;
 }
 
+/* Custom scrollbar for dark gallery view sidebar & mobile slider */
+.scrollbar-gallery::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.scrollbar-gallery::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.scrollbar-gallery::-webkit-scrollbar-thumb {
+  background: rgba(197, 150, 12, 0.35);
+  border-radius: 10px;
+}
+
+.scrollbar-gallery::-webkit-scrollbar-thumb:hover {
+  background: rgba(197, 150, 12, 0.8);
+}
+
 /* Custom Utilities for Sasirangan stitches & premium details */
 .border-jelujur {
   border-style: dashed;
