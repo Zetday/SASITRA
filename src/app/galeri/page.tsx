@@ -128,7 +128,14 @@ const MOTIF_MAPPING: Record<string, MotifDetail[]> = {
     { "name": "Papakuan", "path": "/assets/motif_sasirangan/folder/09_Motif_Khas_Kabupaten_Tapin/17_Papakuan.png" },
     { "name": "Purun", "path": "/assets/motif_sasirangan/folder/09_Motif_Khas_Kabupaten_Tapin/18_Purun.png" }
   ],
-  "10_Motif_Khas_Kabupaten_Hulu_Sungai": [],
+  "10_Motif_Khas_Kabupaten_Hulu_Sungai": [
+    { "name": "Ketupat (Hulu Sungai Selatan)", "path": "/assets/motif_sasirangan/folder/10_Motif_Khas_Kabupaten_Hulu_Sungai/Hulu_Sungai_Selatan/01_Ketupat.png" },
+    { "name": "Perisai (Hulu Sungai Tengah)", "path": "/assets/motif_sasirangan/folder/10_Motif_Khas_Kabupaten_Hulu_Sungai/Hulu_Sungai_Tengah/01_Perisai.png" },
+    { "name": "Mega Mendung (Hulu Sungai Tengah)", "path": "/assets/motif_sasirangan/folder/10_Motif_Khas_Kabupaten_Hulu_Sungai/Hulu_Sungai_Tengah/02_Mega_Mendung.png" },
+    { "name": "Talabang Halus (Hulu Sungai Tengah)", "path": "/assets/motif_sasirangan/folder/10_Motif_Khas_Kabupaten_Hulu_Sungai/Hulu_Sungai_Tengah/03_Talabang_Halus.png" },
+    { "name": "Nyiur di Pulau Sambujur (Hulu Sungai Utara)", "path": "/assets/motif_sasirangan/folder/10_Motif_Khas_Kabupaten_Hulu_Sungai/Hulu_Sungai_Utara/01_Nyiur_di_Pulau_Sambujur.png" },
+    { "name": "Anyaman Purun (Hulu Sungai Utara)", "path": "/assets/motif_sasirangan/folder/10_Motif_Khas_Kabupaten_Hulu_Sungai/Hulu_Sungai_Utara/02_Anyaman_Purun.png" }
+  ],
   "11_Motif_Khas_Kabupaten_Tabalong": [
     { "name": "Buah Langsat", "path": "/assets/motif_sasirangan/folder/11_Motif_Khas_Kabupaten_Tabalong/01_Buah_Langsat.png" },
     { "name": "Telabang Dayak", "path": "/assets/motif_sasirangan/folder/11_Motif_Khas_Kabupaten_Tabalong/02_Telabang_Dayak.png" },
