@@ -135,7 +135,7 @@ export const MotifLainnya: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10 flex flex-col items-center">
         {/* Title & Mascot Row */}
-        <div className="w-full flex items-center justify-center relative mb-8 min-h-[140px]">
+        <div className="w-full flex items-center justify-center relative mb-8 min-h-35">
           {/* Left Mascot */}
           <div className="absolute left-4 lg:left-20 top-0 w-24 h-32 hidden md:block">
             <Image
@@ -237,7 +237,7 @@ export const MotifLainnya: React.FC = () => {
               </button>
 
               {/* Left Side: Large Card */}
-              <div className="w-[180px] sm:w-[200px] aspect-3/4 bg-white rounded-2xl overflow-hidden shadow-xl border-[3px] border-[#A37F55] shrink-0 relative">
+              <div className="w-45 sm:w-50 aspect-3/4 bg-white rounded-2xl overflow-hidden shadow-xl border-[3px] border-[#A37F55] shrink-0 relative">
                 <Image
                   src={selectedMotif.image}
                   alt={selectedMotif.title}
@@ -255,7 +255,7 @@ export const MotifLainnya: React.FC = () => {
                   <span className="text-[10px] font-bold text-secondary uppercase tracking-widest">
                     Motif Sasirangan
                   </span>
-                  <div className="flex-1 h-[1px] bg-secondary-light/35 ml-1.5" />
+                  <div className="flex-1 h-px bg-secondary-light/35 ml-1.5" />
                 </div>
 
                 {/* Title */}
