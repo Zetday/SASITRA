@@ -12,6 +12,8 @@ import { SiraGaluh } from "../../components/shared/SiraGaluh";
 import { MengenalSasirangan } from "../../components/shared/MengenalSasirangan";
 import { ProsesPembuatan } from "../../components/shared/ProsesPembuatan";
 import { MotifPreview } from "../../components/shared/MotifPreview";
+import { MotifLainnya } from "../../components/shared/MotifLainnya";
+import { AudioPlayer } from "../../components/shared/AudioPlayer";
 import { Card } from "../../components/ui/Card";
 
 // Hoisting chapters to module level - rerender-no-inline-components / server-hoist-static-io
@@ -201,6 +203,9 @@ export default function HomePage() {
         {/* Motif Preview Section Component */}
         <MotifPreview />
 
+        {/* Motif Lainnya Section Component */}
+        <MotifLainnya />
+
         {/* Section 2: Chapters Preview Journey */}
         <section className="py-24 px-6 max-w-7xl mx-auto w-full border-t border-secondary/10">
           <div className="text-center max-w-3xl mx-auto flex flex-col gap-4 mb-16">
@@ -244,6 +249,7 @@ export default function HomePage() {
         </section>
 
         <Footer />
+        <AudioPlayer />
       </div>
     </div>
   );

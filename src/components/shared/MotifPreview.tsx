@@ -8,25 +8,25 @@ const MOTIF_STEPS = [
   {
     id: "hiris-pundak",
     title: "Hiris Pudak",
-    image: "/assets/motif_sasirangan/hiris_pundak.png",
+    image: "/assets/motif_sasirangan/motif_dasar/hiris_pudak.png",
     description: "Terinspirasi dari daun pudak atau pandan yang harum. Bentuknya memanjang seperti helaian daun yang akrab dengan keseharian masyarakat Banjar."
   },
   {
     id: "kembang-kacang",
     title: "Kembang Kacang",
-    image: "/assets/motif_sasirangan/kembang_kacang.png",
+    image: "/assets/motif_sasirangan/motif_dasar/kembang_kacang.png",
     description: "Terinspirasi dari tanaman kacang panjang yang dekat dengan dapur Banjar. Motif ini melambangkan keakraban dan kebersamaan dalam kehidupan sehari-hari."
   },
   {
     id: "bayam-raja",
     title: "Bayam Raja",
-    image: "/assets/motif_sasirangan/bayam_raja.png",
+    image: "/assets/motif_sasirangan/motif_dasar/bayam_raja.png",
     description: "Terinspirasi dari bentuk daun bayam yang tersusun dalam garis lengkung. Motif ini melambangkan leluhur yang bermartabat dan dihormati."
   },
   {
     id: "ombak-sinapur-karang",
     title: "Ombak Sinapur Karang",
-    image: "/assets/motif_sasirangan/ombak_sinapur_karang.png",
+    image: "/assets/motif_sasirangan/motif_dasar/ombak_sinapur_karang.png",
     description: "Terinspirasi dari gelombang laut yang menerjang karang. Motif ini menggambarkan perjuangan, keteguhan, dan keberanian menghadapi ujian hidup."
   }
 ];
@@ -70,13 +70,11 @@ export const MotifPreview: React.FC = () => {
     >
       {/* Sticky Inner Container */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-center"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-bottom"
         style={{ 
           backgroundImage: `url('/assets/background/background_4.png')`,
         }}
       >
-        {/* Seamless Bottom Blend (from background_4 to next section) */}
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-linear-to-t from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-20" />
 
         {/* SVG Decorative Dashed Line */}
         <div className="absolute inset-0 pointer-events-none z-0 hidden lg:block">
