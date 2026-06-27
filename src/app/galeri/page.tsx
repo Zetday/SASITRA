@@ -180,9 +180,6 @@ export default function GaleriPage() {
     >
       <Navbar />
 
-      {/* Gold Dot stitch background overlay */}
-      <div className="absolute inset-0 bg-jelujur-pattern opacity-10 pointer-events-none z-0" />
-
       {/* Side Decorative Borders matching the mockup (only shown in Grid/Main view) */}
       {!selectedFolderId && (
         <>
