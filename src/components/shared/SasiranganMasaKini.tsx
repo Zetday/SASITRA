@@ -23,11 +23,11 @@ export const SasiranganMasaKini: React.FC = () => {
     >
 
       {/* Seamless Bottom Blend */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#FAF3E0] via-[#FAF3E0]/80 to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-10" />
 
       {/* SVG Decorative Dashed Curves matching the screenshot */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <svg className="w-full h-full min-h-[600px] overflow-visible" viewBox="0 0 1200 800" fill="none">
+        <svg className="w-full h-full min-h-150 overflow-visible" viewBox="0 0 1200 800" fill="none">
           {/* Top Left Curve around Mascot */}
           <path
             d="M -50 80 C 150 50, 200 150, 100 350 C 50 450, -20 500, -80 600"
@@ -55,7 +55,7 @@ export const SasiranganMasaKini: React.FC = () => {
             
             {/* Mascot Avatar Sira_6 */}
             <motion.div
-              className="w-56 h-[380px] md:w-64 md:h-[450px] lg:w-[280px] lg:h-[480px] relative shrink-0"
+              className="w-56 h-95 md:w-64 md:h-112.5 lg:w-70 lg:h-120 relative shrink-0"
               animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
               transition={shouldReduceMotion ? {} : { repeat: Infinity, duration: 4, ease: "easeInOut" }}
             >
@@ -95,7 +95,7 @@ export const SasiranganMasaKini: React.FC = () => {
 
               <div className="flex flex-col gap-6 max-w-lg mt-2">
                 <motion.p
-                  className="font-serif text-sm md:text-base lg:text-lg text-[#5C1010] leading-relaxed font-semibold"
+                  className="font-serif text-sm md:text-base lg:text-lg text-primary-dark leading-relaxed font-semibold"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -105,7 +105,7 @@ export const SasiranganMasaKini: React.FC = () => {
                 </motion.p>
 
                 <motion.p
-                  className="font-serif text-sm md:text-base lg:text-lg text-[#5C1010] leading-relaxed font-semibold pl-0 md:pl-16 text-center md:text-right"
+                  className="font-serif text-sm md:text-base lg:text-lg text-primary-dark leading-relaxed font-semibold pl-0 md:pl-16 text-center md:text-right"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -126,7 +126,7 @@ export const SasiranganMasaKini: React.FC = () => {
               {PRODUCTS.map((product, idx) => (
                 <motion.div
                   key={product.id}
-                  className="aspect-[3/4] rounded-2xl bg-white border-[3px] border-[#5C1010] p-2 flex items-center justify-center shadow-md relative overflow-hidden group cursor-pointer"
+                  className="aspect-3/4 rounded-2xl bg-white border-[3px] border-primary-dark p-2 flex items-center justify-center shadow-md relative overflow-hidden group cursor-pointer"
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -156,13 +156,13 @@ export const SasiranganMasaKini: React.FC = () => {
             >
               <Link
                 href="/try-on"
-                className="w-full md:w-auto inline-flex items-center justify-center gap-4 bg-[#5C1010] hover:bg-[#4A0D0D] border-2 border-[#C5960C] px-10 py-3.5 rounded-xl shadow-lg group transition-all duration-300 hover:scale-105"
+                className="w-full md:w-auto inline-flex items-center justify-center gap-4 bg-primary-dark hover:bg-[#4A0D0D] border-2 border-secondary px-10 py-3.5 rounded-xl shadow-lg group transition-all duration-300 hover:scale-105"
               >
-                <span className="w-8 h-[1.5px] bg-[#C5960C] opacity-80 group-hover:w-12 transition-all duration-300" />
+                <span className="w-8 h-[1.5px] bg-secondary opacity-80 group-hover:w-12 transition-all duration-300" />
                 <span className="font-serif text-white text-base md:text-lg font-bold tracking-widest whitespace-nowrap">
                   Jelajah 3D
                 </span>
-                <span className="w-8 h-[1.5px] bg-[#C5960C] opacity-80 group-hover:w-12 transition-all duration-300" />
+                <span className="w-8 h-[1.5px] bg-secondary opacity-80 group-hover:w-12 transition-all duration-300" />
               </Link>
             </motion.div>
 

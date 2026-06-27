@@ -206,7 +206,7 @@ export default function HomePage() {
 
         {/* Continuous Background Wrapper for Motif Lainnya & Sasirangan di Masa Kini */}
         <div 
-          className="relative w-full bg-[#FAF3E0]"
+          className="relative w-full bg-bg-cream"
           style={{
             backgroundImage: `url('/assets/background/background_5.png'), url('/assets/background/background_6.png')`,
             backgroundPosition: 'top center, top 56.25vw center',

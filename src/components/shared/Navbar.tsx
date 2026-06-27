@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeOverride }) => {
         <Link href="/home" className="flex items-center gap-3 group">
           <Image src="/assets/logo/logo_sasitra.png" alt="Logo SASITRA" width={50} height={50} className="object-contain" />
           <div className="flex flex-col">
-            <span className={`font-serif font-bold text-xl tracking-wide leading-tight transition-colors duration-300 ${isDarkTheme ? "text-[#C5960C]" : "text-primary"}`}>
+            <span className={`font-serif font-bold text-xl tracking-wide leading-tight transition-colors duration-300 ${isDarkTheme ? "text-secondary" : "text-primary"}`}>
               SASITRA
             </span>
             <span className={`text-[10px] font-semibold uppercase tracking-wider hidden sm:inline transition-colors duration-300 ${isDarkTheme ? "text-text-light/75" : "text-accent-brown/70"}`}>
@@ -98,13 +98,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeOverride }) => {
               href={link.href}
               className={`text-sm font-semibold tracking-wide transition-all duration-300 relative py-1 ${
                 isLinkActive(link.href)
-                  ? isDarkTheme ? "text-[#C5960C] font-bold" : "text-primary font-bold"
-                  : isDarkTheme ? "text-text-light/80 hover:text-[#C5960C]" : "text-text-dark/70 hover:text-primary"
+                  ? isDarkTheme ? "text-secondary font-bold" : "text-primary font-bold"
+                  : isDarkTheme ? "text-text-light/80 hover:text-secondary" : "text-text-dark/70 hover:text-primary"
               }`}
             >
               {link.name}
               {isLinkActive(link.href) ? (
-                <span className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full ${isDarkTheme ? "bg-[#C5960C]" : "bg-primary"}`} />
+                <span className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full ${isDarkTheme ? "bg-secondary" : "bg-primary"}`} />
               ) : null}
             </Link>
           ))}
@@ -196,7 +196,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeOverride }) => {
             aria-expanded={isOpen}
             className={`p-1.5 rounded-lg border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors ${
               isDarkTheme
-                ? "border-white/20 text-text-light hover:text-[#C5960C] hover:bg-white/5"
+                ? "border-white/20 text-text-light hover:text-secondary hover:bg-white/5"
                 : "border-secondary/25 text-text-dark/80 hover:text-primary hover:bg-primary/5"
             }`}
           >

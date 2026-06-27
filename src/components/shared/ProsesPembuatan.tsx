@@ -206,7 +206,7 @@ export const ProsesPembuatan: React.FC = () => {
                   {/* Sira Avatar & Speech Bubble on each Card for Mobile/Reduced Motion */}
                   <div className={`absolute -left-14 -bottom-12 z-20 ${shouldReduceMotion ? "flex" : "lg:hidden flex"} items-end pointer-events-none select-none`}>
                     {/* Speech Bubble */}
-                    <div className="relative border-2 border-secondary-light p-0.5 rounded-3xl bg-[#FFFDF9] shadow-xl -mr-3 mb-16 pointer-events-auto shrink-0 max-w-[130px]">
+                    <div className="relative border-2 border-secondary-light p-0.5 rounded-3xl bg-[#FFFDF9] shadow-xl -mr-3 mb-16 pointer-events-auto shrink-0 max-w-32.5">
                       <div className="border border-secondary-light rounded-[1.35rem] bg-[#FFFDF9] px-3.5 py-2 text-center shadow-inner">
                         <p className="font-sans text-[10px] font-bold text-secondary-dark leading-tight">
                           {idx === 0 ? "Menggambar Motif" : idx === 1 ? "Menjelujur Kain" : "Pencelupan Warna"}
@@ -275,7 +275,7 @@ export const ProsesPembuatan: React.FC = () => {
               <div className="flex items-end pointer-events-none select-none">
                 {/* Speech Bubble */}
                 <motion.div
-                  className="relative border-2 border-secondary-light p-0.5 rounded-[1.8rem] bg-[#FFFDF9] shadow-xl -mr-3.5 mb-16 pointer-events-auto shrink-0 max-w-[140px]"
+                  className="relative border-2 border-secondary-light p-0.5 rounded-[1.8rem] bg-[#FFFDF9] shadow-xl -mr-3.5 mb-16 pointer-events-auto shrink-0 max-w-35"
                   key={activeMascot.text}
                   initial={{ scale: 0.8, opacity: 0, y: 10 }}
                   animate={{ scale: 1, opacity: 1, y: 0 }}
