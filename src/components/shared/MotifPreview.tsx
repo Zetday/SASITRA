@@ -105,7 +105,7 @@ export const MotifPreview: React.FC = () => {
           
           {/* Left: Sira Mascot (col-span-4) */}
           <div className="col-span-12 lg:col-span-4 flex justify-center lg:justify-start relative">
-            <div className="w-64 h-125 relative">
+            <div className="w-64 h-125 relative scale-x-[-1]">
               <Image
                 src="/assets/avatar/Sira_1.gif"
                 alt="Sira Galuh Motif"

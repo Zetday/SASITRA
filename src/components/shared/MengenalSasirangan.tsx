@@ -11,23 +11,20 @@ export const MengenalSasirangan: React.FC = () => {
       className="relative w-full bg-transparent"
       style={{
         backgroundImage: "url('/assets/background/background_2.1.png'), url('/assets/background/background_2.2.png')",
-        backgroundPosition: "top center, top 56.25vw center",
-        backgroundSize: "100% auto, 100% auto",
+        backgroundPosition: "top center, top 54vw center",
+        backgroundSize: "100% 54vw, 100% 54vw",
         backgroundRepeat: "no-repeat, no-repeat",
       }}
     >
       {/* SECTION 1: Mengenal Sasirangan (Sejarah Mulanya) */}
       <section 
         id="sejarah"
-        className="relative min-h-screen lg:min-h-0 lg:h-[56.25vw] w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24 lg:py-0 scroll-mt-navbar bg-no-repeat lg:bg-none"
-        style={{ 
-          backgroundImage: `url('/assets/background/background_2.1.png')` 
-        }}
+        className="relative min-h-screen lg:min-h-0 lg:h-[54vw] w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24 lg:py-0 scroll-mt-navbar bg-no-repeat bg-[url('/assets/background/background_2.1.png')] lg:bg-none"
       >
         {/* Seamless Top Blend */}
         <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-10" />
 
-        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center relative z-10 gap-16 lg:gap-12 xl:gap-20">
+        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center justify-between relative z-10 lg:h-full lg:py-16 gap-10 lg:gap-0">
           
           {/* Header with Large Ornament and Titles */}
           <div className="flex flex-col items-center text-center gap-2 select-none">
@@ -68,7 +65,7 @@ export const MengenalSasirangan: React.FC = () => {
           </div>
 
           {/* Section 1 Content Row (Text Left, Mascot Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full z-10 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full z-10 relative">
             {/* Left: Text Block */}
             <motion.div 
               className="lg:col-span-8 border-l-4 border-secondary pl-6 text-left"
@@ -77,7 +74,7 @@ export const MengenalSasirangan: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <p className="font-serif text-lg md:text-xl text-text-dark/95 leading-relaxed select-text">
+              <p className="font-serif text-lg md:text-xl lg:text-2xl text-text-dark/95 leading-relaxed select-text">
                 Pada mulanya, Sasirangan dikenal sebagai kain Lagundi atau kain Pamintan yang lekat dengan tradisi masyarakat Banjar. Seiring waktu, Sasirangan berkembang menjadi bagian dari gaya hidup masa kini hadir dalam busana, kerudung, tas, aksesori, dan berbagai produk kreatif tanpa kehilangan identitas Banua.
               </p>
             </motion.div>
@@ -85,36 +82,6 @@ export const MengenalSasirangan: React.FC = () => {
             {/* Right: Sira Mascot pointing left */}
             <motion.div 
               className="lg:col-span-4 flex justify-center lg:justify-end"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <SiraGaluh
-                expression="pointing"
-                useGif={false}
-                text=""
-              />
-            </motion.div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* SECTION 2: Arti Sasirangan & Indikasi Geografis */}
-      <section 
-        className="relative min-h-screen lg:min-h-0 lg:h-[56.25vw] w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24 lg:py-0 bg-no-repeat lg:bg-none"
-        style={{ 
-          backgroundImage: `url('/assets/background/background_2.2.png')` 
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center relative z-10 gap-16 lg:gap-12 xl:gap-24">
-          
-          {/* Section 2 Content Row (Mascot Left Flipped, Text Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full z-10 relative">
-            {/* Left: Sira Mascot pointing right (flipped) */}
-            <motion.div 
-              className="lg:col-span-4 flex justify-center lg:justify-start lg:order-1 order-2"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -128,6 +95,33 @@ export const MengenalSasirangan: React.FC = () => {
                 />
               </div>
             </motion.div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* SECTION 2: Arti Sasirangan & Indikasi Geografis */}
+      <section 
+        className="relative min-h-screen lg:min-h-0 lg:h-[54vw] w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24 lg:py-0 bg-no-repeat bg-[url('/assets/background/background_2.2.png')] lg:bg-none"
+      >
+        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center justify-between relative z-10 lg:h-full lg:py-16 gap-10 lg:gap-0">
+          
+          {/* Section 2 Content Row (Mascot Left Flipped, Text Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full z-10 relative">
+            {/* Left: Sira Mascot pointing right (flipped) */}
+            <motion.div 
+              className="lg:col-span-4 flex justify-center lg:justify-start lg:order-1 order-2"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+                <SiraGaluh
+                  expression="pointing"
+                  useGif={false}
+                  text=""
+                />        
+            </motion.div>
 
             {/* Right: Text Block */}
             <motion.div 
@@ -137,7 +131,7 @@ export const MengenalSasirangan: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <p className="font-serif text-lg md:text-xl text-text-dark/95 leading-relaxed select-text">
+              <p className="font-serif text-lg md:text-xl lg:text-2xl text-text-dark/95 leading-relaxed select-text">
                 Sasirangan adalah kain khas kalimantan selatan yang diwariskan turun-temurun sejak abad ke-12, Nama &ldquo;Sasirangan&rdquo; Berasal dari kata &ldquo;sa&rdquo; yang berarti satu dan &ldquo;sirang&rdquo; yang berarti jelujur.
               </p>
             </motion.div>
@@ -145,13 +139,13 @@ export const MengenalSasirangan: React.FC = () => {
 
           {/* Section 2 Bottom Highlight Text & Ornament Divider */}
           <motion.div
-            className="flex flex-col items-center text-center mt-6 w-full max-w-4xl px-4"
+            className="flex flex-col items-center text-center mt-4 w-full max-w-4xl px-4"
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            <p className="font-sans text-xl md:text-2xl text-text-dark/90 font-medium leading-relaxed tracking-wide select-text">
+            <p className="font-sans text-2xl md:text-3xl lg:text-[1.85rem] text-text-dark/90 font-semibold leading-relaxed tracking-wide select-text">
               Sejak <span className="text-[#8B1A1A] font-bold">7 Juni 2024</span>, Sasirangan resmi menyandang <span className="text-[#8B1A1A] font-bold">Indikasi Geografis Kalimantan Selatan</span>.
             </p>
             
