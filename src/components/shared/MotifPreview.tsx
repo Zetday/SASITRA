@@ -74,16 +74,11 @@ export const MotifPreview: React.FC = () => {
     >
       {/* Sticky Inner Container */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#FAF6EE]"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-bottom"
+        style={{ 
+          backgroundImage: `url('/assets/background/background_4.png')`,
+        }}
       >
-        {/* Parallax Background */}
-        <motion.div 
-          className="absolute inset-0 bg-cover bg-bottom lg:bg-top lg:bg-[length:100%_auto] pointer-events-none z-0"
-          style={{ 
-            backgroundImage: `url('/assets/background/background_4.png')`,
-            y: shouldReduceMotion ? 0 : bgY,
-          }}
-        />
 
         {/* SVG Decorative Dashed Line */}
         <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">

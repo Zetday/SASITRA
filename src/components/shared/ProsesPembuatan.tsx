@@ -43,11 +43,121 @@ export const ProsesPembuatan: React.FC = () => {
     text: "Menggambar Motif"
   });
 
-  useEffect(() => {
-    if (shouldReduceMotion) return;
+  // Four-segment Bezier curve and tangent angle calculation to rotate & lean Sira dynamically (Unseen.co style)
+  const getBezierPointAndAngle = (t: number) => {
+    const clampedT = Math.max(0, Math.min(1, t));
+    let x = 0;
+    let y = 0;
+    let dx = 0;
+    let dy = 0;
 
+    if (clampedT <= 0.25) {
+      // Segment 1: P0(120, 0) -> C1(120, 150) -> C2(80, 250) -> P1(80, 360)
+      const tSegment = clampedT / 0.25;
+      const mt = 1 - tSegment;
+      const c0 = mt * mt * mt;
+      const c1 = 3 * mt * mt * tSegment;
+      const c2 = 3 * mt * tSegment * tSegment;
+      const c3 = tSegment * tSegment * tSegment;
+
+      x = c0 * 120 + c1 * 120 + c2 * 80 + c3 * 80;
+      y = c0 * 0 + c1 * 150 + c2 * 250 + c3 * 360;
+
+      // dx/dt and dy/dt derivative equations
+      const mt2 = mt * mt;
+      const mtt = mt * tSegment;
+      const t2 = tSegment * tSegment;
+      dx = 3 * mt2 * 0 + 6 * mtt * (-40) + 3 * t2 * 0;
+      dy = 3 * mt2 * 150 + 6 * mtt * 100 + 3 * t2 * 110;
+    } else if (clampedT <= 0.5) {
+      // Segment 2: P1(80, 360) -> C3(120, 450) -> C4(380, 450) -> P2(420, 360)
+      const tSegment = (clampedT - 0.25) / 0.25;
+      const mt = 1 - tSegment;
+      const c0 = mt * mt * mt;
+      const c1 = 3 * mt * mt * tSegment;
+      const c2 = 3 * mt * tSegment * tSegment;
+      const c3 = tSegment * tSegment * tSegment;
+
+      x = c0 * 80 + c1 * 120 + c2 * 380 + c3 * 420;
+      y = c0 * 360 + c1 * 450 + c2 * 450 + c3 * 360;
+
+      const mt2 = mt * mt;
+      const mtt = mt * tSegment;
+      const t2 = tSegment * tSegment;
+      dx = 3 * mt2 * 40 + 6 * mtt * 260 + 3 * t2 * 40;
+      dy = 3 * mt2 * 90 + 6 * mtt * 0 + 3 * t2 * (-90);
+    } else if (clampedT <= 0.75) {
+      // Segment 3: P2(420, 360) -> C5(460, 450) -> C6(740, 450) -> P3(780, 360)
+      const tSegment = (clampedT - 0.5) / 0.25;
+      const mt = 1 - tSegment;
+      const c0 = mt * mt * mt;
+      const c1 = 3 * mt * mt * tSegment;
+      const c2 = 3 * mt * tSegment * tSegment;
+      const c3 = tSegment * tSegment * tSegment;
+
+      x = c0 * 420 + c1 * 460 + c2 * 740 + c3 * 780;
+      y = c0 * 360 + c1 * 450 + c2 * 450 + c3 * 360;
+
+      const mt2 = mt * mt;
+      const mtt = mt * tSegment;
+      const t2 = tSegment * tSegment;
+      dx = 3 * mt2 * 40 + 6 * mtt * 280 + 3 * t2 * 40;
+      dy = 3 * mt2 * 90 + 6 * mtt * 0 + 3 * t2 * (-90);
+    } else {
+      // Segment 4: P3(780, 360) -> C7(820, 450) -> C8(1050, 500) -> P4(1080, 750)
+      const tSegment = (clampedT - 0.75) / 0.25;
+      const mt = 1 - tSegment;
+      const c0 = mt * mt * mt;
+      const c1 = 3 * mt * mt * tSegment;
+      const c2 = 3 * mt * tSegment * tSegment;
+      const c3 = tSegment * tSegment * tSegment;
+
+      x = c0 * 780 + c1 * 820 + c2 * 1050 + c3 * 1080;
+      y = c0 * 360 + c1 * 450 + c2 * 500 + c3 * 750;
+
+      const mt2 = mt * mt;
+      const mtt = mt * tSegment;
+      const t2 = tSegment * tSegment;
+      dx = 3 * mt2 * 40 + 6 * mtt * 230 + 3 * t2 * 30;
+      dy = 3 * mt2 * 90 + 6 * mtt * 50 + 3 * t2 * 250;
+    }
+
+    const angleRad = Math.atan2(dy, dx);
+    const angleDeg = angleRad * (180 / Math.PI);
+    // Align Sira upright (pointing forward) and sway/tilt based on vector direction
+    let lean = Math.max(-16, Math.min(16, angleDeg - 90));
+    if (dx < 0) {
+      lean = -lean;
+    }
+
+    return {
+      xPct: (x / 1200) * 100,
+      yPct: (y / 800) * 100,
+      isFlipped: dx > 0,
+      leanAngle: lean * 0.45
+    };
+  };
+
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [leanAngle, setLeanAngle] = useState(0);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 150);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      // Map scroll progress to active card step and Sira's pose/text
+      // 1. Update steps and active static mascot poses
       if (latest <= 0.4) {
         setActiveStep(0);
         setActiveMascot({
@@ -67,71 +177,24 @@ export const ProsesPembuatan: React.FC = () => {
           text: "Pencelupan Warna"
         });
       }
+
+      // 2. Update tangent direction and lean angle
+      const data = getBezierPointAndAngle(latest);
+      setIsFlipped(data.isFlipped);
+      setLeanAngle(data.leanAngle);
     });
 
-    return () => unsubscribe();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      unsubscribe();
+    };
   }, [scrollYProgress, shouldReduceMotion]);
 
-  // Four-segment Bezier curve matching the SVG path to float Sira to each card's bottom-left
-  const getBezierPoint = (t: number) => {
-    const clampedT = Math.max(0, Math.min(1, t));
-    let x = 0;
-    let y = 0;
-
-    if (clampedT <= 0.25) {
-      // Segment 1: P0(120, 0) -> C1(120, 150) -> C2(80, 250) -> P1(80, 360)
-      const tSegment = clampedT / 0.25;
-      const mt = 1 - tSegment;
-      const c0 = mt * mt * mt;
-      const c1 = 3 * mt * mt * tSegment;
-      const c2 = 3 * mt * tSegment * tSegment;
-      const c3 = tSegment * tSegment * tSegment;
-
-      x = c0 * 120 + c1 * 120 + c2 * 80 + c3 * 80;
-      y = c0 * 0 + c1 * 150 + c2 * 250 + c3 * 360;
-    } else if (clampedT <= 0.5) {
-      // Segment 2: P1(80, 360) -> C3(120, 450) -> C4(380, 450) -> P2(420, 360)
-      const tSegment = (clampedT - 0.25) / 0.25;
-      const mt = 1 - tSegment;
-      const c0 = mt * mt * mt;
-      const c1 = 3 * mt * mt * tSegment;
-      const c2 = 3 * mt * tSegment * tSegment;
-      const c3 = tSegment * tSegment * tSegment;
-
-      x = c0 * 80 + c1 * 120 + c2 * 380 + c3 * 420;
-      y = c0 * 360 + c1 * 450 + c2 * 450 + c3 * 360;
-    } else if (clampedT <= 0.75) {
-      // Segment 3: P2(420, 360) -> C5(460, 450) -> C6(740, 450) -> P3(780, 360)
-      const tSegment = (clampedT - 0.5) / 0.25;
-      const mt = 1 - tSegment;
-      const c0 = mt * mt * mt;
-      const c1 = 3 * mt * mt * tSegment;
-      const c2 = 3 * mt * tSegment * tSegment;
-      const c3 = tSegment * tSegment * tSegment;
-
-      x = c0 * 420 + c1 * 460 + c2 * 740 + c3 * 780;
-      y = c0 * 360 + c1 * 450 + c2 * 450 + c3 * 360;
-    } else {
-      // Segment 4: P3(780, 360) -> C7(820, 450) -> C8(1050, 500) -> P4(1080, 750)
-      const tSegment = (clampedT - 0.75) / 0.25;
-      const mt = 1 - tSegment;
-      const c0 = mt * mt * mt;
-      const c1 = 3 * mt * mt * tSegment;
-      const c2 = 3 * mt * tSegment * tSegment;
-      const c3 = tSegment * tSegment * tSegment;
-
-      x = c0 * 780 + c1 * 820 + c2 * 1050 + c3 * 1080;
-      y = c0 * 360 + c1 * 450 + c2 * 500 + c3 * 750;
-    }
-
-    return {
-      xPct: (x / 1200) * 100,
-      yPct: (y / 800) * 100
-    };
-  };
-
-  const mascotX = useTransform(scrollYProgress, (value) => `${getBezierPoint(value).xPct}%`);
-  const mascotY = useTransform(scrollYProgress, (value) => `${getBezierPoint(value).yPct}%`);
+  const mascotX = useTransform(scrollYProgress, (value) => `${getBezierPointAndAngle(value).xPct}%`);
+  const mascotY = useTransform(scrollYProgress, (value) => `${getBezierPointAndAngle(value).yPct}%`);
   const mascotOpacity = useTransform(
     scrollYProgress,
     [0, 0.10, 0.15, 0.25, 0.30, 0.47, 0.52, 0.62, 0.67, 0.77, 0.82, 0.92, 0.97, 1.0],
@@ -156,16 +219,11 @@ export const ProsesPembuatan: React.FC = () => {
     >
       {/* Sticky Inner Container */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#FAF6EE]"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-center"
+        style={{ 
+          backgroundImage: `url('/assets/background/background_3.png')`,
+        }}
       >
-        {/* Parallax Background */}
-        <motion.div 
-          className="absolute inset-0 bg-cover bg-center lg:bg-top lg:bg-[length:100%_auto] pointer-events-none z-0"
-          style={{ 
-            backgroundImage: `url('/assets/background/background_3.png')`,
-            y: shouldReduceMotion ? 0 : bgY,
-          }}
-        />
         
         {/* SVG Path (positioned behind cards, z-0) */}
         <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
@@ -282,14 +340,16 @@ export const ProsesPembuatan: React.FC = () => {
         </div>
 
         {/* Moving Mascot Sira Galuh (placed in a separate absolute layer with z-20 to always stay in front of cards) */}
+        {/* Moving Mascot Sira Galuh (placed in a separate absolute layer with z-20 to always stay in front of cards) */}
         {!shouldReduceMotion ? (
           <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-20 hidden lg:block">
             <motion.div
-              className="absolute w-64 h-72 -translate-x-1/2 translate-y-[-50%] pointer-events-none z-30"
+              className="absolute w-64 h-72 -translate-x-1/2 translate-y-[-50%] pointer-events-none z-30 origin-bottom"
               style={{
                 left: mascotX,
                 top: mascotY,
                 opacity: mascotOpacity,
+                rotate: leanAngle,
               }}
             >
               <div className="flex items-end pointer-events-none select-none">
@@ -310,9 +370,9 @@ export const ProsesPembuatan: React.FC = () => {
                 </motion.div>
  
                 {/* Sira Mascot Image */}
-                <div className="w-36 h-48 relative shrink-0">
+                <div className={`w-36 h-48 relative shrink-0 transition-transform duration-300 ${isFlipped ? "scale-x-[-1]" : "scale-x-[1]"}`}>
                   <Image
-                    src={activeMascot.src}
+                    src={isScrolling ? "/assets/avatar/Sira_1.gif" : activeMascot.src}
                     alt="Sira Galuh Proses"
                     fill
                     sizes="144px"
