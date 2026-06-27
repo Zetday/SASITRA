@@ -165,8 +165,7 @@ export const MengenalSasirangan: React.FC = () => {
 
         </div>
 
-        {/* Seamless Bottom Blend */}
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-linear-to-t from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-10" />
+
       </section>
     </div>
   );

@@ -145,13 +145,11 @@ export const ProsesPembuatan: React.FC = () => {
     >
       {/* Sticky Inner Container - background applied here to prevent stretch/distortion */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-center"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-center lg:bg-top lg:bg-[length:100%_auto]"
         style={{ 
           backgroundImage: `url('/assets/background/background_3.png')`,
         }}
       >
-        {/* Seamless Top Blend (from background_2 to background_3) */}
-        <div className="absolute inset-x-0 top-0 h-48 bg-linear-to-b from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-20" />
         
         {/* SVG Path (positioned behind cards, z-0) */}
         <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
