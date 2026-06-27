@@ -134,7 +134,7 @@ export const ProsesPembuatan: React.FC = () => {
   const mascotY = useTransform(scrollYProgress, (value) => `${getBezierPoint(value).yPct}%`);
   const mascotOpacity = useTransform(
     scrollYProgress,
-    [0, 0.08, 0.12, 0.32, 0.38, 0.46, 0.50, 0.70, 0.76, 0.80, 0.84, 0.94, 0.98, 1.0],
+    [0, 0.10, 0.15, 0.25, 0.30, 0.47, 0.52, 0.62, 0.67, 0.77, 0.82, 0.92, 0.97, 1.0],
     [0, 0,    1,    1,    0,    0,    1,    1,    0,    0,    1,    1,    0,    0]
   );
 
