@@ -70,14 +70,14 @@ export const MotifPreview: React.FC = () => {
     >
       {/* Sticky Inner Container */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-bottom"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-bottom lg:bg-top lg:bg-[length:100%_auto]"
         style={{ 
           backgroundImage: `url('/assets/background/background_4.png')`,
         }}
       >
 
         {/* SVG Decorative Dashed Line */}
-        <div className="absolute inset-0 pointer-events-none z-0 hidden lg:block">
+        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
           <svg className="w-full h-full overflow-visible" viewBox="0 0 1200 800" fill="none">
             {/* Background Dashed Path */}
             <path 

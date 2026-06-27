@@ -114,7 +114,7 @@ export const MotifLainnya: React.FC = () => {
 
 
       {/* SVG Decorative Dashed Curves behind Mascots */}
-      <div className="absolute inset-0 pointer-events-none z-0 hidden lg:block">
+      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
         <svg className="w-full h-full overflow-visible" viewBox="0 0 1200 800" fill="none">
           <path 
             d="M 180 0 C 120 200, 60 400, 80 600 C 90 680, 110 740, 130 800" 
