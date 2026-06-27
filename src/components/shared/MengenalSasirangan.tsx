@@ -7,11 +7,19 @@ import { SiraGaluh } from "./SiraGaluh";
 
 export const MengenalSasirangan: React.FC = () => {
   return (
-    <>
+    <div 
+      className="relative w-full bg-transparent"
+      style={{
+        backgroundImage: "url('/assets/background/background_2.1.png'), url('/assets/background/background_2.2.png')",
+        backgroundPosition: "top center, top 56.25vw center",
+        backgroundSize: "100% auto, 100% auto",
+        backgroundRepeat: "no-repeat, no-repeat",
+      }}
+    >
       {/* SECTION 1: Mengenal Sasirangan (Sejarah Mulanya) */}
       <section 
         id="sejarah"
-        className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24 scroll-mt-navbar"
+        className="relative min-h-screen lg:min-h-0 lg:h-[56.25vw] w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24 lg:py-0 scroll-mt-navbar bg-no-repeat lg:bg-none"
         style={{ 
           backgroundImage: `url('/assets/background/background_2.1.png')` 
         }}
@@ -19,7 +27,7 @@ export const MengenalSasirangan: React.FC = () => {
         {/* Seamless Top Blend */}
         <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-10" />
 
-        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center relative z-10 gap-16 md:gap-20">
+        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center relative z-10 gap-16 lg:gap-12 xl:gap-20">
           
           {/* Header with Large Ornament and Titles */}
           <div className="flex flex-col items-center text-center gap-2 select-none">
@@ -28,7 +36,7 @@ export const MengenalSasirangan: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="w-72 sm:w-[24rem] md:w-120 lg:w-xl"
+              className="w-72 sm:w-[24rem] md:w-120 lg:w-[28rem] xl:w-xl"
             >
               <Image 
                 src="/assets/decoration/sejarah_decor_1.png" 
@@ -95,12 +103,12 @@ export const MengenalSasirangan: React.FC = () => {
 
       {/* SECTION 2: Arti Sasirangan & Indikasi Geografis */}
       <section 
-        className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24"
+        className="relative min-h-screen lg:min-h-0 lg:h-[56.25vw] w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24 lg:py-0 bg-no-repeat lg:bg-none"
         style={{ 
           backgroundImage: `url('/assets/background/background_2.2.png')` 
         }}
       >
-        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center relative z-10 gap-16 md:gap-24">
+        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center relative z-10 gap-16 lg:gap-12 xl:gap-24">
           
           {/* Section 2 Content Row (Mascot Left Flipped, Text Right) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full z-10 relative">
@@ -160,6 +168,6 @@ export const MengenalSasirangan: React.FC = () => {
         {/* Seamless Bottom Blend */}
         <div className="absolute inset-x-0 bottom-0 h-48 bg-linear-to-t from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-10" />
       </section>
-    </>
+    </div>
   );
 };
