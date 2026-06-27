@@ -138,18 +138,34 @@ export const ProsesPembuatan: React.FC = () => {
     [0, 0,    1,    1,    0,    0,    1,    1,    0,    0,    1,    1,    0,    0]
   );
 
+  const bgY = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
+
+  const card1Y = useTransform(scrollYProgress, [0, 0.5], [25, -25]);
+  const card1Rot = useTransform(scrollYProgress, [0, 0.5], [-3, 2]);
+  
+  const card2Y = useTransform(scrollYProgress, [0.2, 0.8], [-20, 20]);
+  const card2Rot = useTransform(scrollYProgress, [0.2, 0.8], [2, -2]);
+
+  const card3Y = useTransform(scrollYProgress, [0.5, 1], [25, -25]);
+  const card3Rot = useTransform(scrollYProgress, [0.5, 1], [-2, 3]);
+
   return (
     <div 
       ref={sectionRef} 
       className="relative w-full h-[220vh]"
     >
-      {/* Sticky Inner Container - background applied here to prevent stretch/distortion */}
+      {/* Sticky Inner Container */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-center lg:bg-top lg:bg-[length:100%_auto]"
-        style={{ 
-          backgroundImage: `url('/assets/background/background_3.png')`,
-        }}
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#FAF6EE]"
       >
+        {/* Parallax Background */}
+        <motion.div 
+          className="absolute inset-0 bg-cover bg-center lg:bg-top lg:bg-[length:100%_auto] pointer-events-none z-0"
+          style={{ 
+            backgroundImage: `url('/assets/background/background_3.png')`,
+            y: shouldReduceMotion ? 0 : bgY,
+          }}
+        />
         
         {/* SVG Path (positioned behind cards, z-0) */}
         <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
@@ -182,9 +198,15 @@ export const ProsesPembuatan: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full relative pt-12">
             {PROSES_STEPS.map((step, idx) => {
               const isBlurred = activeStep !== idx;
+              const cardY = idx === 0 ? card1Y : idx === 1 ? card2Y : card3Y;
+              const cardRot = idx === 0 ? card1Rot : idx === 1 ? card2Rot : card3Rot;
               
               return (
-                <div key={step.id} className="relative flex flex-col group items-center justify-center">
+                <motion.div 
+                  key={step.id} 
+                  className="relative flex flex-col group items-center justify-center w-full origin-center"
+                  style={shouldReduceMotion ? {} : { y: cardY, rotate: cardRot }}
+                >
                   {/* Card Container (Image only) with dynamic focus / blur effects */}
                   <div className={`relative rounded-2xl overflow-hidden border-2 shadow-md transition-all duration-500 aspect-4/3 w-full z-10 ${
                     isBlurred 
@@ -224,7 +246,7 @@ export const ProsesPembuatan: React.FC = () => {
                       />
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>

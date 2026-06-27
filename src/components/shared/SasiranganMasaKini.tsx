@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const PRODUCTS = [
   { id: "kemeja", name: "Kemeja", image: "/assets/sasirangan_now/kemeja.png" },
@@ -15,10 +15,25 @@ const PRODUCTS = [
 ];
 
 export const SasiranganMasaKini: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
   const shouldReduceMotion = useReducedMotion();
+
+  const mascotY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const mascotRot = useTransform(scrollYProgress, [0, 1], [-3, 3]);
+
+  const textX = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+
+  const gridY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const gridRot = useTransform(scrollYProgress, [0, 1], [2, -2]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full py-20 overflow-hidden min-h-[90vh] flex items-center justify-center bg-transparent"
     >
 
@@ -55,9 +70,8 @@ export const SasiranganMasaKini: React.FC = () => {
             
             {/* Mascot Avatar Sira_6 */}
             <motion.div
-              className="w-56 h-95 md:w-64 md:h-112.5 lg:w-70 lg:h-120 relative shrink-0"
-              animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
-              transition={shouldReduceMotion ? {} : { repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              className="w-56 h-95 md:w-64 md:h-112.5 lg:w-70 lg:h-120 relative shrink-0 origin-bottom"
+              style={shouldReduceMotion ? {} : { y: mascotY, rotate: mascotRot }}
             >
               <Image
                 src="/assets/avatar/Sira_6.png"
@@ -70,7 +84,10 @@ export const SasiranganMasaKini: React.FC = () => {
             </motion.div>
 
             {/* Title and Descriptions */}
-            <div className="flex-1 flex flex-col justify-center text-center md:text-left self-center">
+            <motion.div 
+              className="flex-1 flex flex-col justify-center text-center md:text-left self-center origin-left"
+              style={shouldReduceMotion ? {} : { x: textX }}
+            >
               <motion.h2 
                 className="font-serif text-5xl md:text-6xl font-extrabold text-[#A37F55] tracking-wide mb-1"
                 initial={{ opacity: 0, x: -30 }}
@@ -114,7 +131,7 @@ export const SasiranganMasaKini: React.FC = () => {
                   Semuanya membawa keindahan tradisi dan identitas Kalimantan Selatan yang tak lekang oleh waktu
                 </motion.p>
               </div>
-            </div>
+            </motion.div>
 
           </div>
 
@@ -122,7 +139,10 @@ export const SasiranganMasaKini: React.FC = () => {
           <div className="lg:col-span-5 flex flex-col items-center lg:items-end gap-8">
             
             {/* Products Grid */}
-            <div className="grid grid-cols-3 gap-3 md:gap-4 w-full">
+            <motion.div 
+              className="grid grid-cols-3 gap-3 md:gap-4 w-full origin-center"
+              style={shouldReduceMotion ? {} : { y: gridY, rotate: gridRot }}
+            >
               {PRODUCTS.map((product, idx) => (
                 <motion.div
                   key={product.id}
@@ -144,7 +164,7 @@ export const SasiranganMasaKini: React.FC = () => {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Jelajah 3D Button */}
             <motion.div

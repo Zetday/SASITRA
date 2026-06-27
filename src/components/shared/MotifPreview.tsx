@@ -63,6 +63,10 @@ export const MotifPreview: React.FC = () => {
     return () => unsubscribe();
   }, [scrollYProgress]);
 
+  const bgY = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
+  const deckRot = useTransform(scrollYProgress, [0, 1], [-2.5, 2.5]);
+  const deckY = useTransform(scrollYProgress, [0, 1], [15, -15]);
+
   return (
     <div 
       ref={sectionRef} 
@@ -70,11 +74,16 @@ export const MotifPreview: React.FC = () => {
     >
       {/* Sticky Inner Container */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-bottom lg:bg-top lg:bg-[length:100%_auto]"
-        style={{ 
-          backgroundImage: `url('/assets/background/background_4.png')`,
-        }}
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#FAF6EE]"
       >
+        {/* Parallax Background */}
+        <motion.div 
+          className="absolute inset-0 bg-cover bg-bottom lg:bg-top lg:bg-[length:100%_auto] pointer-events-none z-0"
+          style={{ 
+            backgroundImage: `url('/assets/background/background_4.png')`,
+            y: shouldReduceMotion ? 0 : bgY,
+          }}
+        />
 
         {/* SVG Decorative Dashed Line */}
         <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
@@ -134,7 +143,10 @@ export const MotifPreview: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
               
               {/* Stacked Cards Area (col-span-6) */}
-              <div className="md:col-span-6 h-85 flex items-center justify-center relative pl-8">
+              <motion.div 
+                className="md:col-span-6 h-85 flex items-center justify-center relative pl-8 origin-center"
+                style={shouldReduceMotion ? {} : { rotate: deckRot, y: deckY }}
+              >
                 {MOTIF_STEPS.map((step, idx) => {
                   // Calculate stacked position and state
                   const isSwiped = idx < activeStep;
@@ -176,7 +188,7 @@ export const MotifPreview: React.FC = () => {
                     </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
 
               {/* Info Text Area (col-span-6) */}
               <div className="md:col-span-6 flex flex-col gap-3 min-h-40 justify-center">

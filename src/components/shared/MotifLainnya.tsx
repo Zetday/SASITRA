@@ -107,6 +107,20 @@ const OTHER_MOTIFS = [
 export const MotifLainnya: React.FC = () => {
   const [selectedMotif, setSelectedMotif] = useState<typeof OTHER_MOTIFS[0] | null>(null);
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.04
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 25, scale: 0.96 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 90, damping: 14 } }
+  };
+
   return (
     <section 
       className="relative w-full py-24 overflow-hidden min-h-screen flex flex-col items-center justify-center bg-transparent"
@@ -149,7 +163,7 @@ export const MotifLainnya: React.FC = () => {
 
           {/* Title Text Banner */}
           <div className="text-center flex flex-col items-center gap-3">
-            <h2 className="font-serif text-3xl md:text-4xl font-extrabold text-secondary-dark uppercase tracking-[0.25em]">
+            <h2 className="font-serif text-xl md:text-3xl font-extrabold text-secondary-dark uppercase tracking-[0.25em]">
               Motif Lainnya
             </h2>
             <div className="relative w-400 h-10 mt-1">
@@ -180,10 +194,17 @@ export const MotifLainnya: React.FC = () => {
         </div>
 
         {/* Responsive Grid of Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 w-full max-w-6xl">
+        <motion.div 
+          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 w-full max-w-6xl"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {OTHER_MOTIFS.map((motif) => (
             <motion.div
               key={motif.id}
+              variants={itemVariants}
               className="bg-white rounded-2xl overflow-hidden shadow-md border-2 border-[#A37F55] aspect-3/4 w-full relative cursor-pointer group"
               whileHover={{ scale: 1.05, y: -4 }}
               onClick={() => setSelectedMotif(motif)}
@@ -198,7 +219,7 @@ export const MotifLainnya: React.FC = () => {
               />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Footer Button Link */}
         <div className="mt-14">
