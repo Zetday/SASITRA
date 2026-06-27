@@ -109,13 +109,9 @@ export const MotifLainnya: React.FC = () => {
 
   return (
     <section 
-      className="relative w-full py-24 overflow-hidden bg-cover bg-top min-h-screen flex flex-col items-center justify-center"
-      style={{
-        backgroundImage: `url('/assets/background/background_5.png')`,
-      }}
+      className="relative w-full py-24 overflow-hidden min-h-screen flex flex-col items-center justify-center bg-transparent"
     >
-      {/* Seamless Bottom Blend (from background_5 to next section) */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-10" />
+
 
       {/* SVG Decorative Dashed Curves behind Mascots */}
       <div className="absolute inset-0 pointer-events-none z-0 hidden lg:block">

@@ -13,6 +13,7 @@ import { MengenalSasirangan } from "../../components/shared/MengenalSasirangan";
 import { ProsesPembuatan } from "../../components/shared/ProsesPembuatan";
 import { MotifPreview } from "../../components/shared/MotifPreview";
 import { MotifLainnya } from "../../components/shared/MotifLainnya";
+import { SasiranganMasaKini } from "../../components/shared/SasiranganMasaKini";
 import { AudioPlayer } from "../../components/shared/AudioPlayer";
 import { Card } from "../../components/ui/Card";
 
@@ -203,50 +204,22 @@ export default function HomePage() {
         {/* Motif Preview Section Component */}
         <MotifPreview />
 
-        {/* Motif Lainnya Section Component */}
-        <MotifLainnya />
+        {/* Continuous Background Wrapper for Motif Lainnya & Sasirangan di Masa Kini */}
+        <div 
+          className="relative w-full bg-[#FAF3E0]"
+          style={{
+            backgroundImage: `url('/assets/background/background_5.png'), url('/assets/background/background_6.png')`,
+            backgroundPosition: 'top center, top 56.25vw center',
+            backgroundSize: '100% auto, 100% auto',
+            backgroundRepeat: 'no-repeat, no-repeat',
+          }}
+        >
+          {/* Motif Lainnya Section Component */}
+          <MotifLainnya />
 
-        {/* Section 2: Chapters Preview Journey */}
-        <section className="py-24 px-6 max-w-7xl mx-auto w-full border-t border-secondary/10">
-          <div className="text-center max-w-3xl mx-auto flex flex-col gap-4 mb-16">
-            <h2 className="font-serif text-3xl md:text-4xl font-extrabold text-primary">
-              Eksplorasi Perjalanan Budaya
-            </h2>
-            <p className="text-base text-text-dark/70">
-              Ikuti 5 babak scrollytelling terstruktur yang dipandu oleh Sira Galuh untuk memahami warisan berharga kain Sasirangan dari masa ke masa.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {CHAPTERS.map((ch) => (
-              <Link key={ch.id} href={`/sejarah?chapter=${ch.id}`} className="flex">
-                <Card
-                  variant="glass-light"
-                  hoverable
-                  className="flex flex-col gap-4 flex-1 border border-secondary/15 hover:border-primary/30"
-                >
-                  <div className="h-10 w-10 rounded-xl bg-secondary/15 flex items-center justify-center border border-secondary/20">
-                    {ch.icon}
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
-                      Chapter 0{ch.id}
-                    </span>
-                    <h3 className="font-serif font-bold text-lg text-text-dark group-hover:text-primary">
-                      {ch.title}
-                    </h3>
-                    <span className="text-xs font-semibold text-accent-brown/70 italic">
-                      {ch.subtitle}
-                    </span>
-                  </div>
-                  <p className="text-xs text-text-dark/70 leading-relaxed mt-auto">
-                    {ch.desc}
-                  </p>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
+          {/* Sasirangan di Masa Kini Section Component */}
+          <SasiranganMasaKini />
+        </div>
 
         <Footer />
         <AudioPlayer />
