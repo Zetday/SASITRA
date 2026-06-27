@@ -16,6 +16,21 @@ export default function EnsiklopediaPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
 
+  // Sync state with URL search parameters on load
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const searchParam = params.get("search");
+      const kategoriParam = params.get("kategori");
+      if (searchParam) {
+        setSearchQuery(decodeURIComponent(searchParam));
+      }
+      if (kategoriParam) {
+        setSelectedCategory(decodeURIComponent(kategoriParam));
+      }
+    }
+  }, []);
+
   const categories = [
     { value: "ALL", label: "Semua Kategori" },
     { value: "FLORA", label: "Flora" },
