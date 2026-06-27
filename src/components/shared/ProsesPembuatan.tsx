@@ -132,6 +132,11 @@ export const ProsesPembuatan: React.FC = () => {
 
   const mascotX = useTransform(scrollYProgress, (value) => `${getBezierPoint(value).xPct}%`);
   const mascotY = useTransform(scrollYProgress, (value) => `${getBezierPoint(value).yPct}%`);
+  const mascotOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.08, 0.12, 0.32, 0.38, 0.46, 0.50, 0.70, 0.76, 0.80, 0.84, 0.94, 0.98, 1.0],
+    [0, 0,    1,    1,    0,    0,    1,    1,    0,    0,    1,    1,    0,    0]
+  );
 
   return (
     <div 
@@ -264,6 +269,7 @@ export const ProsesPembuatan: React.FC = () => {
               style={{
                 left: mascotX,
                 top: mascotY,
+                opacity: mascotOpacity,
               }}
             >
               <div className="flex items-end pointer-events-none select-none">
