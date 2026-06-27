@@ -10,6 +10,8 @@ import { Navbar } from "../../components/shared/Navbar";
 import { Footer } from "../../components/shared/Footer";
 import { SiraGaluh } from "../../components/shared/SiraGaluh";
 import { MengenalSasirangan } from "../../components/shared/MengenalSasirangan";
+import { ProsesPembuatan } from "../../components/shared/ProsesPembuatan";
+import { MotifPreview } from "../../components/shared/MotifPreview";
 import { Card } from "../../components/ui/Card";
 
 // Hoisting chapters to module level - rerender-no-inline-components / server-hoist-static-io
@@ -139,28 +141,28 @@ export default function HomePage() {
           <div className="absolute right-0 bottom-0 z-20 flex flex-row items-end gap-0 pointer-events-none select-none pr-0">
             {/* Speech Bubble */}
             <motion.div
-              className="relative border-2 border-[#D4A843] p-[2px] rounded-[2.5rem] bg-transparent shadow-xl mb-[410px] lg:mb-[450px] mr-[-28px] lg:mr-[-40px] z-30 pointer-events-auto shrink-0"
+              className="relative border-2 border-secondary-light p-0.5 rounded-[2.5rem] bg-transparent shadow-xl mb-102.5 lg:mb-112.5 -mr-7 lg:-mr-10 z-30 pointer-events-auto shrink-0"
               initial={{ scale: shouldReduceMotion ? 1 : 0.8, opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.8, duration: 0.5 }}
             >
-              <div className="border border-[#D4A843] rounded-[2.35rem] bg-[#FFFDF9] px-5 py-3 flex flex-col items-center justify-center text-center shadow-inner">
+              <div className="border border-secondary-light rounded-[2.35rem] bg-[#FFFDF9] px-5 py-3 flex flex-col items-center justify-center text-center shadow-inner">
                 <p className="font-sans text-xs md:text-sm text-text-dark font-medium leading-relaxed">
-                  <span className="text-[#C5960C] mr-1">✧</span> Halo, saya Sira! <span className="text-[#C5960C] ml-1">✧</span>
+                  <span className="text-secondary mr-1">✧</span> Halo, saya Sira! <span className="text-secondary ml-1">✧</span>
                   <br />
                   Yuk, jelajahi dunia
                   <br />
-                  <span className="font-serif font-bold text-base md:text-lg text-[#9A7206] block my-0.5">Sasirangan</span>
+                  <span className="font-serif font-bold text-base md:text-lg text-secondary-dark block my-0.5">Sasirangan</span>
                   bersama Saya!
                 </p>
               </div>
               {/* Speech Bubble Tail pointing right to Sira */}
-              <div className="absolute right-[-8px] bottom-[40%] w-4 h-4 bg-[#FFFDF9] border-r border-b border-[#D4A843] rotate-[-45deg] z-10" />
+              <div className="absolute -right-2 bottom-[40%] w-4 h-4 bg-[#FFFDF9] border-r border-b border-secondary-light -rotate-45 z-10" />
             </motion.div>
 
             {/* Sira Avatar */}
             <motion.div
-              className="w-64 h-[520px] md:w-80 md:h-[640px] lg:w-[480px] lg:h-[800px] relative shrink-0"
+              className="w-64 h-130 md:w-80 md:h-160 lg:w-120 lg:h-200 relative shrink-0"
               animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
               transition={shouldReduceMotion ? {} : { repeat: Infinity, duration: 4, ease: "easeInOut" }}
             >
@@ -193,7 +195,54 @@ export default function HomePage() {
         {/* Mengenal Sasirangan Section Component */}
         <MengenalSasirangan />
 
-        
+        {/* Proses Pembuatan Section Component */}
+        <ProsesPembuatan />
+
+        {/* Motif Preview Section Component */}
+        <MotifPreview />
+
+        {/* Section 2: Chapters Preview Journey */}
+        <section className="py-24 px-6 max-w-7xl mx-auto w-full border-t border-secondary/10">
+          <div className="text-center max-w-3xl mx-auto flex flex-col gap-4 mb-16">
+            <h2 className="font-serif text-3xl md:text-4xl font-extrabold text-primary">
+              Eksplorasi Perjalanan Budaya
+            </h2>
+            <p className="text-base text-text-dark/70">
+              Ikuti 5 babak scrollytelling terstruktur yang dipandu oleh Sira Galuh untuk memahami warisan berharga kain Sasirangan dari masa ke masa.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {CHAPTERS.map((ch) => (
+              <Link key={ch.id} href={`/sejarah?chapter=${ch.id}`} className="flex">
+                <Card
+                  variant="glass-light"
+                  hoverable
+                  className="flex flex-col gap-4 flex-1 border border-secondary/15 hover:border-primary/30"
+                >
+                  <div className="h-10 w-10 rounded-xl bg-secondary/15 flex items-center justify-center border border-secondary/20">
+                    {ch.icon}
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
+                      Chapter 0{ch.id}
+                    </span>
+                    <h3 className="font-serif font-bold text-lg text-text-dark group-hover:text-primary">
+                      {ch.title}
+                    </h3>
+                    <span className="text-xs font-semibold text-accent-brown/70 italic">
+                      {ch.subtitle}
+                    </span>
+                  </div>
+                  <p className="text-xs text-text-dark/70 leading-relaxed mt-auto">
+                    {ch.desc}
+                  </p>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         <Footer />
       </div>
     </div>
