@@ -16,7 +16,7 @@ export interface NavbarProps {
 const NAV_LINKS = [
   { name: "Beranda", href: "/home" },
   { name: "Sejarah", href: "/home#sejarah" },
-  { name: "Ensiklopedia", href: "/ensiklopedia" },
+  { name: "Galeri", href: "/galeri" },
   { name: "Try-On", href: "/try-on" },
 ];
 
