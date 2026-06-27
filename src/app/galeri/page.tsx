@@ -180,39 +180,6 @@ export default function GaleriPage() {
     >
       <Navbar />
 
-      {/* Side Decorative Borders matching the mockup (only shown in Grid/Main view) */}
-      {!selectedFolderId && (
-        <>
-          {/* Left Side */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-36 lg:w-48 pointer-events-none z-10 opacity-30 select-none overflow-hidden h-full">
-            <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 120 1000" fill="none">
-              <defs>
-                <pattern id="stitch-pattern-left" width="30" height="30" patternUnits="userSpaceOnUse">
-                  <rect x="11" y="11" width="8" height="8" transform="rotate(45 15 15)" fill="#C5960C" opacity="0.8" />
-                  <rect x="3" y="3" width="4" height="4" transform="rotate(45 5 5)" fill="#C5960C" opacity="0.4" />
-                  <rect x="19" y="3" width="4" height="4" transform="rotate(45 21 5)" fill="#C5960C" opacity="0.4" />
-                  <rect x="3" y="19" width="4" height="4" transform="rotate(45 5 21)" fill="#C5960C" opacity="0.4" />
-                  <rect x="19" y="19" width="4" height="4" transform="rotate(45 21 21)" fill="#C5960C" opacity="0.4" />
-                </pattern>
-              </defs>
-              <rect width="40" height="1000" fill="url(#stitch-pattern-left)" />
-              <rect x="40" width="30" height="1000" fill="url(#stitch-pattern-left)" opacity="0.65" />
-              <rect x="70" width="25" height="1000" fill="url(#stitch-pattern-left)" opacity="0.35" />
-              <rect x="95" width="15" height="1000" fill="url(#stitch-pattern-left)" opacity="0.1" />
-            </svg>
-          </div>
-
-          {/* Right Side (flipped) */}
-          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-36 lg:w-48 pointer-events-none z-10 opacity-30 select-none overflow-hidden h-full scale-x-[-1]">
-            <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 120 1000" fill="none">
-              <rect width="40" height="1000" fill="url(#stitch-pattern-left)" />
-              <rect x="40" width="30" height="1000" fill="url(#stitch-pattern-left)" opacity="0.65" />
-              <rect x="70" width="25" height="1000" fill="url(#stitch-pattern-left)" opacity="0.35" />
-              <rect x="95" width="15" height="1000" fill="url(#stitch-pattern-left)" opacity="0.1" />
-            </svg>
-          </div>
-        </>
-      )}
 
       {/* Main Container */}
       <main className="flex-1 flex flex-col pt-32 pb-24 px-6 relative z-20 max-w-7xl mx-auto w-full">
