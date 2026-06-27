@@ -173,7 +173,7 @@ export default function GaleriPage() {
 
   return (
     <div 
-      className="min-h-screen flex flex-col relative overflow-hidden"
+      className="min-h-screen flex flex-col relative overflow-x-clip"
       style={{
         background: "radial-gradient(circle, #5C1010 0%, #2E0505 70%, #150000 100%)",
       }}
@@ -361,7 +361,7 @@ export default function GaleriPage() {
             >
               
               {/* Left Sidebar - Folder Stack */}
-              <div className="w-full md:w-[240px] lg:w-[280px] flex flex-col shrink-0">
+              <div className="w-full md:w-[200px] lg:w-[240px] flex flex-col shrink-0 md:sticky md:top-32 self-start z-30">
                 {/* Back button */}
                 <button
                   onClick={() => setSelectedFolderId(null)}
@@ -371,14 +371,14 @@ export default function GaleriPage() {
                 </button>
 
                 {/* Sidebar Scroll Container */}
-                <div className="flex flex-row md:flex-col gap-5 overflow-x-auto md:overflow-y-auto max-h-[220px] md:max-h-[70vh] w-full pb-4 pr-0 md:pr-3 scrollbar-thin select-none">
+                <div className="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-y-auto md:max-h-[calc(100vh-180px)] w-full pb-4 md:pb-0 pr-0 md:pr-2 scrollbar-thin select-none">
                   {GALLERY_ITEMS.map((item) => {
                     const isActive = item.id === selectedFolderId;
                     return (
                       <button
                         key={item.id}
                         onClick={() => setSelectedFolderId(item.id)}
-                        className={`w-36 md:w-full max-w-[220px] aspect-[1.52] relative transition-all duration-300 block shrink-0 cursor-pointer ${
+                        className={`w-32 md:w-full max-w-[170px] lg:max-w-[190px] aspect-[1.52] relative transition-all duration-300 block shrink-0 cursor-pointer ${
                           isActive 
                             ? "opacity-100 scale-100 drop-shadow-[0_4px_12px_rgba(197,150,12,0.25)]" 
                             : "opacity-25 hover:opacity-55 scale-95"
