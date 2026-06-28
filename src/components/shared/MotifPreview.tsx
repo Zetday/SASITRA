@@ -93,7 +93,7 @@ export const MotifPreview: React.FC = () => {
       >
 
         {/* SVG Decorative Dashed Line */}
-        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
+        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-8xl px-6 pointer-events-none z-0 hidden lg:block">
           <svg className="w-full h-full overflow-visible" viewBox="0 0 1200 800" fill="none">
             {/* Background Dashed Path */}
             <path 
@@ -117,7 +117,7 @@ export const MotifPreview: React.FC = () => {
         </div>
 
         {/* Main Grid Content */}
-        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-12 gap-8 items-center relative z-10">
+        <div className="max-w-8xl mx-auto px-6 w-full grid grid-cols-12 gap-8 items-center relative z-10">
           
           {/* Left: Sira Mascot (col-span-4) */}
           <div className="col-span-12 lg:col-span-4 flex justify-center lg:justify-start relative">

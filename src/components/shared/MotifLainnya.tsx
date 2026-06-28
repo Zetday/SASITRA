@@ -129,7 +129,7 @@ export const MotifLainnya: React.FC = () => {
 
 
       {/* SVG Decorative Dashed Curves behind Mascots */}
-      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
+      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-8xl px-6 pointer-events-none z-0 hidden lg:block">
         <svg className="w-full h-full overflow-visible" viewBox="0 0 1200 800" fill="none">
           <path 
             d="M 180 0 C 120 200, 60 400, 80 600 C 90 680, 110 740, 130 800" 
@@ -148,7 +148,7 @@ export const MotifLainnya: React.FC = () => {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 w-full relative z-10 flex flex-col items-center">
+      <div className="max-w-8xl mx-auto px-6 w-full relative z-10 flex flex-col items-center">
         {/* Title & Mascot Row */}
         <div className="w-full flex items-center justify-center relative mb-8 min-h-35">
           {/* Left Mascot */}
@@ -196,7 +196,7 @@ export const MotifLainnya: React.FC = () => {
 
         {/* Responsive Grid of Cards */}
         <motion.div 
-          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 w-full max-w-7xl"
+          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 w-full max-w-8xl"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

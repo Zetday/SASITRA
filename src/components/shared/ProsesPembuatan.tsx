@@ -224,7 +224,7 @@ export const ProsesPembuatan: React.FC = () => {
       >
         
         {/* SVG Path (positioned behind cards, z-0) */}
-        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-0 hidden lg:block">
+        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-8xl px-6 pointer-events-none z-0 hidden lg:block">
           <svg className="w-full h-full overflow-visible" viewBox="0 0 1200 800" fill="none">
             {/* Background Dashed Path - connecting from top-left (120, 0) */}
             <path 
@@ -248,7 +248,7 @@ export const ProsesPembuatan: React.FC = () => {
         </div>
 
         {/* Three Step Cards (z-10) */}
-        <div className="max-w-7xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] relative z-10 py-4">
+        <div className="max-w-8xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] relative z-10 py-4">
           
           {/* Three Step Cards (Images Only) */}
           <div className="relative w-full flex md:grid md:grid-cols-3 gap-6 md:gap-10 items-center justify-center min-h-55 md:min-h-0 pt-6 md:pt-12">
@@ -344,7 +344,7 @@ export const ProsesPembuatan: React.FC = () => {
         {/* Moving Mascot Sira Galuh (placed in a separate absolute layer with z-20 to always stay in front of cards) */}
         {/* Moving Mascot Sira Galuh (placed in a separate absolute layer with z-20 to always stay in front of cards) */}
         {!shouldReduceMotion ? (
-          <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 pointer-events-none z-20 hidden lg:block">
+          <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-8xl px-6 pointer-events-none z-20 hidden lg:block">
             <motion.div
               className="absolute w-64 h-72 -translate-x-1/2 translate-y-[-50%] pointer-events-none z-30 origin-bottom"
               style={{

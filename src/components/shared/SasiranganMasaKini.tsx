@@ -62,7 +62,7 @@ export const SasiranganMasaKini: React.FC = () => {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 w-full relative z-20">
+      <div className="max-w-8xl mx-auto px-6 w-full relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center">
           
           {/* Left Side: Mascot and Text Description */}
