@@ -100,7 +100,7 @@ export const MotifPreview: React.FC = () => {
           <div className="col-span-12 lg:col-span-4 hidden lg:flex justify-center lg:justify-start relative">
             <div className="w-64 h-125 relative scale-x-[-1]">
               <Image
-                src="/assets/avatar/Sira_1.gif"
+                src="/assets/avatar/Sira_1.png"
                 alt="Sira Galuh Motif"
                 fill
                 sizes="(max-width: 768px) 100vw, 30vw"

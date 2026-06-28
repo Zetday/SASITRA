@@ -80,7 +80,7 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
         transition={shouldReduceMotion ? {} : { repeat: Infinity, duration: 4, ease: "easeInOut" }}
       >
         <Image
-          src={avatarSrc || (useGif ? "/assets/avatar/Sira_1.gif" : "/assets/avatar/Sira_2.png")}
+          src={avatarSrc || (useGif ? "/assets/avatar/Sira_1.png" : "/assets/avatar/Sira_2.png")}
           alt="Sira Galuh Mascot"
           fill
           sizes="(max-width: 768px) 192px, 224px"

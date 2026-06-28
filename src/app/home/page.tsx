@@ -233,7 +233,7 @@ export default function HomePage() {
               transition={shouldReduceMotion ? {} : { repeat: Infinity, duration: 4, ease: "easeInOut" }}
             >
               <Image
-                src="/assets/avatar/Sira_1.gif"
+                src="/assets/avatar/Sira_1.png"
                 alt="Sira Galuh Mascot"
                 fill
                 className="object-contain object-bottom drop-shadow-md"
