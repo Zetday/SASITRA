@@ -54,9 +54,6 @@ export const MotifPreview: React.FC = () => {
     }
   }, [hasEntered]);
 
-  // Transform scroll progress to animate solid path length drawing
-  const pathLength = useTransform(scrollYProgress, [0, 0.9], [0, 1]);
-
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
       // Map scroll progress to active card index
@@ -95,29 +92,6 @@ export const MotifPreview: React.FC = () => {
         }}
       >
 
-        {/* SVG Decorative Dashed Line */}
-        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-8xl px-6 pointer-events-none z-0 hidden lg:block">
-          <svg className="w-full h-full overflow-visible" viewBox="0 0 1200 800" fill="none">
-            {/* Background Dashed Path */}
-            <path 
-              d="M 1080 0 C 800 50, 400 150, 280 350 C 220 450, 180 550, 180 800" 
-              stroke="#C5960C" 
-              strokeWidth="2" 
-              strokeDasharray="6,6" 
-              opacity="0.45"
-              fill="none"
-            />
-            
-            {/* Solid Drawing Overlay Path */}
-            <motion.path 
-              d="M 1080 0 C 800 50, 400 150, 280 350 C 220 450, 180 550, 180 800" 
-              stroke="#C5960C" 
-              strokeWidth="2.5" 
-              fill="none"
-              style={shouldReduceMotion ? { pathLength: 1 } : { pathLength }}
-            />
-          </svg>
-        </div>
 
         {/* Main Grid Content */}
         <div className="max-w-8xl mx-auto px-6 w-full grid grid-cols-12 gap-8 items-center relative z-10">

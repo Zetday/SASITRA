@@ -40,27 +40,6 @@ export const SasiranganMasaKini: React.FC = () => {
       {/* Seamless Bottom Blend */}
       <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-10" />
 
-      {/* SVG Decorative Dashed Curves matching the screenshot */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <svg className="w-full h-full min-h-150 overflow-visible" viewBox="0 0 1200 800" fill="none">
-          {/* Top Left Curve around Mascot */}
-          <path
-            d="M -50 80 C 150 50, 200 150, 100 350 C 50 450, -20 500, -80 600"
-            stroke="#C5960C"
-            strokeWidth="1.5"
-            strokeDasharray="6,6"
-            opacity="0.3"
-          />
-          {/* Top Right Curve around Cards */}
-          <path
-            d="M 1250 80 C 1050 50, 1000 150, 1100 350 C 1150 450, 1220 500, 1280 600"
-            stroke="#C5960C"
-            strokeWidth="1.5"
-            strokeDasharray="6,6"
-            opacity="0.3"
-          />
-        </svg>
-      </div>
 
       <div className="max-w-8xl mx-auto px-6 w-full relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center">

@@ -229,10 +229,10 @@ export const ProsesPembuatan: React.FC = () => {
 
 
         {/* Three Step Cards (z-10) */}
-        <div className="max-w-8xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] relative z-10 py-4">
+        <div className="max-w-8xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] md:h-[88vh] relative z-10 py-4">
           
           {/* Three Step Cards (Images Only) */}
-          <div className="relative w-full flex md:grid md:grid-cols-3 gap-6 md:gap-10 items-center justify-center min-h-55 md:min-h-0 pt-6 md:pt-12">
+          <div className="relative w-full flex md:grid md:grid-cols-3 gap-6 md:gap-10 items-center justify-center min-h-55 md:min-h-0 pt-6 md:pt-4">
             {PROSES_STEPS.map((step, idx) => {
               const isBlurred = activeStep !== idx;
               const cardY = idx === 0 ? card1Y : idx === 1 ? card2Y : card3Y;
@@ -300,8 +300,8 @@ export const ProsesPembuatan: React.FC = () => {
 
           {/* Title, Ornament & Subtitle below the cards */}
           <div className="flex flex-col items-center text-center gap-3">
-            <h2 className="font-serif font-extrabold text-3xl sm:text-4xl md:text-5xl text-primary tracking-wide uppercase">
-              Bagaimana Sasirangan Dibuat
+            <h2 className="font-serif font-semibold text-3xl sm:text-4xl md:text-5xl text-[#A97340] tracking-wide uppercase">
+              Bagaimana Sasirangan <br /> Dibuat
             </h2>
             
             <motion.div
@@ -321,8 +321,9 @@ export const ProsesPembuatan: React.FC = () => {
               />
             </motion.div>
 
-            <p className="font-serif text-sm sm:text-base text-accent-brown/85 max-w-2xl leading-relaxed mt-2 font-medium">
-              Sasirangan dibuat melalui beberapa tahapan tradisional mulai dari menggambar motif, menjelujur kain hingga proses pewarnaan.
+            <p className="font-sans text-sm sm:text-base text-accent-brown/85 max-w-2xl leading-relaxed mt-2 font-medium">
+              Sasirangan dibuat melalui beberapa tahapan tradisional mulai dari <br />
+              <span className="text-[#A97340]">menggambar motif, menjelujur kain hingga proses pewarnaan.</span>
             </p>
           </div>
 

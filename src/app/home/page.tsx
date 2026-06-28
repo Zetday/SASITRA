@@ -284,8 +284,6 @@ export default function HomePage() {
           {/* Sasirangan di Masa Kini Section Component */}
           <SasiranganMasaKini />
         </div>
-
-        <Footer />
         <AudioPlayer />
       </div>
     </div>
