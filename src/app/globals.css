@@ -25,7 +25,7 @@
   --color-text-light: #F5F5F4;
 
   /* Font mappings */
-  --font-serif: var(--font-lora);
+  --font-serif: var(--font-cormorant-sc);
   --font-sans: var(--font-plus-jakarta-sans);
 }
 

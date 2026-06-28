@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Lora, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_SC, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const lora = Lora({
-  variable: "--font-lora",
+const cormorantSC = Cormorant_SC({
+  variable: "--font-cormorant-sc",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${lora.variable} ${plusJakartaSans.variable} h-full antialiased`}
+      className={`${cormorantSC.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-cream text-text-dark">
         <a
