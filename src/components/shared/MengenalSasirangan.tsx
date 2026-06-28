@@ -106,14 +106,13 @@ export const MengenalSasirangan: React.FC = () => {
               className="lg:col-span-4 flex justify-center lg:justify-end origin-bottom"
               style={shouldReduceMotion ? {} : { y: mascot1Y, rotate: mascot1Rotate, opacity: mascot1Opacity }}
             >
-              <div className="scale-x-[-1]">
-                <SiraGaluh
-                  expression="pointing"
-                  useGif={false}
-                  text=""
-                  avatarSrc="/assets/avatar/Sira_7.png"
-                />
-              </div>
+              <SiraGaluh
+                expression="pointing"
+                useGif={false}
+                text=""
+                flipAvatar={true}
+                avatarSrc="/assets/avatar/Sira_7.png"
+              />
             </motion.div>
           </div>
 
@@ -135,7 +134,7 @@ export const MengenalSasirangan: React.FC = () => {
               style={shouldReduceMotion ? {} : { y: mascot2Y, rotate: mascot2Rotate, opacity: mascot2Opacity }}
             >
                 <SiraGaluh
-                  expression="pointing"
+                  expression="presenting"
                   useGif={false}
                   text=""
                   avatarSrc="/assets/avatar/Sira_7.png"
