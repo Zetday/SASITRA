@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Navbar } from "../../components/shared/Navbar";
-import { Footer } from "../../components/shared/Footer";
 import { MengenalSasirangan } from "../../components/shared/MengenalSasirangan";
 import { ProsesPembuatan } from "../../components/shared/ProsesPembuatan";
 import { MotifPreview } from "../../components/shared/MotifPreview";
@@ -205,7 +204,7 @@ export default function HomePage() {
           </div>
 
           {/* Absolute Positioned Mascot Sira Galuh at the bottom-right of the screen */}
-          <div className="absolute right-0 bottom-0 z-20 flex flex-row items-end gap-0 pointer-events-none select-none pr-0 hidden lg:flex">
+          <div className="absolute right-0 bottom-0 z-20 flex-row items-end gap-0 pointer-events-none select-none pr-0 hidden lg:flex">
             {/* Speech Bubble */}
             <motion.div
               className="relative border-2 border-secondary-light p-0.5 rounded-[2.75rem] bg-transparent shadow-xl mb-102.5 lg:mb-112.5 -mr-7 lg:-mr-10 z-30 pointer-events-auto shrink-0"

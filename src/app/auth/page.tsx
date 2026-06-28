@@ -28,7 +28,7 @@ export default function AuthPage() {
 function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get("redirect") || "/";
+  const redirectUrl = searchParams.get("redirect") || "/home";
 
   const { currentUser, login, register } = useDatabase();
 
@@ -250,20 +250,12 @@ function AuthContent() {
                 >
                   <UserIcon className="h-3.5 w-3.5 text-primary" /> Akun User
                 </button>
-                <button
-                  onClick={() => fillDemoAccount("admin")}
-                  className="flex items-center justify-center gap-1.5 py-2 px-3 border border-secondary/20 rounded-xl text-xs font-semibold text-text-dark hover:bg-secondary/10 transition-colors"
-                >
-                  <ShieldAlert className="h-3.5 w-3.5 text-secondary-dark" /> Akun Admin
-                </button>
               </div>
             </div>
 
           </Card>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

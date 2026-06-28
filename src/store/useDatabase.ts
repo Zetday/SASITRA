@@ -79,7 +79,7 @@ export const useDatabase = create<DatabaseState>()(
           name: "Budi",
           email: "user@sasitra.com",
           role: "USER",
-          avatar_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+          avatar_url: "/assets/profil/mbappe.png",
           is_active: true,
           created_at: new Date("2026-06-02").toISOString()
         }
@@ -279,7 +279,7 @@ export const useDatabase = create<DatabaseState>()(
               name: "Budi",
               email: "user@sasitra.com",
               role: "USER",
-              avatar_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+              avatar_url: "/assets/profil/mbappe.png",
               is_active: true,
               created_at: new Date("2026-06-02").toISOString()
             }

@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { name: "Beranda", href: "/home" },
   { name: "Sejarah", href: "/home#sejarah" },
   { name: "Galeri", href: "/galeri" },
+  { name: "Jelajah 3D", href: "/3d" },
   { name: "Try-On", href: "/try-on" },
 ];
 
@@ -46,8 +47,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeOverride }) => {
 
   // Close menus on navigation inside useEffect - rerender-move-effect-to-event / rerender-derived-state-no-effect
   useEffect(() => {
-    setIsOpen(false);
-    setProfileDropdownOpen(false);
+    const handle = requestAnimationFrame(() => {
+      setIsOpen(false);
+      setProfileDropdownOpen(false);
+    });
+    return () => cancelAnimationFrame(handle);
   }, [pathname]);
 
   const handleLogout = () => {

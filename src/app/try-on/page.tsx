@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Upload, Wand2, Download, RefreshCw, CheckCircle, Sparkles } from "lucide-react";
+import { Upload, Download, RefreshCw, CheckCircle, Shirt } from "lucide-react";
 import confetti from "canvas-confetti";
 import { useDatabase, TryOnResult } from "../../store/useDatabase";
 import { Navbar } from "../../components/shared/Navbar";
@@ -373,7 +373,7 @@ function TryOnContent() {
         {/* Header Title */}
         <div className="flex flex-col gap-3 text-center md:text-left max-w-3xl">
           <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 text-primary text-xs font-bold uppercase tracking-wider w-max mx-auto md:mx-0">
-            <Sparkles className="h-3.5 w-3.5" /> Virtual Fitting Room AI
+            <Shirt className="h-3.5 w-3.5" /> Virtual Fitting Room
           </div>
           <h1 className="font-serif text-3xl md:text-5xl font-extrabold text-primary">
             Virtual Try-On AI Studio
@@ -478,7 +478,7 @@ function TryOnContent() {
 
                   <div className="flex gap-3 w-full max-w-sm">
                     <Button onClick={handleGenerate} className="flex-1 shadow-lg">
-                      <Wand2 className="mr-2 h-5 w-5" /> Jalankan Fitting AI
+                      <Shirt className="mr-2 h-5 w-5" /> Jalankan Fitting
                     </Button>
                     <Button onClick={handleReset} variant="ghost" className="text-red-600 hover:bg-red-50">
                       Batal

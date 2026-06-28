@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn } from "lucide-react";
 import { Navbar } from "../../components/shared/Navbar";
-import { Footer } from "../../components/shared/Footer";
 
 interface GalleryItem {
   id: string;

@@ -111,6 +111,7 @@ export const MengenalSasirangan: React.FC = () => {
                   expression="pointing"
                   useGif={false}
                   text=""
+                  avatarSrc="/assets/avatar/Sira_7.png"
                 />
               </div>
             </motion.div>
@@ -137,6 +138,7 @@ export const MengenalSasirangan: React.FC = () => {
                   expression="pointing"
                   useGif={false}
                   text=""
+                  avatarSrc="/assets/avatar/Sira_7.png"
                 />        
             </motion.div>
 

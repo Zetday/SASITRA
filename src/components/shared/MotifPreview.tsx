@@ -97,7 +97,7 @@ export const MotifPreview: React.FC = () => {
         <div className="max-w-8xl mx-auto px-6 w-full grid grid-cols-12 gap-8 items-center relative z-10">
           
           {/* Left: Sira Mascot (col-span-4) */}
-          <div className="col-span-12 lg:col-span-4 flex justify-center lg:justify-start relative">
+          <div className="col-span-12 lg:col-span-4 hidden lg:flex justify-center lg:justify-start relative">
             <div className="w-64 h-125 relative scale-x-[-1]">
               <Image
                 src="/assets/avatar/Sira_1.gif"
@@ -139,7 +139,7 @@ export const MotifPreview: React.FC = () => {
                   return (
                     <motion.div
                       key={step.id}
-                      className="absolute w-55 aspect-3/4 bg-white rounded-3xl overflow-hidden shadow-xl border-[3px] border-[#A37F55] flex flex-col items-center justify-center origin-bottom-left"
+                      className="absolute w-48 sm:w-55 aspect-3/4 bg-white rounded-3xl overflow-hidden shadow-xl border-[3px] border-[#A37F55] flex flex-col items-center justify-center origin-bottom-left"
                       style={{ zIndex: 10 - idx }}
                       initial={{ 
                         opacity: 0, 
