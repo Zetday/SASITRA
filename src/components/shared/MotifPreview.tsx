@@ -42,6 +42,17 @@ export const MotifPreview: React.FC = () => {
 
   // State to track active step to stack cards dynamically
   const [activeStep, setActiveStep] = useState(0);
+  const [hasEntered, setHasEntered] = useState(false);
+  const [introFinished, setIntroFinished] = useState(false);
+
+  useEffect(() => {
+    if (hasEntered) {
+      const timer = setTimeout(() => {
+        setIntroFinished(true);
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [hasEntered]);
 
   // Transform scroll progress to animate solid path length drawing
   const pathLength = useTransform(scrollYProgress, [0, 0.9], [0, 1]);
@@ -67,9 +78,11 @@ export const MotifPreview: React.FC = () => {
   const deckY = useTransform(scrollYProgress, [0, 1], [15, -15]);
 
   return (
-    <div 
+    <motion.div 
       ref={sectionRef} 
       className="relative w-full h-[220vh]"
+      onViewportEnter={() => setHasEntered(true)}
+      viewport={{ once: true, margin: "-150px" }}
     >
       {/* Sticky Inner Container */}
       <div 
@@ -151,24 +164,49 @@ export const MotifPreview: React.FC = () => {
                       key={step.id}
                       className="absolute w-55 aspect-3/4 bg-white rounded-3xl overflow-hidden shadow-xl border-[3px] border-[#A37F55] flex flex-col items-center justify-center origin-bottom-left"
                       style={{ zIndex: 10 - idx }}
+                      initial={{ 
+                        opacity: 0, 
+                        y: 180, 
+                        x: idx * 40 - 60, // spread out horizontally initially
+                        rotate: idx * 8 - 12 
+                      }}
                       animate={shouldReduceMotion ? (
                         idx === activeStep ? { opacity: 1, scale: 1, x: 0, y: 0, rotate: 0 } : { opacity: 0 }
                       ) : (
-                        isSwiped ? {
-                          x: 350,
-                          y: -80,
-                          rotate: 20,
+                        !hasEntered ? {
                           opacity: 0,
-                          scale: 0.95
-                        } : {
-                          x: -14 * diff,
-                          y: -14 * diff,
-                          rotate: -2.5 * diff,
-                          scale: 1 - 0.02 * diff,
-                          opacity: 1
-                        }
+                          y: 180,
+                          x: idx * 40 - 60,
+                          rotate: idx * 8 - 12
+                        } : (
+                          isSwiped ? {
+                            x: 350,
+                            y: -80,
+                            rotate: 20,
+                            opacity: 0,
+                            scale: 0.95
+                          } : {
+                            x: -14 * diff,
+                            y: -14 * diff,
+                            rotate: -2.5 * diff,
+                            scale: 1 - 0.02 * diff,
+                            opacity: 1
+                          }
+                        )
                       )}
-                      transition={{ duration: 0.45, ease: "easeOut" }}
+                      transition={
+                        !introFinished ? {
+                          type: "spring",
+                          stiffness: 75,
+                          damping: 16,
+                          delay: idx * 0.15
+                        } : {
+                          type: "spring",
+                          stiffness: 120,
+                          damping: 20,
+                          delay: 0
+                        }
+                      }
                     >
                       <div className="relative w-full h-full">
                         <Image
@@ -214,6 +252,6 @@ export const MotifPreview: React.FC = () => {
         </div>
 
       </div>
-    </div>
+    </motion.div>
   );
 };
