@@ -201,8 +201,6 @@ export const ProsesPembuatan: React.FC = () => {
     [0, 0,    1,    1,    0,    0,    1,    1,    0,    0,    1,    1,    0,    0]
   );
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
-
   const card1Y = useTransform(scrollYProgress, [0, 0.5], [25, -25]);
   const card1Rot = useTransform(scrollYProgress, [0, 0.5], [-3, 2]);
   
@@ -250,10 +248,10 @@ export const ProsesPembuatan: React.FC = () => {
         </div>
 
         {/* Three Step Cards (z-10) */}
-        <div className="max-w-5xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] relative z-10 py-4">
+        <div className="max-w-7xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] relative z-10 py-4">
           
           {/* Three Step Cards (Images Only) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full relative pt-12">
+          <div className="relative w-full flex md:grid md:grid-cols-3 gap-6 md:gap-10 items-center justify-center min-h-55 md:min-h-0 pt-6 md:pt-12">
             {PROSES_STEPS.map((step, idx) => {
               const isBlurred = activeStep !== idx;
               const cardY = idx === 0 ? card1Y : idx === 1 ? card2Y : card3Y;
@@ -262,7 +260,11 @@ export const ProsesPembuatan: React.FC = () => {
               return (
                 <motion.div 
                   key={step.id} 
-                  className="relative flex flex-col group items-center justify-center w-full origin-center"
+                  className={`absolute md:relative w-60 sm:w-64 md:w-full flex flex-col group items-center justify-center origin-center transition-all duration-500 ${
+                    isBlurred 
+                      ? "opacity-0 scale-90 pointer-events-none md:opacity-100 md:scale-100 md:pointer-events-auto" 
+                      : "opacity-100 scale-100 z-10"
+                  }`}
                   style={shouldReduceMotion ? {} : { y: cardY, rotate: cardRot }}
                 >
                   {/* Card Container (Image only) with dynamic focus / blur effects */}

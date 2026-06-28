@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -195,7 +196,7 @@ export const MotifLainnya: React.FC = () => {
 
         {/* Responsive Grid of Cards */}
         <motion.div 
-          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 w-full max-w-6xl"
+          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 w-full max-w-7xl"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -223,9 +224,9 @@ export const MotifLainnya: React.FC = () => {
 
         {/* Footer Button Link */}
         <div className="mt-14">
-          <button className="font-serif text-xs md:text-sm font-bold text-secondary-dark tracking-widest uppercase hover:text-primary transition-colors cursor-pointer border-b-2 border-secondary-light/30 pb-1 hover:border-primary/45">
-            Lihat Galeri
-          </button>
+          <Link href="/galeri" className="font-serif text-xs md:text-sm font-bold text-secondary-dark tracking-widest uppercase hover:text-primary transition-colors cursor-pointer border-b-2 border-secondary-light/30 pb-1 hover:border-primary/45">
+            Lihat Galeri Motif
+          </Link>
         </div>
       </div>
 

@@ -64,14 +64,14 @@ export const MengenalSasirangan: React.FC = () => {
         {/* Seamless Top Blend */}
         <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-bg-cream via-bg-cream/80 to-transparent pointer-events-none z-10" />
 
-        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center justify-between relative z-10 lg:h-full lg:py-16 gap-10 lg:gap-0">
+        <div className="max-w-7xl mx-auto px-6 w-full flex flex-col items-center justify-between relative z-10 lg:h-full lg:py-16 gap-10 lg:gap-0">
           
           {/* Header with Large Ornament and Titles */}
           <motion.div 
             className="flex flex-col items-center text-center gap-2 select-none"
             style={shouldReduceMotion ? {} : { y: headerY, opacity: headerOpacity }}
           >
-            <div className="w-72 sm:w-[24rem] md:w-120 lg:w-[28rem] xl:w-xl">
+            <div className="w-72 sm:w-[24rem] md:w-120 lg:w-md xl:w-xl">
               <Image 
                 src="/assets/decoration/sejarah_decor_1.png" 
                 alt="Ornamen" 
@@ -124,7 +124,7 @@ export const MengenalSasirangan: React.FC = () => {
         ref={section2Ref}
         className="relative min-h-screen lg:min-h-0 lg:h-[54vw] w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top py-24 lg:py-0 bg-no-repeat bg-[url('/assets/background/background_2.2.png')] lg:bg-none"
       >
-        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center justify-between relative z-10 lg:h-full lg:py-16 gap-10 lg:gap-0">
+        <div className="max-w-7xl mx-auto px-6 w-full flex flex-col items-center justify-between relative z-10 lg:h-full lg:py-16 gap-10 lg:gap-0">
           
           {/* Section 2 Content Row (Mascot Left Flipped, Text Right) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full z-10 relative">
@@ -157,7 +157,7 @@ export const MengenalSasirangan: React.FC = () => {
             style={shouldReduceMotion ? {} : { y: highlightY, scale: highlightScale, opacity: highlightOpacity }}
           >
             <p className="font-sans text-xl md:text-2xl text-text-dark/90 font-medium leading-relaxed tracking-wide select-text">
-              Sejak <span className="text-[#8B1A1A] font-bold">7 Juni 2024</span>, Sasirangan resmi menyandang <span className="text-[#8B1A1A] font-bold">Indikasi Geografis Kalimantan Selatan</span>.
+              Sejak <span className="text-primary font-bold">7 Juni 2024</span>, Sasirangan resmi menyandang <span className="text-primary font-bold">Indikasi Geografis Kalimantan Selatan</span>.
             </p>
             
             {/* Decorative center divider */}

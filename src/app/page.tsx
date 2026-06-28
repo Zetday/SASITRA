@@ -19,7 +19,7 @@ export default function IntroPage() {
 
     const fallbackTimer = setTimeout(() => {
       router.push("/home");
-    }, 3200);
+    }, 5900);
 
     return () => clearTimeout(fallbackTimer);
   };

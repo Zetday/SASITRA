@@ -173,7 +173,7 @@ export default function GaleriPage() {
 
   return (
     <div 
-      className="min-h-screen flex flex-col relative overflow-x-clip bg-cover bg-center bg-no-repeat bg-fixed"
+      className="h-screen flex flex-col relative overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
       style={{
         backgroundImage: "url('/assets/background/background_7.png')",
       }}
@@ -182,7 +182,7 @@ export default function GaleriPage() {
 
 
       {/* Main Container */}
-      <main className="flex-1 flex flex-col pt-32 pb-24 px-6 relative z-20 max-w-7xl mx-auto w-full">
+      <main className="flex-1 flex flex-col pt-24 pb-4 px-6 relative z-20 max-w-7xl mx-auto w-full overflow-hidden">
         
         <AnimatePresence mode="wait">
           {!selectedFolderId ? (
@@ -193,124 +193,127 @@ export default function GaleriPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.4 }}
-              className="flex-1 flex flex-col items-center justify-center w-full"
+              className="flex-1 flex flex-col items-center justify-center w-full overflow-hidden"
             >
               {/* Title and Subtitle */}
-              <div className="text-center flex flex-col items-center gap-4 mb-16 select-none">
-                <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-secondary flex items-center justify-center gap-4 md:gap-8">
+              <div className="text-center flex flex-col items-center gap-2 mb-6 select-none shrink-0">
+                <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-widest text-secondary flex items-center justify-center gap-4 md:gap-8">
                   <span className="w-16 md:w-28 h-[1.5px] bg-linear-to-r from-transparent to-secondary" /> 
                   GALERI 
                   <span className="w-16 md:w-28 h-[1.5px] bg-linear-to-l from-transparent to-secondary" />
                 </h1>
-                <p className="font-sans text-sm md:text-base lg:text-lg text-text-light/95 tracking-wide max-w-2xl font-light leading-relaxed">
+                <p className="font-sans text-xs md:text-sm lg:text-base text-text-light/95 tracking-wide max-w-2xl font-light leading-relaxed">
                   Jelajahi ragam motif Sasirangan dari berbagai daerah di{" "}
                   <span className="text-secondary font-semibold">Kalimantan Selatan</span>
                 </p>
               </div>
 
-              {/* Staggered Desktop Layout (Row 1: 3 cards, Row 2: 5 cards, Row 3: 5 cards) */}
-              <div className="hidden lg:flex flex-col gap-10 items-center w-full">
-                {/* Row 1: 3 cards */}
-                <div className="flex flex-row justify-center gap-10 w-full">
-                  {row1.map((item, idx) => (
+              {/* Scrollable grid container for folders */}
+              <div className="flex-1 w-full overflow-y-auto pr-2 scrollbar-gallery pb-6 flex flex-col items-center justify-start">
+                {/* Staggered Desktop Layout (Row 1: 3 cards, Row 2: 5 cards, Row 3: 5 cards) */}
+                <div className="hidden lg:flex flex-col gap-8 items-center w-full">
+                  {/* Row 1: 3 cards */}
+                  <div className="flex flex-row justify-center gap-8 w-full">
+                    {row1.map((item, idx) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: idx * 0.1 }}
+                        whileHover={{ scale: 1.05, y: -4 }}
+                        onClick={() => setSelectedFolderId(item.id)}
+                        className="w-full max-w-[225px] aspect-[1.52] relative cursor-pointer"
+                      >
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            sizes="230px"
+                            className="object-contain"
+                            priority
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Row 2: 5 cards */}
+                  <div className="flex flex-row justify-center gap-6 w-full">
+                    {row2.map((item, idx) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: (idx + 3) * 0.08 }}
+                        whileHover={{ scale: 1.05, y: -4 }}
+                        onClick={() => setSelectedFolderId(item.id)}
+                        className="w-full max-w-[225px] aspect-[1.52] relative cursor-pointer"
+                      >
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            sizes="210px"
+                            className="object-contain"
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Row 3: 5 cards */}
+                  <div className="flex flex-row justify-center gap-6 w-full">
+                    {row3.map((item, idx) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: (idx + 8) * 0.08 }}
+                        whileHover={{ scale: 1.05, y: -4 }}
+                        onClick={() => setSelectedFolderId(item.id)}
+                        className="w-full max-w-[225px] aspect-[1.52] relative cursor-pointer"
+                      >
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            sizes="210px"
+                            className="object-contain"
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Responsive Layout for Mobile & Tablet (Grid flow) */}
+                <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 w-full max-w-4xl px-4">
+                  {GALLERY_ITEMS.map((item, idx) => (
                     <motion.div
                       key={item.id}
                       initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: idx * 0.1 }}
-                      whileHover={{ scale: 1.05, y: -4 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.5, delay: (idx % 3) * 0.08 }}
+                      whileHover={{ scale: 1.05 }}
                       onClick={() => setSelectedFolderId(item.id)}
-                      className="w-full max-w-57.5 aspect-[1.52] relative cursor-pointer"
+                      className="w-full aspect-[1.52] relative mx-auto max-w-60 cursor-pointer"
                     >
-                      <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
+                      <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_20px_rgba(197,150,12,0.4)] transition-all duration-300">
                         <Image
                           src={item.image}
                           alt={item.title}
                           fill
-                          sizes="230px"
+                          sizes="240px"
                           className="object-contain"
-                          priority
                         />
                       </div>
                     </motion.div>
                   ))}
                 </div>
-
-                {/* Row 2: 5 cards */}
-                <div className="flex flex-row justify-center gap-8 w-full">
-                  {row2.map((item, idx) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: (idx + 3) * 0.08 }}
-                      whileHover={{ scale: 1.05, y: -4 }}
-                      onClick={() => setSelectedFolderId(item.id)}
-                      className="w-full max-w-52.5 aspect-[1.52] relative cursor-pointer"
-                    >
-                      <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          sizes="210px"
-                          className="object-contain"
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Row 3: 5 cards */}
-                <div className="flex flex-row justify-center gap-8 w-full">
-                  {row3.map((item, idx) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: (idx + 8) * 0.08 }}
-                      whileHover={{ scale: 1.05, y: -4 }}
-                      onClick={() => setSelectedFolderId(item.id)}
-                      className="w-full max-w-52.5 aspect-[1.52] relative cursor-pointer"
-                    >
-                      <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          sizes="210px"
-                          className="object-contain"
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Responsive Layout for Mobile & Tablet (Grid flow) */}
-              <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 w-full max-w-4xl px-4">
-                {GALLERY_ITEMS.map((item, idx) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5, delay: (idx % 3) * 0.08 }}
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => setSelectedFolderId(item.id)}
-                    className="w-full aspect-[1.52] relative mx-auto max-w-60 cursor-pointer"
-                  >
-                    <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_20px_rgba(197,150,12,0.4)] transition-all duration-300">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        sizes="240px"
-                        className="object-contain"
-                      />
-                    </div>
-                  </motion.div>
-                ))}
               </div>
             </motion.div>
           ) : (
@@ -321,21 +324,21 @@ export default function GaleriPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.4 }}
-              className="w-full flex flex-col md:flex-row gap-4 lg:gap-8 items-start"
+              className="w-full flex-1 flex flex-col md:flex-row gap-4 lg:gap-8 items-start overflow-hidden md:h-full"
             >
               
               {/* Left Sidebar - Folder Stack */}
-              <div className="w-full md:w-50 lg:w-60 flex flex-col shrink-0 md:sticky md:top-32 self-start z-30">
+              <div className="w-full md:w-50 lg:w-60 flex flex-col shrink-0 md:h-full z-30 overflow-hidden">
                 {/* Back button */}
                 <button
                   onClick={() => setSelectedFolderId(null)}
-                  className="flex items-center gap-2 text-text-light/80 hover:text-secondary font-semibold text-xs tracking-wider uppercase mb-6 cursor-pointer self-start transition-colors duration-300"
+                  className="flex items-center gap-2 text-text-light/80 hover:text-secondary font-semibold text-xs tracking-wider uppercase mb-6 cursor-pointer self-start transition-colors duration-300 shrink-0"
                 >
                   ← Kembali ke Galeri
                 </button>
 
                 {/* Sidebar Scroll Container */}
-                <div className="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-y-auto md:max-h-[calc(100vh-180px)] w-full pb-4 md:pb-0 pr-0 md:pr-2 scrollbar-gallery select-none">
+                <div className="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-y-auto md:flex-1 w-full pb-4 md:pb-0 pr-0 md:pr-2 scrollbar-gallery select-none">
                   {GALLERY_ITEMS.map((item) => {
                     const isActive = item.id === selectedFolderId;
                     return (
@@ -345,7 +348,7 @@ export default function GaleriPage() {
                         className={`w-32 md:w-full max-w-42.5 lg:max-w-47.5 aspect-[1.52] relative transition-all duration-300 block shrink-0 cursor-pointer ${
                           isActive 
                             ? "opacity-100 scale-100 drop-shadow-[0_4px_12px_rgba(197,150,12,0.25)]" 
-                            : "opacity-25 hover:opacity-55 scale-95"
+                             : "opacity-25 hover:opacity-55 scale-95"
                         }`}
                       >
                         <Image
@@ -362,64 +365,66 @@ export default function GaleriPage() {
               </div>
 
               {/* Vertical divider line */}
-              <div className="w-[1.5px] bg-white/10 self-stretch hidden md:block mx-2 lg:mx-6 min-h-[70vh]" />
+              <div className="w-[1.5px] bg-white/10 self-stretch hidden md:block mx-2 lg:mx-6" />
 
               {/* Right Content - Title & Motifs Grid */}
-              <div className="flex-1 w-full flex flex-col items-start min-h-[70vh]">
+              <div className="flex-1 w-full flex flex-col items-start h-full overflow-hidden">
                 
                 {/* Title */}
-                <div className="flex flex-col gap-1 w-full mb-8">
+                <div className="flex flex-col gap-1 w-full mb-8 shrink-0">
                   <h2 className="font-serif text-3xl md:text-4xl font-bold text-white tracking-wide">
                     {activeFolder?.titleDetail}
                   </h2>
                   <div className="w-28 h-0.5 bg-secondary mt-2.5" />
                 </div>
 
-                {/* Motifs Grid */}
-                {activeMotifs.length > 0 ? (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 w-full">
-                    {activeMotifs.map((motif, idx) => (
-                      <motion.div
-                        key={motif.name}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.4, delay: idx * 0.05 }}
-                        className="flex flex-col items-center group cursor-pointer"
-                        onClick={() => setLightboxImage(motif)}
-                      >
-                        {/* Image Container with Yellow/Gold Border */}
-                        <div className="w-full aspect-4/3 relative rounded-2xl border-[3px] border-secondary bg-white/5 overflow-hidden shadow-md group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(197,150,12,0.4)] transition-all duration-300 flex items-center justify-center p-0.5">
-                          <Image
-                            src={motif.path}
-                            alt={motif.name}
-                            fill
-                            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 20vw"
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300 z-10">
-                            <ZoomIn className="text-white h-7 w-7 drop-shadow" />
+                {/* Scrollable motifs grid container */}
+                <div className="flex-1 w-full overflow-y-auto pr-2 scrollbar-gallery pb-6">
+                  {activeMotifs.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 w-full">
+                      {activeMotifs.map((motif, idx) => (
+                        <motion.div
+                          key={motif.name}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: idx * 0.05 }}
+                          className="flex flex-col items-center group cursor-pointer"
+                          onClick={() => setLightboxImage(motif)}
+                        >
+                          {/* Image Container with Yellow/Gold Border */}
+                          <div className="w-full aspect-4/3 relative rounded-2xl border-[3px] border-secondary bg-white/5 overflow-hidden shadow-md group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(197,150,12,0.4)] transition-all duration-300 flex items-center justify-center p-0.5">
+                            <Image
+                              src={motif.path}
+                              alt={motif.name}
+                              fill
+                              sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 20vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300 z-10">
+                              <ZoomIn className="text-white h-7 w-7 drop-shadow" />
+                            </div>
                           </div>
-                        </div>
 
-                        {/* Motif Name */}
-                        <p className="text-center font-serif text-xs md:text-sm text-white/95 font-medium mt-3.5 group-hover:text-secondary transition-colors leading-tight px-1 select-none">
-                          {motif.name}
-                        </p>
-                      </motion.div>
-                    ))}
-                  </div>
-                ) : (
-                  /* Empty state for Hulu Sungai (or folders with no images) */
-                  <div className="w-full py-20 flex flex-col items-center justify-center text-center px-4 border border-dashed border-white/10 rounded-3xl bg-white/5 backdrop-blur-xs select-none">
-                    <p className="font-serif text-lg text-text-light/60">
-                      Koleksi motif untuk daerah ini belum tersedia.
-                    </p>
-                    <p className="text-xs text-text-light/40 mt-1">
-                      Kembali lagi nanti untuk melihat pembaruan koleksi kami!
-                    </p>
-                  </div>
-                )}
+                          {/* Motif Name */}
+                          <p className="text-center font-serif text-xs md:text-sm text-white/95 font-medium mt-3.5 group-hover:text-secondary transition-colors leading-tight px-1 select-none">
+                            {motif.name}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  ) : (
+                    /* Empty state for Hulu Sungai (or folders with no images) */
+                    <div className="w-full py-20 flex flex-col items-center justify-center text-center px-4 border border-dashed border-white/10 rounded-3xl bg-white/5 backdrop-blur-xs select-none">
+                      <p className="font-serif text-lg text-text-light/60">
+                        Koleksi motif untuk daerah ini belum tersedia.
+                      </p>
+                      <p className="text-xs text-text-light/40 mt-1">
+                        Kembali lagi nanti untuk melihat pembaruan koleksi kami!
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
 
             </motion.div>
@@ -427,8 +432,6 @@ export default function GaleriPage() {
         </AnimatePresence>
 
       </main>
-
-      <Footer />
 
       {/* Lightbox / Large Image Preview Modal */}
       <AnimatePresence>

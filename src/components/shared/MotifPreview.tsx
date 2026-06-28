@@ -63,7 +63,6 @@ export const MotifPreview: React.FC = () => {
     return () => unsubscribe();
   }, [scrollYProgress]);
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
   const deckRot = useTransform(scrollYProgress, [0, 1], [-2.5, 2.5]);
   const deckY = useTransform(scrollYProgress, [0, 1], [15, -15]);
 
@@ -105,7 +104,7 @@ export const MotifPreview: React.FC = () => {
         </div>
 
         {/* Main Grid Content */}
-        <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-12 gap-8 items-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-12 gap-8 items-center relative z-10">
           
           {/* Left: Sira Mascot (col-span-4) */}
           <div className="col-span-12 lg:col-span-4 flex justify-center lg:justify-start relative">

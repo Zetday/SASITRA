@@ -1,41 +1,89 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, BookOpen, Compass, Sparkles, Image as ImageIcon } from "lucide-react";
-import { useDatabase } from "../../store/useDatabase";
 import { Navbar } from "../../components/shared/Navbar";
 import { Footer } from "../../components/shared/Footer";
-import { SiraGaluh } from "../../components/shared/SiraGaluh";
 import { MengenalSasirangan } from "../../components/shared/MengenalSasirangan";
 import { ProsesPembuatan } from "../../components/shared/ProsesPembuatan";
 import { MotifPreview } from "../../components/shared/MotifPreview";
 import { MotifLainnya } from "../../components/shared/MotifLainnya";
 import { SasiranganMasaKini } from "../../components/shared/SasiranganMasaKini";
 import { AudioPlayer } from "../../components/shared/AudioPlayer";
-import { Card } from "../../components/ui/Card";
-
-// Hoisting chapters to module level - rerender-no-inline-components / server-hoist-static-io
-// Add aria-hidden="true" to decorative icons
-const CHAPTERS = [
-  { id: "1", title: "Asal-usul", subtitle: "Abad ke-14 Kesultanan Dipa", desc: "Kisah legenda kain Calapan penyembuh Putri Junjung Buih.", icon: <Compass className="h-5 w-5 text-primary" aria-hidden="true" /> },
-  { id: "2", title: "Makna Budaya", subtitle: "Filosofi & Doa Warna", desc: "Mempelajari arti spiritual warna-warni benang dan upacara adat Banjar.", icon: <BookOpen className="h-5 w-5 text-primary" aria-hidden="true" /> },
-  { id: "3", title: "Ragam Motif", subtitle: "Rerimbunan Flora & Fauna", desc: "Menjelajahi keindahan gambar daun pandan, ikan, hingga cangkang manggis.", icon: <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" /> },
-  { id: "4", title: "Proses Buat", subtitle: "Tusuk Jelujur Tradisional", desc: "Mengintip ketekunan menyirang, menjelujur, merintang warna, hingga mengeringkan.", icon: <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" /> },
-  { id: "5", title: "Era Modern", subtitle: "Fashion Kontemporer AI", desc: "Evolusi Sasirangan menjadi busana pesta modern dan visualisasi fitting AI.", icon: <ImageIcon className="h-5 w-5 text-primary" aria-hidden="true" /> },
-];
 
 export default function HomePage() {
-  const { motifs } = useDatabase();
-  const featuredMotifs = useMemo(() => {
-    const targets = ["hiris-gagatas", "bayam-raja", "gigi-haruan", "tampuk-manggis"];
-    const selected = motifs.filter(m => targets.includes(m.id));
-    return selected.length > 0 ? selected : motifs.slice(0, 4);
-  }, [motifs]);
 
   const shouldReduceMotion = useReducedMotion();
+
+  // Typewriter effect state for tagline
+  const taglineLine1 = "Tempat tradisi, keindahan, dan kreativitas";
+  const taglineLine2 = "berpadu dalam setiap helai kain";
+  const [displayedLine1, setDisplayedLine1] = useState(shouldReduceMotion ? taglineLine1 : "");
+  const [displayedLine2, setDisplayedLine2] = useState(shouldReduceMotion ? taglineLine2 : "");
+  const [activeLine, setActiveLine] = useState(shouldReduceMotion ? 0 : 1); // 1 = typing line 1, 2 = typing line 2, 0 = done
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      // Defer state updates to avoid synchronous cascading renders inside effect
+      const timer = setTimeout(() => {
+        setDisplayedLine1(taglineLine1);
+        setDisplayedLine2(taglineLine2);
+        setActiveLine(0);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+
+    let isMounted = true;
+    let timerId: ReturnType<typeof setTimeout> | undefined;
+
+    const startTyping = async () => {
+      // Delay before typing starts (wait for page fade-in)
+      await new Promise((resolve) => {
+        timerId = setTimeout(resolve, 800);
+      });
+      if (!isMounted) return;
+
+      // Type line 1
+      for (let i = 0; i <= taglineLine1.length; i++) {
+        setDisplayedLine1(taglineLine1.slice(0, i));
+        await new Promise((resolve) => {
+          timerId = setTimeout(resolve, 35);
+        });
+        if (!isMounted) return;
+      }
+
+      // Brief pause between lines
+      await new Promise((resolve) => {
+        timerId = setTimeout(resolve, 300);
+      });
+      if (!isMounted) return;
+      setActiveLine(2);
+
+      // Type line 2
+      for (let i = 0; i <= taglineLine2.length; i++) {
+        setDisplayedLine2(taglineLine2.slice(0, i));
+        await new Promise((resolve) => {
+          timerId = setTimeout(resolve, 35);
+        });
+        if (!isMounted) return;
+      }
+
+      // Finish typing (wait a bit before hiding cursor)
+      await new Promise((resolve) => {
+        timerId = setTimeout(resolve, 1500);
+      });
+      if (!isMounted) return;
+      setActiveLine(0);
+    };
+
+    startTyping();
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timerId);
+    };
+  }, [shouldReduceMotion]);
 
   // Scroll spy state to highlight 'Sejarah' navbar link on scrolling past welcome screen
   const [activeOverride, setActiveOverride] = useState<string | undefined>(undefined);
@@ -71,13 +119,28 @@ export default function HomePage() {
           {/* Top Left Tagline */}
           <div className="absolute top-28 left-6 md:left-12 lg:left-24 max-w-sm md:max-w-xl pointer-events-none z-30">
             <motion.p 
-              className="font-serif text-sm md:text-base lg:text-lg text-text-dark/85 leading-relaxed font-light"
+              className="font-serif text-sm md:text-base lg:text-lg text-text-dark/85 leading-relaxed font-light min-h-[3em]"
               initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.8 }}
             >
-              Tempat tradisi, keindahan, dan kreativitas<br className="hidden md:block" />
-              berpadu dalam setiap helai kain
+              {displayedLine1}
+              {activeLine === 1 && (
+                <motion.span 
+                  className="inline-block w-0.5 h-[1.1em] bg-accent-brown ml-0.5 align-middle"
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+                />
+              )}
+              <br className="hidden md:block" />
+              {displayedLine2}
+              {activeLine === 2 && (
+                <motion.span 
+                  className="inline-block w-0.5 h-[1.1em] bg-accent-brown ml-0.5 align-middle"
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+                />
+              )}
             </motion.p>
           </div>
 
@@ -108,8 +171,9 @@ export default function HomePage() {
                 >
                   Selamat Datang di
                 </motion.span>
-                <motion.h1 
-                  className="font-serif font-extrabold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#3D1A5A] tracking-tight leading-none whitespace-nowrap"
+                 <motion.h1 
+                  className="font-serif font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#3D1A5A] tracking-tight leading-none whitespace-nowrap"
+                  style={{ whiteSpace: "nowrap" }}
                   initial={{ x: shouldReduceMotion ? 0 : -30, opacity: shouldReduceMotion ? 1 : 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.6, duration: 0.6 }}
@@ -141,26 +205,26 @@ export default function HomePage() {
           </div>
 
           {/* Absolute Positioned Mascot Sira Galuh at the bottom-right of the screen */}
-          <div className="absolute right-0 bottom-0 z-20 flex flex-row items-end gap-0 pointer-events-none select-none pr-0">
+          <div className="absolute right-0 bottom-0 z-20 flex flex-row items-end gap-0 pointer-events-none select-none pr-0 hidden lg:flex">
             {/* Speech Bubble */}
             <motion.div
-              className="relative border-2 border-secondary-light p-0.5 rounded-[2.5rem] bg-transparent shadow-xl mb-102.5 lg:mb-112.5 -mr-7 lg:-mr-10 z-30 pointer-events-auto shrink-0"
+              className="relative border-2 border-secondary-light p-0.5 rounded-[2.75rem] bg-transparent shadow-xl mb-102.5 lg:mb-112.5 -mr-7 lg:-mr-10 z-30 pointer-events-auto shrink-0"
               initial={{ scale: shouldReduceMotion ? 1 : 0.8, opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.8, duration: 0.5 }}
             >
-              <div className="border border-secondary-light rounded-[2.35rem] bg-[#FFFDF9] px-5 py-3 flex flex-col items-center justify-center text-center shadow-inner">
-                <p className="font-sans text-xs md:text-sm text-text-dark font-medium leading-relaxed">
+              <div className="border border-secondary-light rounded-[2.6rem] bg-[#FFFDF9] px-7 py-4 flex flex-col items-center justify-center text-center shadow-inner">
+                <p className="font-sans text-sm md:text-base text-text-dark font-medium leading-relaxed">
                   <span className="text-secondary mr-1">✧</span> Halo, saya Sira! <span className="text-secondary ml-1">✧</span>
                   <br />
                   Yuk, jelajahi dunia
                   <br />
-                  <span className="font-serif font-bold text-base md:text-lg text-secondary-dark block my-0.5">Sasirangan</span>
+                  <span className="font-serif font-bold text-lg md:text-xl text-secondary-dark block my-0.5">Sasirangan</span>
                   bersama Saya!
                 </p>
               </div>
               {/* Speech Bubble Tail pointing right to Sira */}
-              <div className="absolute -right-2 bottom-[40%] w-4 h-4 bg-[#FFFDF9] border-r border-b border-secondary-light -rotate-45 z-10" />
+              <div className="absolute -right-2.5 bottom-[40%] w-5 h-5 bg-[#FFFDF9] border-r border-b border-secondary-light -rotate-45 z-10" />
             </motion.div>
 
             {/* Sira Avatar */}
