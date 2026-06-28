@@ -127,7 +127,7 @@ export default function IntroPage() {
               }
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
-              <div className="relative w-80 sm:w-[32rem] md:w-[38rem] h-20 sm:h-28 md:h-[9.5rem]">
+              <div className="relative w-80 sm:w-lg md:w-152 h-20 sm:h-28 md:h-38">
                 <Image
                   src="/assets/logo/tulisan_sasitra.png"
                   alt="Sasitra"

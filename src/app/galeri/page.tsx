@@ -221,7 +221,7 @@ export default function GaleriPage() {
                         transition={{ duration: 0.6, delay: idx * 0.1 }}
                         whileHover={{ scale: 1.05, y: -4 }}
                         onClick={() => setSelectedFolderId(item.id)}
-                        className="w-full max-w-[225px] aspect-[1.52] relative cursor-pointer"
+                        className="w-full max-w-56.25 aspect-[1.52] relative cursor-pointer"
                       >
                         <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
                           <Image
@@ -247,7 +247,7 @@ export default function GaleriPage() {
                         transition={{ duration: 0.6, delay: (idx + 3) * 0.08 }}
                         whileHover={{ scale: 1.05, y: -4 }}
                         onClick={() => setSelectedFolderId(item.id)}
-                        className="w-full max-w-[225px] aspect-[1.52] relative cursor-pointer"
+                        className="w-full max-w-56.25 aspect-[1.52] relative cursor-pointer"
                       >
                         <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
                           <Image
@@ -272,7 +272,7 @@ export default function GaleriPage() {
                         transition={{ duration: 0.6, delay: (idx + 8) * 0.08 }}
                         whileHover={{ scale: 1.05, y: -4 }}
                         onClick={() => setSelectedFolderId(item.id)}
-                        className="w-full max-w-[225px] aspect-[1.52] relative cursor-pointer"
+                        className="w-full max-w-56.25 aspect-[1.52] relative cursor-pointer"
                       >
                         <div className="relative w-full h-full rounded-2xl overflow-hidden hover:shadow-[0_0_25px_rgba(197,150,12,0.45)] transition-all duration-300">
                           <Image

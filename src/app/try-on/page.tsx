@@ -636,8 +636,6 @@ function TryOnContent() {
 
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

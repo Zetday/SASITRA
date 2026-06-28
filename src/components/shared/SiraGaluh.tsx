@@ -20,13 +20,15 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
 }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [prevText, setPrevText] = useState(text);
   const shouldReduceMotion = useReducedMotion();
 
-  // Reset text typing status when text changes - rerender-move-effect-to-event / rerender-derived-state-no-effect
-  useEffect(() => {
+  // Reset text typing status when text changes during render to avoid cascading useEffect renders
+  if (text !== prevText) {
+    setPrevText(text);
     setDisplayedText("");
     setIsTyping(!!text);
-  }, [text]);
+  }
 
   // Typewriter effect for speech bubble
   useEffect(() => {
