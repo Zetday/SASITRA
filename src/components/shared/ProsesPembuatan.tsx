@@ -226,29 +226,7 @@ export const ProsesPembuatan: React.FC = () => {
         }}
       >
         
-        {/* SVG Path (positioned behind cards, z-0) */}
-        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-8xl px-6 pointer-events-none z-0 hidden lg:block">
-          <svg className="w-full h-full overflow-visible" viewBox="0 0 1200 800" fill="none">
-            {/* Background Dashed Path - connecting from top-left (120, 0) */}
-            <path 
-              d="M 120 0 C 120 150, 80 250, 80 360 C 120 450, 380 450, 420 360 C 460 450, 740 450, 780 360 C 820 450, 1050 500, 1080 750" 
-              stroke="#C5960C" 
-              strokeWidth="2" 
-              strokeDasharray="6,6" 
-              opacity="0.45"
-              fill="none"
-            />
-            
-            {/* Solid Drawing Overlay Path */}
-            <motion.path 
-              d="M 120 0 C 120 150, 80 250, 80 360 C 120 450, 380 450, 420 360 C 460 450, 740 450, 780 360 C 820 450, 1050 500, 1080 750" 
-              stroke="#C5960C" 
-              strokeWidth="2.5" 
-              fill="none"
-              style={shouldReduceMotion ? { pathLength: 1 } : { pathLength }}
-            />
-          </svg>
-        </div>
+
 
         {/* Three Step Cards (z-10) */}
         <div className="max-w-8xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] relative z-10 py-4">
@@ -286,18 +264,14 @@ export const ProsesPembuatan: React.FC = () => {
                     />
                   </div>
 
-                  {/* Sira Avatar & Speech Bubble on each Card for Mobile/Reduced Motion */}
-                  <div className={`absolute -left-14 -bottom-12 z-20 ${shouldReduceMotion ? "flex" : "lg:hidden flex"} items-end pointer-events-none select-none`}>
-                    {/* Speech Bubble */}
-                    <div className="relative border-2 border-secondary-light p-0.5 rounded-3xl bg-[#FFFDF9] shadow-xl -mr-3 mb-16 pointer-events-auto shrink-0 max-w-32.5">
-                      <div className="border border-secondary-light rounded-[1.35rem] bg-[#FFFDF9] px-3.5 py-2 text-center shadow-inner">
-                        <p className="font-sans text-[10px] font-bold text-secondary-dark leading-tight">
-                          {idx === 0 ? "Menggambar Motif" : idx === 1 ? "Menjelujur Kain" : "Pencelupan Warna"}
-                        </p>
-                      </div>
-                      <div className="absolute -right-1 bottom-[30%] w-3 h-3 bg-[#FFFDF9] border-r border-b border-secondary-light -rotate-45 z-10" />
-                    </div>
- 
+                  {/* Sira Avatar & Speech Bubble on each Card - appears gradually based on active step */}
+                  <div 
+                    className={`absolute -left-14 -bottom-10 z-20 flex items-end pointer-events-none select-none transition-all duration-500 ${
+                      isBlurred 
+                        ? "opacity-0 scale-75 pointer-events-none" 
+                        : "opacity-100 scale-100 pointer-events-auto"
+                    }`}
+                  >
                     {/* Sira Avatar */}
                     <div className="w-28 h-36 relative shrink-0">
                       <Image
@@ -307,6 +281,16 @@ export const ProsesPembuatan: React.FC = () => {
                         sizes="112px"
                         className="object-contain"
                       />
+                    </div>
+
+                    {/* Speech Bubble */}
+                    <div className="relative border-2 border-secondary-light p-0.5 rounded-3xl bg-[#FFFDF9] shadow-xl -ml-3 mb-16 pointer-events-auto shrink-0 max-w-32.5">
+                      <div className="border border-secondary-light rounded-[1.35rem] bg-[#FFFDF9] px-3.5 py-2 text-center shadow-inner">
+                        <p className="font-sans text-[10px] font-bold text-secondary-dark leading-tight">
+                          {idx === 0 ? "Menggambar Motif" : idx === 1 ? "Menjelujur Kain" : "Pencelupan Warna"}
+                        </p>
+                      </div>
+                      <div className="absolute -left-1 bottom-[30%] w-3 h-3 bg-[#FFFDF9] border-l border-b border-secondary-light -rotate-45 z-10" />
                     </div>
                   </div>
                 </motion.div>
@@ -344,50 +328,7 @@ export const ProsesPembuatan: React.FC = () => {
 
         </div>
 
-        {/* Moving Mascot Sira Galuh (placed in a separate absolute layer with z-20 to always stay in front of cards) */}
-        {/* Moving Mascot Sira Galuh (placed in a separate absolute layer with z-20 to always stay in front of cards) */}
-        {!shouldReduceMotion ? (
-          <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-8xl px-6 pointer-events-none z-20 hidden lg:block">
-            <motion.div
-              className="absolute w-64 h-72 -translate-x-1/2 translate-y-[-50%] pointer-events-none z-30 origin-bottom"
-              style={{
-                left: mascotX,
-                top: mascotY,
-                opacity: mascotOpacity,
-                rotate: leanAngle,
-              }}
-            >
-              <div className="flex items-end pointer-events-none select-none">
-                {/* Speech Bubble */}
-                <motion.div
-                  className="relative border-2 border-secondary-light p-0.5 rounded-[1.8rem] bg-[#FFFDF9] shadow-xl -mr-3.5 mb-16 pointer-events-auto shrink-0 max-w-35"
-                  key={activeMascot.text}
-                  initial={{ scale: 0.8, opacity: 0, y: 10 }}
-                  animate={{ scale: 1, opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="border border-secondary-light rounded-[1.65rem] bg-[#FFFDF9] px-3.5 py-2 text-center shadow-inner">
-                    <p className="font-sans text-[10px] font-bold text-secondary-dark leading-tight">
-                      {activeMascot.text}
-                    </p>
-                  </div>
-                  <div className="absolute -right-1 bottom-[30%] w-3 h-3 bg-[#FFFDF9] border-r border-b border-secondary-light -rotate-45 z-10" />
-                </motion.div>
- 
-                {/* Sira Mascot Image */}
-                <div className={`w-36 h-48 relative shrink-0 transition-transform duration-300 ${isFlipped ? "scale-x-[-1]" : "scale-x-[1]"}`}>
-                  <Image
-                    src={isScrolling ? "/assets/avatar/Sira_1.gif" : activeMascot.src}
-                    alt="Sira Galuh Proses"
-                    fill
-                    sizes="144px"
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        ) : null}
+
 
       </div>
     </div>
