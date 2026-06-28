@@ -15,20 +15,18 @@ export default function HomePage() {
 
   const shouldReduceMotion = useReducedMotion();
 
-  // Typewriter effect state for tagline
-  const taglineLine1 = "Tempat tradisi, keindahan, dan kreativitas";
-  const taglineLine2 = "berpadu dalam setiap helai kain";
-  const [displayedLine1, setDisplayedLine1] = useState(shouldReduceMotion ? taglineLine1 : "");
-  const [displayedLine2, setDisplayedLine2] = useState(shouldReduceMotion ? taglineLine2 : "");
-  const [activeLine, setActiveLine] = useState(shouldReduceMotion ? 0 : 1); // 1 = typing line 1, 2 = typing line 2, 0 = done
+  // Sira speech bubble typewriter state
+  const [siraPart1, setSiraPart1] = useState(shouldReduceMotion ? "Halo, saya Sira!" : "");
+  const [siraPart2, setSiraPart2] = useState(shouldReduceMotion ? "Yuk, jelajahi dunia" : "");
+  const [siraPart3, setSiraPart3] = useState(shouldReduceMotion ? "Sasirangan" : "");
+  const [siraPart4, setSiraPart4] = useState(shouldReduceMotion ? "bersama Saya!" : "");
+  const [siraStage, setSiraStage] = useState(shouldReduceMotion ? 5 : 0); // 0 = wait, 1-4 = typing, 5 = done
+
 
   useEffect(() => {
     if (shouldReduceMotion) {
-      // Defer state updates to avoid synchronous cascading renders inside effect
       const timer = setTimeout(() => {
-        setDisplayedLine1(taglineLine1);
-        setDisplayedLine2(taglineLine2);
-        setActiveLine(0);
+        setSiraStage(5);
       }, 0);
       return () => clearTimeout(timer);
     }
@@ -37,43 +35,45 @@ export default function HomePage() {
     let timerId: ReturnType<typeof setTimeout> | undefined;
 
     const startTyping = async () => {
-      // Delay before typing starts (wait for page fade-in)
+      // Delay before Sira starts speaking (wait for page entry and tagline fade-in)
       await new Promise((resolve) => {
-        timerId = setTimeout(resolve, 800);
+        timerId = setTimeout(resolve, 1400);
       });
       if (!isMounted) return;
 
-      // Type line 1
-      for (let i = 0; i <= taglineLine1.length; i++) {
-        setDisplayedLine1(taglineLine1.slice(0, i));
-        await new Promise((resolve) => {
-          timerId = setTimeout(resolve, 35);
-        });
+      // Start Sira speech bubble typing
+      setSiraStage(1);
+      const p1 = "Halo, saya Sira!";
+      for (let i = 0; i <= p1.length; i++) {
+        setSiraPart1(p1.slice(0, i));
+        await new Promise((resolve) => { timerId = setTimeout(resolve, 25); });
         if (!isMounted) return;
       }
 
-      // Brief pause between lines
-      await new Promise((resolve) => {
-        timerId = setTimeout(resolve, 300);
-      });
-      if (!isMounted) return;
-      setActiveLine(2);
-
-      // Type line 2
-      for (let i = 0; i <= taglineLine2.length; i++) {
-        setDisplayedLine2(taglineLine2.slice(0, i));
-        await new Promise((resolve) => {
-          timerId = setTimeout(resolve, 35);
-        });
+      setSiraStage(2);
+      const p2 = "Yuk, jelajahi dunia";
+      for (let i = 0; i <= p2.length; i++) {
+        setSiraPart2(p2.slice(0, i));
+        await new Promise((resolve) => { timerId = setTimeout(resolve, 25); });
         if (!isMounted) return;
       }
 
-      // Finish typing (wait a bit before hiding cursor)
-      await new Promise((resolve) => {
-        timerId = setTimeout(resolve, 1500);
-      });
-      if (!isMounted) return;
-      setActiveLine(0);
+      setSiraStage(3);
+      const p3 = "Sasirangan";
+      for (let i = 0; i <= p3.length; i++) {
+        setSiraPart3(p3.slice(0, i));
+        await new Promise((resolve) => { timerId = setTimeout(resolve, 35); });
+        if (!isMounted) return;
+      }
+
+      setSiraStage(4);
+      const p4 = "bersama Saya!";
+      for (let i = 0; i <= p4.length; i++) {
+        setSiraPart4(p4.slice(0, i));
+        await new Promise((resolve) => { timerId = setTimeout(resolve, 25); });
+        if (!isMounted) return;
+      }
+      setSiraStage(5);
     };
 
     startTyping();
@@ -115,33 +115,25 @@ export default function HomePage() {
         >
           <div className="absolute inset-0 bg-jelujur-pattern opacity-[0.03] pointer-events-none" />
 
-          {/* Top Left Tagline */}
-          <div className="absolute top-28 left-6 md:left-12 lg:left-24 max-w-sm md:max-w-xl pointer-events-none z-30">
-            <motion.p 
-              className="font-serif text-sm md:text-base lg:text-lg text-text-dark/85 leading-relaxed font-light min-h-[3em]"
-              initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.8 }}
-            >
-              {displayedLine1}
-              {activeLine === 1 && (
-                <motion.span 
-                  className="inline-block w-0.5 h-[1.1em] bg-accent-brown ml-0.5 align-middle"
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-                />
-              )}
-              <br className="hidden md:block" />
-              {displayedLine2}
-              {activeLine === 2 && (
-                <motion.span 
-                  className="inline-block w-0.5 h-[1.1em] bg-accent-brown ml-0.5 align-middle"
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-                />
-              )}
-            </motion.p>
-          </div>
+            {/* Top Left Tagline */}
+            <div className="absolute top-28 left-6 md:left-12 lg:left-24 max-w-sm md:max-w-xl pointer-events-none z-30 flex flex-col gap-1 md:gap-1.5">
+              <motion.span 
+                className="font-serif text-lg md:text-base lg:text-xl text-text-dark/85 leading-relaxed font-medium block"
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 15, filter: shouldReduceMotion ? "none" : "blur(4px)" }}
+                animate={{ opacity: 1, y: 0, filter: "none" }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.8, ease: "easeOut" }}
+              >
+                Tempat tradisi, keindahan, dan kreativitas
+              </motion.span>
+              <motion.span 
+                className="font-serif text-lg md:text-base lg:text-xl text-text-dark/85 leading-relaxed font-medium block"
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 15, filter: shouldReduceMotion ? "none" : "blur(4px)" }}
+                animate={{ opacity: 1, y: 0, filter: "none" }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.6, duration: 0.8, ease: "easeOut" }}
+              >
+                berpadu dalam setiap helai kain
+              </motion.span>
+            </div>
 
           <div className="max-w-7xl mx-auto px-6 lg:pl-16 w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-20 pt-20">
             {/* Left Welcome Content */}
@@ -213,13 +205,64 @@ export default function HomePage() {
               transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.8, duration: 0.5 }}
             >
               <div className="border border-secondary-light rounded-[2.6rem] bg-[#FFFDF9] px-7 py-4 flex flex-col items-center justify-center text-center shadow-inner">
-                <p className="font-sans text-sm md:text-base text-text-dark font-medium leading-relaxed">
-                  <span className="text-secondary mr-1">✧</span> Halo, saya Sira! <span className="text-secondary ml-1">✧</span>
-                  <br />
-                  Yuk, jelajahi dunia
-                  <br />
-                  <span className="font-serif font-bold text-lg md:text-xl text-secondary-dark block my-0.5">Sasirangan</span>
-                  bersama Saya!
+                <p className="font-sans text-sm md:text-base text-text-dark font-medium leading-relaxed select-none">
+                  {siraStage >= 1 && (
+                    <>
+                      <motion.span 
+                        className="inline-block text-secondary mr-1"
+                        animate={{ scale: [1, 1.25, 1], rotate: [0, 15, -15, 0] }}
+                        transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                      >
+                        ✧
+                      </motion.span> 
+                      {siraStage === 1 ? siraPart1 : <>Halo, saya <span className="font-serif font-bold text-secondary-dark">Sira</span>!</>}
+                      {siraStage >= 1 && (
+                        <motion.span 
+                          className="inline-block text-secondary ml-1"
+                          animate={{ scale: [1, 1.25, 1], rotate: [0, -15, 15, 0] }}
+                          transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut", delay: 0.4 }}
+                        >
+                          ✧
+                        </motion.span>
+                      )}
+                    </>
+                  )}
+                  
+                  {siraStage >= 2 && (
+                    <>
+                      <br />
+                      {siraPart2}
+                    </>
+                  )}
+
+                  {siraStage >= 3 && (
+                    <>
+                      <br />
+                      {siraStage === 3 ? (
+                        <span className="font-serif font-bold text-lg md:text-xl text-[#713034]">
+                          {siraPart3}
+                        </span>
+                      ) : (
+                        <span className="font-serif font-extrabold text-2xl md:text-3xl bg-linear-to-r from-[#713034] via-[#A97340] to-[#C5960C] bg-clip-text text-transparent block my-1.5 tracking-wider drop-shadow-xs">
+                          Sasirangan
+                        </span>
+                      )}
+                    </>
+                  )}
+
+                  {siraStage >= 4 && (
+                    <>
+                      {" "}{siraPart4}
+                    </>
+                  )}
+
+                  {siraStage > 0 && siraStage < 5 && (
+                    <span className="inline-flex gap-1 ml-2 items-center">
+                      <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: "0ms", animationDuration: "0.6s" }} />
+                      <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: "150ms", animationDuration: "0.6s" }} />
+                      <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: "300ms", animationDuration: "0.6s" }} />
+                    </span>
+                  )}
                 </p>
               </div>
               {/* Speech Bubble Tail pointing right to Sira */}

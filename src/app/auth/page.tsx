@@ -3,11 +3,8 @@
 import React, { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft, User as UserIcon, ShieldAlert } from "lucide-react";
 import { useDatabase } from "../../store/useDatabase";
 import { Navbar } from "../../components/shared/Navbar";
-import { Footer } from "../../components/shared/Footer";
 import { Card } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
@@ -36,8 +33,8 @@ function AuthContent() {
 
   // Form Fields State
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("user@sasitra.com");
+  const [password, setPassword] = useState("user123");
   const [confirmPassword, setConfirmPassword] = useState("");
   
   // Feedback
@@ -109,30 +106,12 @@ function AuthContent() {
     }, 800);
   };
 
-  // Demo Credentials Auto-Fill
-  const fillDemoAccount = (role: 'user' | 'admin') => {
-    if (role === 'admin') {
-      setEmail("admin@sasitra.com");
-      setPassword("admin123");
-    } else {
-      setEmail("user@sasitra.com");
-      setPassword("user123");
-    }
-    setActiveTab("login");
-    setErrorMsg("");
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-bg-cream text-text-dark">
       <Navbar />
 
       <main className="flex-1 flex items-center justify-center pt-32 pb-20 px-6 max-w-md mx-auto w-full">
         <div className="flex flex-col gap-6 w-full">
-          {/* Back link */}
-          <Link href="/home" className="inline-flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider hover:underline w-max">
-            <ArrowLeft className="h-4 w-4" /> Kembali ke Beranda
-          </Link>
-
           <Card className="bg-white border border-secondary/15 p-8 flex flex-col gap-6 shadow-2xl relative overflow-hidden">
             
             {/* Header info */}
@@ -159,6 +138,15 @@ function AuthContent() {
                 setActiveTab(tab);
                 setErrorMsg("");
                 setSuccessMsg("");
+                if (tab === "register") {
+                  setName("");
+                  setEmail("");
+                  setPassword("");
+                  setConfirmPassword("");
+                } else {
+                  setEmail("user@sasitra.com");
+                  setPassword("user123");
+                }
               }}
               className="w-full"
             />
@@ -237,21 +225,6 @@ function AuthContent() {
                 </Button>
               </form>
             )}
-
-            {/* Demo Accounts Panel */}
-            <div className="border-t border-secondary/15 pt-5 mt-2 flex flex-col gap-3">
-              <span className="text-[10px] font-bold text-center text-text-dark/50 uppercase tracking-widest">
-                ⚙️ Akun Demo (Untuk Pengujian)
-              </span>
-              <div className="grid grid-cols-2 gap-2.5">
-                <button
-                  onClick={() => fillDemoAccount("user")}
-                  className="flex items-center justify-center gap-1.5 py-2 px-3 border border-secondary/20 rounded-xl text-xs font-semibold text-text-dark hover:bg-secondary/10 transition-colors"
-                >
-                  <UserIcon className="h-3.5 w-3.5 text-primary" /> Akun User
-                </button>
-              </div>
-            </div>
 
           </Card>
         </div>

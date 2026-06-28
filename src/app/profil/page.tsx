@@ -4,19 +4,18 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Heart, Sparkles, User as UserIcon, Calendar, Compass, Wand2, Download, Trash2, Eye } from "lucide-react";
+import { Sparkles, Calendar, Wand2, Download, Eye } from "lucide-react";
 import { useDatabase, TryOnResult } from "../../store/useDatabase";
 import { Navbar } from "../../components/shared/Navbar";
 import { Footer } from "../../components/shared/Footer";
 import { Card } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
-import { Tabs } from "../../components/ui/Tabs";
 import { Modal } from "../../components/ui/Modal";
 
 export default function ProfilPage() {
   const router = useRouter();
-  const { currentUser, motifs, favorites, tryOnResults, toggleFavorite, updateProfile } = useDatabase();
+  const { currentUser, motifs, tryOnResults, updateProfile } = useDatabase();
 
   // Redirect if not logged in
   useEffect(() => {
@@ -24,9 +23,6 @@ export default function ProfilPage() {
       router.push("/auth?redirect=/profil");
     }
   }, [currentUser, router]);
-
-  // Tabs
-  const [activeTab, setActiveTab] = useState("favorites");
 
   // Profile Form States
   const [editMode, setEditMode] = useState(false);
@@ -52,9 +48,6 @@ export default function ProfilPage() {
     );
   }
 
-  // Filter favorited motifs from DB catalog
-  const favoriteMotifs = motifs.filter(m => favorites.includes(m.id) && m.status === "PUBLISHED");
-
   // Filter try-on results by current user
   const userTryOns = tryOnResults.filter(r => r.userId === currentUser.id);
 
@@ -63,12 +56,6 @@ export default function ProfilPage() {
     if (!name.trim()) return;
     updateProfile(name.trim());
     setEditMode(false);
-  };
-
-  const handleUnfavorite = (e: React.MouseEvent, id: string) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleFavorite(id);
   };
 
   const handleDownloadTryOn = (url: string) => {
@@ -90,18 +77,14 @@ export default function ProfilPage() {
           {/* LEFT COLUMN: User Card Info & Edit */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             <Card className="bg-white border border-secondary/15 p-6 flex flex-col gap-6 items-center text-center shadow-lg relative overflow-hidden">
-              <div className="absolute -right-2.5 -top-2.5 opacity-5 pointer-events-none">
-                <UserIcon className="h-40 w-40 text-primary" />
-              </div>
-
               {/* User Avatar */}
-              <div className="relative h-28 w-28 rounded-full border-2 border-secondary overflow-hidden bg-bg-cream p-1.5 shadow-inner">
+              <div className="relative h-28 w-28 rounded-full border-2 border-secondary overflow-hidden shadow-md">
                 <Image
                   src={currentUser.avatar_url || "https://api.dicebear.com/7.x/adventurer/svg"}
                   alt={currentUser.name}
-                  width={112}
-                  height={112}
-                  className="rounded-full bg-white object-cover"
+                  fill
+                  sizes="112px"
+                  className="bg-white object-cover"
                 />
               </div>
 
@@ -151,147 +134,66 @@ export default function ProfilPage() {
             </Card>
           </div>
 
-          {/* RIGHT COLUMN: Saved Items (Favorites & Try-On History) */}
+          {/* RIGHT COLUMN: Riwayat Fitting AI */}
           <div className="lg:col-span-8 flex flex-col gap-6">
+            <div className="flex items-center gap-2.5 pb-2 border-b border-secondary/15 mb-2">
+              <Wand2 className="h-6 w-6 text-primary animate-pulse" />
+              <h2 className="font-serif text-2xl font-extrabold text-primary">
+                Riwayat Fitting AI
+              </h2>
+            </div>
             
-            {/* Navigation Tabs */}
-            <Tabs
-              options={[
-                { id: "favorites", label: "Motif Favorit Saya", icon: <Heart className="h-4 w-4" /> },
-                { id: "tryon", label: "Riwayat Fitting AI", icon: <Wand2 className="h-4 w-4" /> }
-              ]}
-              activeTab={activeTab}
-              onChange={setActiveTab}
-              className="w-full"
-            />
-
-            {/* Content Display based on active tab */}
-            {activeTab === "favorites" ? (
-              
-              /* TAB 1: Favorited Motifs */
-              favoriteMotifs.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {favoriteMotifs.map((motif) => (
-                    <Link key={motif.id} href={`/ensiklopedia/${motif.id}`}>
-                      <Card hoverable className="group bg-white p-4 border border-secondary/15 relative flex flex-col gap-3">
-                        {/* Unfavorite button */}
-                        <button
-                          onClick={(e) => handleUnfavorite(e, motif.id)}
-                          className="absolute top-3 right-3 z-20 h-8 w-8 rounded-full bg-red-50 hover:bg-red-100 flex items-center justify-center border border-red-200 transition-colors"
-                          title="Hapus dari Favorit"
-                        >
-                          <Trash2 className="h-4 w-4 text-red-600" />
-                        </button>
-
-                        <div className="aspect-square w-full rounded-xl bg-bg-cream/30 p-3 border border-secondary/10 flex items-center justify-center transition-all duration-300 group-hover:bg-bg-cream/50">
-                          <svg viewBox={motif.viewBox || "0 0 100 100"} className="w-full h-full">
-                            {motif.paths.map((path, idx) => {
-                              let fill = "transparent";
-                              let stroke = "none";
-                              if (path.role === "background") fill = motif.warna_tradisional[2] || "#FAF3E0";
-                              else if (path.role === "main") fill = motif.warna_tradisional[0] || "#8B1A1A";
-                              else if (path.role === "accent") fill = motif.warna_tradisional[1] || "#C5960C";
-                              else if (path.role === "jelujur") stroke = motif.warna_tradisional[3] || "#3D1C0B";
-
-                              return (
-                                <path
-                                  key={idx}
-                                  d={path.d}
-                                  fill={fill}
-                                  stroke={stroke}
-                                  strokeWidth={path.strokeWidth}
-                                  strokeDasharray={path.strokeDasharray}
-                                />
-                              );
-                            })}
-                          </svg>
+            {userTryOns.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-6">
+                {userTryOns.map((result) => {
+                  const rMotif = motifs.find(m => m.id === result.motifId);
+                  return (
+                    <Card
+                      key={result.id}
+                      onClick={() => setSelectedTryOn(result)}
+                      className="group bg-white p-3 border border-secondary/15 relative flex flex-col gap-2.5 cursor-pointer hover:shadow-md hover:border-primary/25"
+                    >
+                      <div className="aspect-3/4 w-full rounded-xl overflow-hidden bg-bg-cream/40 border border-secondary/10 relative">
+                        <Image
+                          src={result.fotoHasilUrl}
+                          alt="Fitting Result"
+                          fill
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-103"
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                          <Eye className="h-6 w-6 text-white" />
                         </div>
+                      </div>
 
-                        <div className="flex flex-col gap-0.5">
-                          <span className="text-[9px] font-bold text-secondary-dark uppercase">{motif.kategori}</span>
-                          <h4 className="font-serif font-bold text-base text-text-dark group-hover:text-primary transition-colors truncate">
-                            {motif.nama_motif}
-                          </h4>
-                          <p className="text-[11px] text-text-dark/60 line-clamp-2 leading-relaxed">
-                            {motif.makna_filosofi}
-                          </p>
-                        </div>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                /* Empty Favorites State */
-                <div className="text-center py-16 bg-white/40 border border-dashed border-secondary/25 rounded-3xl p-8 max-w-md mx-auto flex flex-col items-center gap-4 mt-4">
-                  <Heart className="h-12 w-12 text-primary animate-pulse" />
-                  <div className="flex flex-col gap-1">
-                    <h3 className="font-serif text-lg font-bold text-primary">Belum Ada Motif Favorit</h3>
-                    <p className="text-xs text-text-dark/65 leading-relaxed">
-                      Anda belum menambahkan motif Sasirangan ke koleksi favorit. Kunjungi ensiklopedia kami untuk menemukan motif yang Anda sukai!
-                    </p>
-                  </div>
-                  <Link href="/ensiklopedia">
-                    <Button size="sm" className="mt-2">
-                      <Compass className="mr-2 h-4 w-4" /> Cari Motif
-                    </Button>
-                  </Link>
-                </div>
-              )
+                      <div className="flex flex-col gap-0.5">
+                        <h4 className="font-bold text-xs text-text-dark truncate">
+                          {rMotif?.nama_motif || "Motif Kustom"}
+                        </h4>
+                        <span className="text-[10px] text-text-dark/50">
+                          {result.jenisProduk} • {new Date(result.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                        </span>
+                      </div>
+                    </Card>
+                  );
+                })}
+              </div>
             ) : (
-              
-              /* TAB 2: Try-On History */
-              userTryOns.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {userTryOns.map((result) => {
-                    const rMotif = motifs.find(m => m.id === result.motifId);
-                    return (
-                      <Card
-                        key={result.id}
-                        onClick={() => setSelectedTryOn(result)}
-                        className="group bg-white p-3 border border-secondary/15 relative flex flex-col gap-2.5 cursor-pointer hover:shadow-md hover:border-primary/25"
-                      >
-                        <div className="aspect-3/4 w-full rounded-xl overflow-hidden bg-bg-cream/40 border border-secondary/10 relative">
-                          <Image
-                            src={result.fotoHasilUrl}
-                            alt="Fitting Result"
-                            fill
-                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                            className="object-cover transition-transform duration-300 group-hover:scale-103"
-                          />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                            <Eye className="h-6 w-6 text-white" />
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col gap-0.5">
-                          <h4 className="font-bold text-xs text-text-dark truncate">
-                            {rMotif?.nama_motif || "Motif Kustom"}
-                          </h4>
-                          <span className="text-[10px] text-text-dark/50">
-                            {result.jenisProduk} • {new Date(result.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
-                          </span>
-                        </div>
-                      </Card>
-                    );
-                  })}
+              /* Empty Try-On State */
+              <div className="text-center py-16 bg-white/40 border border-dashed border-secondary/25 rounded-3xl p-8 max-w-md mx-auto flex flex-col items-center gap-4 mt-4">
+                <Wand2 className="h-12 w-12 text-primary animate-bounce" />
+                <div className="flex flex-col gap-1">
+                  <h3 className="font-serif text-lg font-bold text-primary">Belum Ada Riwayat Fitting</h3>
+                  <p className="text-xs text-text-dark/65 leading-relaxed">
+                    Anda belum pernah mencoba fitting pakaian virtual. Ayo unggah foto Anda dan ciptakan kreasi motif warna pakaian Sasirangan Anda!
+                  </p>
                 </div>
-              ) : (
-                /* Empty Try-On State */
-                <div className="text-center py-16 bg-white/40 border border-dashed border-secondary/25 rounded-3xl p-8 max-w-md mx-auto flex flex-col items-center gap-4 mt-4">
-                  <Wand2 className="h-12 w-12 text-primary animate-bounce" />
-                  <div className="flex flex-col gap-1">
-                    <h3 className="font-serif text-lg font-bold text-primary">Belum Ada Riwayat Fitting</h3>
-                    <p className="text-xs text-text-dark/65 leading-relaxed">
-                      Anda belum pernah mencoba fitting pakaian virtual. Ayo unggah foto Anda dan ciptakan kreasi motif warna pakaian Sasirangan Anda!
-                    </p>
-                  </div>
-                  <Link href="/try-on">
-                    <Button size="sm" className="mt-2">
-                      Coba AI Try-On
-                    </Button>
-                  </Link>
-                </div>
-              )
+                <Link href="/try-on">
+                  <Button size="sm" className="mt-2">
+                    Coba AI Try-On
+                  </Button>
+                </Link>
+              </div>
             )}
 
           </div>

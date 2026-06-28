@@ -122,21 +122,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeOverride }) => {
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
                 aria-label="Menu profil"
                 aria-expanded={profileDropdownOpen}
-                className={`flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 pl-3 pr-2 py-1.5 rounded-full transition-colors border ${
-                  isDarkTheme
-                    ? "bg-white/5 hover:bg-white/10 border-white/20"
-                    : "bg-secondary/10 hover:bg-secondary/20 border-secondary/20"
-                }`}
+                className="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full transition-transform hover:scale-105"
               >
-                <span className={`text-sm font-semibold ${isDarkTheme ? "text-text-light" : "text-text-dark"}`}>
-                  {currentUser.name}
-                </span>
                 <Image
                   src={currentUser.avatar_url || "https://api.dicebear.com/7.x/adventurer/svg"}
                   alt="Avatar"
-                  width={28}
-                  height={28}
-                  className="rounded-full bg-white object-cover border border-secondary/35"
+                  width={40}
+                  height={40}
+                  className="rounded-full bg-white object-cover border-2 border-secondary/50 shadow-sm"
                 />
               </button>
 

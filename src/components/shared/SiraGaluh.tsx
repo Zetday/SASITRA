@@ -65,13 +65,13 @@ function getTimeGreeting(): string {
 }
 
 /** Combo dialog responses */
-const COMBO_3_DIALOG = "Ih, gemes banget sih kamu! 🙈";
+const COMBO_3_DIALOG = "Ih, jangan gitu ah! 🙈";
 const COMBO_5_DIALOG = "Waaah aku senang sekali! 🎉";
 const COMBO_7_DIALOG = "Kamu hebat! Aku mau menari untukmu! 💃✨";
 const DOUBLE_CLICK_DIALOG = "Kamu menemukan rahasia! Aku bisa terbang lho! 🦋✨";
 const SLEEP_DIALOG = "Zzz... 💤";
 const YAWN_DIALOG = "Hmm... kamu masih di sana? 🤔";
-const WAKE_DIALOG = "Ah! Kamu kembali! Aku kangen! 😊";
+const WAKE_DIALOG = "Ah! Kamu kembali!😊";
 
 /** Emoji pool for particle reactions */
 const REACTION_EMOJIS = ["✨", "🌸", "💛", "⭐", "🎵"];
