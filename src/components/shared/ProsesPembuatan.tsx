@@ -273,18 +273,18 @@ export const ProsesPembuatan: React.FC = () => {
                     }`}
                   >
                     {/* Sira Avatar */}
-                    <div className="w-28 h-36 relative shrink-0">
+                    <div className="w-36 h-48 relative shrink-0">
                       <Image
                         src={idx === 0 ? "/assets/avatar/Sira_3.png" : idx === 1 ? "/assets/avatar/Sira_4.png" : "/assets/avatar/Sira_5.png"}
                         alt="Sira Galuh"
                         fill
-                        sizes="112px"
+                        sizes="144px"
                         className="object-contain"
                       />
                     </div>
 
                     {/* Speech Bubble */}
-                    <div className="relative border-2 border-secondary-light p-0.5 rounded-3xl bg-[#FFFDF9] shadow-xl -ml-3 mb-16 pointer-events-auto shrink-0 max-w-32.5">
+                    <div className="relative border-2 border-secondary-light p-0.5 rounded-3xl bg-[#FFFDF9] shadow-xl -ml-4 mb-24 pointer-events-auto shrink-0 max-w-32.5">
                       <div className="border border-secondary-light rounded-[1.35rem] bg-[#FFFDF9] px-3.5 py-2 text-center shadow-inner">
                         <p className="font-sans text-[10px] font-bold text-secondary-dark leading-tight">
                           {idx === 0 ? "Menggambar Motif" : idx === 1 ? "Menjelujur Kain" : "Pencelupan Warna"}
