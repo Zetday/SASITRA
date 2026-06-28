@@ -217,7 +217,7 @@ export const ProsesPembuatan: React.FC = () => {
     >
       {/* Sticky Inner Container */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-center"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-bottom"
         style={{ 
           backgroundImage: `url('/assets/background/background_3.png')`,
         }}

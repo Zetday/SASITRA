@@ -86,7 +86,7 @@ export const MotifPreview: React.FC = () => {
     >
       {/* Sticky Inner Container */}
       <div 
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-bottom"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-top"
         style={{ 
           backgroundImage: `url('/assets/background/background_4.png')`,
         }}
