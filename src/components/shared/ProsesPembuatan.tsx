@@ -139,13 +139,13 @@ export const ProsesPembuatan: React.FC = () => {
                     </div>
 
                     {/* Speech Bubble */}
-                    <div className="relative border-2 border-secondary-light p-0.5 rounded-3xl bg-[#FFFDF9] shadow-xl -ml-4 mb-24 pointer-events-auto shrink-0 max-w-32.5">
-                      <div className="border border-secondary-light rounded-[1.35rem] bg-[#FFFDF9] px-3.5 py-2 text-center shadow-inner">
-                        <p className="font-sans text-[10px] font-bold text-secondary-dark leading-tight">
+                    <div className="relative border-2 border-secondary-light p-0.5 rounded-3xl bg-[#FFFDF9] shadow-xl -ml-4 mb-24 pointer-events-auto shrink-0 max-w-[155px]">
+                      <div className="border border-secondary-light rounded-[1.35rem] bg-[#FFFDF9] px-4 py-2.5 text-center shadow-inner">
+                        <p className="font-sans text-xs font-bold text-secondary-dark leading-tight">
                           {idx === 0 ? "Menggambar Motif" : idx === 1 ? "Menjelujur Kain" : "Pencelupan Warna"}
                         </p>
                       </div>
-                      <div className="absolute -left-1 bottom-[30%] w-3 h-3 bg-[#FFFDF9] border-l border-b border-secondary-light -rotate-45 z-10" />
+                      <div className="absolute -left-1 bottom-[32%] w-3 h-3 bg-[#FFFDF9] border-l border-b border-secondary-light -rotate-45 z-10" />
                     </div>
                   </div>
                 </motion.div>

@@ -243,7 +243,7 @@ export default function HomePage() {
                           {siraPart3}
                         </span>
                       ) : (
-                        <span className="font-serif font-extrabold text-2xl md:text-3xl bg-linear-to-r from-[#713034] via-[#A97340] to-[#C5960C] bg-clip-text text-transparent block my-1.5 tracking-wider drop-shadow-xs">
+                        <span className="font-serif font-extrabold text-2xl md:text-3xl bg-linear-to-r from-[#713034] via-[#A97340] to-secondary bg-clip-text text-transparent block my-1.5 tracking-wider drop-shadow-xs">
                           Sasirangan
                         </span>
                       )}
