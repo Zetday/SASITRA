@@ -15,7 +15,7 @@ export type SiraExpression =
   | "shy"
   | "presenting";
 
-type IdleStage = "active" | "wiggle" | "yawn" | "sleeping";
+type IdleStage = "active" | "wiggle";
 
 export interface SiraGaluhProps {
   expression?: SiraExpression;
@@ -64,14 +64,7 @@ function getTimeGreeting(): string {
   return "Selamat malam! Masih semangat belajar? Keren! 🌙";
 }
 
-/** Combo dialog responses */
-const COMBO_3_DIALOG = "Ih, jangan gitu ah! 🙈";
-const COMBO_5_DIALOG = "Waaah aku senang sekali! 🎉";
-const COMBO_7_DIALOG = "Kamu hebat! Aku mau menari untukmu! 💃✨";
-const DOUBLE_CLICK_DIALOG = "Kamu menemukan rahasia! Aku bisa terbang lho! 🦋✨";
-const SLEEP_DIALOG = "Zzz... 💤";
-const YAWN_DIALOG = "Hmm... kamu masih di sana? 🤔";
-const WAKE_DIALOG = "Ah! Kamu kembali!😊";
+
 
 /** Emoji pool for particle reactions */
 const REACTION_EMOJIS = ["✨", "🌸", "💛", "⭐", "🎵"];
@@ -206,13 +199,7 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   // ── Click combo tracking ──
-  const clickTimestampsRef = useRef<number[]>([]);
   const hasGreetedRef = useRef(false);
-  const comboTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // ── Dance state for 7x combo ──
-  const [isDancing, setIsDancing] = useState(false);
-  const danceIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // ── Counters ──
   const sparkleCounterRef = useRef(0);
@@ -292,18 +279,6 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
     // Stage 1: Wiggle at 8s
     idleTimerRef.current = setTimeout(() => {
       setIdleStage("wiggle");
-      // Stage 2: Yawn at 20s
-      idleTimerRef.current = setTimeout(() => {
-        setIdleStage("yawn");
-        setActiveExpression("thinking");
-        setActiveBubble(YAWN_DIALOG);
-        // Stage 3: Sleep at 40s
-        idleTimerRef.current = setTimeout(() => {
-          setIdleStage("sleeping");
-          setActiveExpression("shy");
-          setActiveBubble(SLEEP_DIALOG);
-        }, 20000);
-      }, 12000);
     }, 8000);
   }, [interactive]);
 
@@ -401,110 +376,29 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
   }, [expression, text]);
 
   // ───────────────────────────────────────────────────────────────────────
-  // Dance animation (7x combo)
-  // ───────────────────────────────────────────────────────────────────────
-
-  const startDance = useCallback(() => {
-    setIsDancing(true);
-    const expressions: SiraExpression[] = ["happy", "speaking", "pointing", "presenting", "idle"];
-    let i = 0;
-    danceIntervalRef.current = setInterval(() => {
-      setActiveExpression(expressions[i % expressions.length]);
-      i++;
-    }, 300);
-
-    // Stop dancing after 3s
-    setTimeout(() => {
-      if (danceIntervalRef.current) clearInterval(danceIntervalRef.current);
-      setIsDancing(false);
-      setActiveExpression(expression);
-      setActiveBubble(text);
-    }, 3000);
-  }, [expression, text]);
-
-  // ───────────────────────────────────────────────────────────────────────
-  // Click handler with combo system
+  // Click handler
   // ───────────────────────────────────────────────────────────────────────
 
   const handleClick = useCallback(() => {
     if (!interactive) return;
 
-    // Wake up from sleep/yawn
-    if (idleStage === "sleeping" || idleStage === "yawn") {
-      resetIdleTimer();
-      showDialog(WAKE_DIALOG, "happy");
-      spawnEmojis(3);
-      spawnSparkles(6);
-      return;
+    resetIdleTimer();
+
+    // Normal click
+    // First click ever → time greeting
+    let dialog: string;
+    if (!hasGreetedRef.current) {
+      dialog = getTimeGreeting();
+      hasGreetedRef.current = true;
+    } else {
+      dialog = SIRA_DIALOGS[Math.floor(Math.random() * SIRA_DIALOGS.length)];
     }
-
-    resetIdleTimer();
-
-    // Track click timestamps for combo detection
-    const now = Date.now();
-    clickTimestampsRef.current = clickTimestampsRef.current.filter(
-      (t) => now - t < 2000 // keep clicks within 2s window
-    );
-    clickTimestampsRef.current.push(now);
-    const comboCount = clickTimestampsRef.current.length;
-
-    // Clear previous combo timeout
-    if (comboTimeoutRef.current) clearTimeout(comboTimeoutRef.current);
-
-    // Wait a bit to see if more clicks come (for combo detection)
-    comboTimeoutRef.current = setTimeout(() => {
-      // Check combo thresholds (highest first)
-      if (comboCount >= 7) {
-        // 7x combo → Dance!
-        showDialog(COMBO_7_DIALOG, "happy", 3500);
-        spawnSparkles(15);
-        spawnEmojis(6);
-        startDance();
-        clickTimestampsRef.current = [];
-      } else if (comboCount >= 5) {
-        // 5x combo → Very happy
-        showDialog(COMBO_5_DIALOG, "happy");
-        spawnSparkles(12);
-        spawnEmojis(5);
-        clickTimestampsRef.current = [];
-      } else if (comboCount >= 3) {
-        // 3x combo → Shy
-        showDialog(COMBO_3_DIALOG, "shy");
-        spawnSparkles(8);
-        spawnEmojis(3);
-        clickTimestampsRef.current = [];
-      } else {
-        // Normal click
-        // First click ever → time greeting
-        let dialog: string;
-        if (!hasGreetedRef.current) {
-          dialog = getTimeGreeting();
-          hasGreetedRef.current = true;
-        } else {
-          dialog = SIRA_DIALOGS[Math.floor(Math.random() * SIRA_DIALOGS.length)];
-        }
-        showDialog(dialog, "speaking");
-        spawnSparkles(6);
-        spawnEmojis(2);
-      }
-    }, 350); // 350ms window to accumulate clicks
-
-  }, [interactive, idleStage, resetIdleTimer, showDialog, spawnSparkles, spawnEmojis, startDance]);
-
-  // ───────────────────────────────────────────────────────────────────────
-  // Double-click easter egg
-  // ───────────────────────────────────────────────────────────────────────
-
-  const handleDoubleClick = useCallback(() => {
-    if (!interactive) return;
-    resetIdleTimer();
-    // Cancel pending combo timeout so double-click takes priority
-    if (comboTimeoutRef.current) clearTimeout(comboTimeoutRef.current);
-    clickTimestampsRef.current = [];
-    showDialog(DOUBLE_CLICK_DIALOG, "pointing", 4000);
-    spawnSparkles(12);
-    spawnEmojis(5);
+    showDialog(dialog, "speaking");
+    spawnSparkles(6);
+    spawnEmojis(2);
   }, [interactive, resetIdleTimer, showDialog, spawnSparkles, spawnEmojis]);
+
+
 
   // ───────────────────────────────────────────────────────────────────────
   // Cleanup on unmount
@@ -513,8 +407,6 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
   useEffect(() => {
     return () => {
       if (revertTimerRef.current) clearTimeout(revertTimerRef.current);
-      if (comboTimeoutRef.current) clearTimeout(comboTimeoutRef.current);
-      if (danceIntervalRef.current) clearInterval(danceIntervalRef.current);
     };
   }, []);
 
@@ -529,21 +421,16 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
     : EXPRESSION_MAP[activeExpression];
 
   const bubbleContent = activeBubble || text;
-  const isSleeping = idleStage === "sleeping";
 
   // Float animation varies by idle stage
   const getFloatAnimation = () => {
     if (shouldReduceMotion) return {};
-    if (isDancing) return { rotate: [0, -10, 10, -8, 8, -5, 5, 0], y: [0, -12, 0, -8, 0] };
-    if (isSleeping) return { y: [0, -2, 0] }; // slow, subtle
     if (idleStage === "wiggle") return { rotate: [0, -4, 4, -3, 3, 0], y: [0, -5, 0] };
     return { y: [0, -6, 0] };
   };
 
   const getFloatTransition = () => {
     if (shouldReduceMotion) return {};
-    if (isDancing) return { duration: 0.6, repeat: Infinity, ease: "easeInOut" as const };
-    if (isSleeping) return { duration: 6, repeat: Infinity, ease: "easeInOut" as const };
     if (idleStage === "wiggle") return { duration: 0.8, ease: "easeInOut" as const };
     return { repeat: Infinity, duration: 4, ease: "easeInOut" as const };
   };
@@ -615,13 +502,12 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
               exit={{ opacity: 0, y: 4, scale: 0.9 }}
               transition={{ duration: 0.2 }}
             >
-              {isSleeping ? "Bangunkan Sira! 💤" : "Klik aku! ✨"}
+              Klik aku! ✨
               <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-primary" />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Avatar image with all animations */}
         <motion.div
           className={`w-48 h-64 md:w-56 md:h-72 relative select-none ${interactive ? "cursor-pointer" : ""}`}
           style={{
@@ -642,27 +528,7 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
             setShowTooltip(true);
           }}
           onClick={handleClick}
-          onDoubleClick={handleDoubleClick}
         >
-          {/* Sleeping overlay (dim + Zzz) */}
-          <AnimatePresence>
-            {isSleeping && !shouldReduceMotion && (
-              <motion.div
-                className="absolute inset-0 pointer-events-none z-10 flex items-start justify-end pr-1 pt-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <motion.span
-                  className="text-2xl select-none"
-                  animate={{ y: [0, -8, 0], opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  💤
-                </motion.span>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           {/* Expression crossfade */}
           <AnimatePresence mode="wait">
@@ -671,9 +537,9 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
               className={`absolute inset-0${flipAvatar ? " scale-x-[-1]" : ""}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{
-                opacity: isSleeping ? 0.7 : 1,
+                opacity: 1,
                 scale: 1,
-                filter: isSleeping ? "saturate(0.6)" : "saturate(1)",
+                filter: "saturate(1)",
               }}
               exit={{ opacity: 0, scale: 1.03 }}
               transition={{ duration: 0.3, ease: "easeOut" }}

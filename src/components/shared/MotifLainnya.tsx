@@ -159,7 +159,7 @@ export const MotifLainnya: React.FC = () => {
             </div>
             {/* Click Guide Subtitle */}
             <p className="text-[10px] md:text-xs text-secondary-dark font-serif font-bold mt-2 uppercase tracking-widest text-center flex items-center justify-center gap-1.5 opacity-90">
-              <span>❖</span> Klik kartu untuk melihat makna & filosofi motif <span>❖</span>
+              <span>❖</span> Klik kartu untuk melihat makna &amp; filosofi motif <span>❖</span>
             </p>
           </div>
 

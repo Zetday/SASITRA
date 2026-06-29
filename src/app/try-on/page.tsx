@@ -372,8 +372,13 @@ function TryOnContent() {
         
         {/* Header Title */}
         <div className="flex flex-col gap-3 text-center md:text-left max-w-3xl">
-          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 text-primary text-xs font-bold uppercase tracking-wider w-max mx-auto md:mx-0">
-            <Shirt className="h-3.5 w-3.5" /> Virtual Fitting Room
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 text-primary text-xs font-bold uppercase tracking-wider w-max">
+              <Shirt className="h-3.5 w-3.5" /> Virtual Fitting Room
+            </div>
+            <div className="inline-flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/25 rounded-full px-4 py-1.5 text-amber-700 text-xs font-bold uppercase tracking-wider w-max">
+              ⚠️ Masih Menunggu Design Ilmi
+            </div>
           </div>
           <h1 className="font-serif text-3xl md:text-5xl font-extrabold text-primary">
             Virtual Try-On AI Studio

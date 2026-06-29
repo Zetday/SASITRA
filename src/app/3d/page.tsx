@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, Lock, Check, Sliders, ShoppingBag, RefreshCw, Layers } from "lucide-react";
+import { Download, Lock, Check, Sliders, ShoppingBag, Layers } from "lucide-react";
 import confetti from "canvas-confetti";
 import { Navbar } from "../../components/shared/Navbar";
 import { useDatabase } from "../../store/useDatabase";
@@ -326,7 +326,7 @@ export default function Customizer3DPage() {
         <section className="flex-1 flex flex-col items-center justify-center relative p-4 md:p-8 h-100 sm:h-120 md:h-150 lg:h-full overflow-hidden bg-transparent">
           
           {/* Active Product Title Capsule top center */}
-          <div className="absolute top-6 z-20">
+          <div className="absolute top-6 z-20 flex flex-col items-center gap-2">
             <div className="bg-[#713034]/95 border-2 border-[#A37F55] px-8 py-2.5 rounded-full shadow-2xl backdrop-blur-md min-w-44 text-center">
               <span className="font-serif text-white font-bold text-base tracking-widest uppercase">
                 {selectedProduct.name}
