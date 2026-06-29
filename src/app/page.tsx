@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,6 +11,44 @@ export default function IntroPage() {
   const [videoSrc, setVideoSrc] = useState("/assets/landingpage/Background Landing Page.mp4");
   const [videoLoop, setVideoLoop] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Loader States
+  const [isLoading, setIsLoading] = useState(true);
+  const [videoReady, setVideoReady] = useState(false);
+
+  // Preload crucial images to prevent blank spots on loading screen exit
+  useEffect(() => {
+    const imagesToPreload = [
+      "/assets/logo/logo_sasitra.png",
+      "/assets/logo/logo_sasitra_2.png",
+      "/assets/logo/tulisan_sasitra.png",
+      "/assets/logo/logo_pemkot.png",
+      "/assets/logo/logo_poliban.png",
+      "/assets/logo/logo_kmipn.png"
+    ];
+
+    imagesToPreload.forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
+
+    // Fallback: hide loader after max 4.5 seconds even if video isn't ready
+    const fallback = setTimeout(() => {
+      setIsLoading(false);
+    }, 4500);
+
+    return () => clearTimeout(fallback);
+  }, []);
+
+  // When video is ready and we've shown the loader for at least 1.5 seconds, we transition
+  useEffect(() => {
+    if (videoReady) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1500); // 1.5s minimum loader visibility for premium feel
+      return () => clearTimeout(timer);
+    }
+  }, [videoReady]);
 
   const handleStartJourney = () => {
     setJourneyStarted(true);
@@ -32,9 +70,10 @@ export default function IntroPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-bg-cream text-text-dark overflow-hidden h-screen">
+      {/* 1. Main Welcome Screen Content */}
       <AnimatePresence>
         <motion.div
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-20 sm:gap-28 py-8"
+          className="fixed inset-0 z-20 flex flex-col items-center justify-center gap-20 sm:gap-28 py-8"
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2 }}
         >
@@ -51,6 +90,11 @@ export default function IntroPage() {
               loop={videoLoop}
               muted
               playsInline
+              onCanPlayThrough={() => {
+                if (videoSrc.includes("Background Landing Page")) {
+                  setVideoReady(true);
+                }
+              }}
               onEnded={handleVideoEnded}
               className="w-full h-full object-cover"
             >
@@ -173,7 +217,7 @@ export default function IntroPage() {
               />
             </motion.div>
 
-            {/* Button: Mulai Perjalanan */}
+          {/* Button: Mulai Perjalanan */}
             <motion.button
               onClick={handleStartJourney}
               className="relative px-8 py-3.5 text-secondary-light font-serif font-semibold text-lg tracking-wide uppercase focus:outline-none transition-all active:scale-95 group overflow-hidden mt-2"
@@ -193,6 +237,66 @@ export default function IntroPage() {
             </motion.button>
           </div>
         </motion.div>
+      </AnimatePresence>
+
+      {/* 2. Loading Screen Overlay (z-50) */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-cream"
+            exit={{ opacity: 0, filter: "blur(10px)" }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          >
+            {/* Pattern overlay */}
+            <div className="absolute inset-0 bg-jelujur-pattern opacity-[0.04] pointer-events-none" />
+            
+            {/* Pulsing and slightly rotating Logo */}
+            <div className="flex flex-col items-center justify-center gap-6 z-10">
+              <motion.div
+                className="w-24 h-24 sm:w-32 sm:h-32 relative"
+                animate={{
+                  scale: [1, 1.06, 1],
+                  rotate: [0, 2.5, -2.5, 0]
+                }}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Image
+                  src="/assets/logo/logo_sasitra.png"
+                  alt="Logo Sasitra"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </motion.div>
+              
+              <div className="flex flex-col items-center gap-2 text-center">
+                <h2 className="font-serif text-[#3D1A5A] text-lg sm:text-xl font-extrabold tracking-widest uppercase">
+                  SASITRA
+                </h2>
+                
+                {/* Custom bouncy dots */}
+                <div className="flex items-center gap-1.5 justify-center mt-1">
+                  <span className="w-1.5 h-1.5 bg-[#A37F55] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                  <span className="w-1.5 h-1.5 bg-[#A37F55] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                  <span className="w-1.5 h-1.5 bg-[#A37F55] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                </div>
+                
+                <p className="font-sans text-[9px] sm:text-[10px] text-[#A37F55] font-bold uppercase tracking-widest mt-2 animate-pulse">
+                  Mempersiapkan Perjalanan Budaya...
+                </p>
+              </div>
+            </div>
+
+            {/* Subtext footer */}
+            <div className="absolute bottom-8 text-[9px] font-bold text-accent-brown/40 uppercase tracking-widest">
+              Warisan Benua, Jelujur Cerita
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
