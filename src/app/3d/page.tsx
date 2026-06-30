@@ -405,6 +405,7 @@ export default function Customizer3DPage() {
   const [motifScale, setMotifScale] = useState(85);
   const [motifRotation, setMotifRotation] = useState(0);
   const [autoRotate, setAutoRotate] = useState(true);
+  const [isModelLoading, setIsModelLoading] = useState(true);
 
   // Interaction states
   const [hoveredMotif, setHoveredMotif] = useState<string | null>(null);
@@ -540,6 +541,9 @@ export default function Customizer3DPage() {
     const product = PRODUCTS[selectedProductId];
     if (!product) return;
 
+    let active = true;
+    setIsModelLoading(true);
+
     // Clean up past loaded assets in Three.js heap
     textureRequestIdRef.current += 1;
     if (currentTextureRef.current) {
@@ -563,6 +567,18 @@ export default function Customizer3DPage() {
     loader.load(
       product.file,
       (gltf) => {
+        if (!active) {
+          // Clean up stale async model load
+          gltf.scene.traverse((child: THREE.Object3D) => {
+            if (!(child as THREE.Mesh).isMesh) return;
+            const mesh = child as THREE.Mesh;
+            mesh.geometry?.dispose();
+            const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            materials.forEach((m: THREE.Material) => m?.dispose());
+          });
+          return;
+        }
+
         const modelRoot = gltf.scene;
         modelRootRef.current = modelRoot;
 
@@ -624,15 +640,24 @@ export default function Customizer3DPage() {
             : `${product.label} aktif · material kain belum terdeteksi`
         );
 
+        setIsModelLoading(false);
+
         // Toggle texture generation to run
         setModelLoadedToggle(prev => prev + 1);
       },
       undefined,
       (error) => {
         console.error(error);
-        setStatusText(`Gagal memuat ${product.file.split("/").pop()}`);
+        if (active) {
+          setStatusText(`Gagal memuat ${product.file.split("/").pop()}`);
+          setIsModelLoading(false);
+        }
       }
     );
+
+    return () => {
+      active = false;
+    };
   }, [selectedProductId]);
 
   // 4. Dynamic Motif Canvas Texture Builder and Applicator
@@ -981,6 +1006,13 @@ export default function Customizer3DPage() {
           <div className="relative w-full max-w-md md:max-w-lg aspect-square flex items-center justify-center">
             {/* Viewer WebGL Mount Point */}
             <div ref={viewerRef} className="w-full h-full min-h-75 z-10 cursor-grab active:cursor-grabbing outline-none" />
+
+            {/* Viewport Loader Overlay (Simple) */}
+            {isModelLoading && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#713034]" />
+              </div>
+            )}
           </div>
 
           {/* Auto Rotate Control Button */}
