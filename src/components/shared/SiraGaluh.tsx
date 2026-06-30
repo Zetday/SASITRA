@@ -509,7 +509,7 @@ export const SiraGaluh: React.FC<SiraGaluhProps> = ({
         </AnimatePresence>
 
         <motion.div
-          className={`w-48 h-64 md:w-56 md:h-72 relative select-none ${interactive ? "cursor-pointer" : ""}`}
+          className={`w-48 h-64 md:w-48 md:h-64 lg:w-56 lg:h-72 relative select-none ${interactive ? "cursor-pointer" : ""}`}
           style={{
             perspective: 400,
             transform: !shouldReduceMotion && interactive

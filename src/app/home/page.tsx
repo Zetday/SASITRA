@@ -86,10 +86,27 @@ export default function HomePage() {
 
   // Scroll spy state to highlight 'Sejarah' navbar link on scrolling past welcome screen
   const [activeOverride, setActiveOverride] = useState<string | undefined>(undefined);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  const handleAutoScroll = () => {
+    const nextSection = document.getElementById("sejarah");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
+
+      if (scrollPosition > 50) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+
       if (scrollPosition >= window.innerHeight * 0.6) {
         setActiveOverride("/home#sejarah");
       } else {
@@ -114,32 +131,11 @@ export default function HomePage() {
           }}
         >
           <div className="absolute inset-0 bg-jelujur-pattern opacity-[0.03] pointer-events-none" />
-
-            {/* Top Left Tagline */}
-            <div className="absolute top-28 left-6 md:left-12 lg:left-24 max-w-sm md:max-w-xl pointer-events-none z-30 flex flex-col gap-1 md:gap-1.5">
-              <motion.span 
-                className="font-serif text-lg md:text-base lg:text-xl text-text-dark/85 leading-relaxed font-medium block"
-                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 15, filter: shouldReduceMotion ? "none" : "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "none" }}
-                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.8, ease: "easeOut" }}
-              >
-                Tempat tradisi, keindahan, dan kreativitas
-              </motion.span>
-              <motion.span 
-                className="font-serif text-lg md:text-base lg:text-xl text-text-dark/85 leading-relaxed font-medium block"
-                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 15, filter: shouldReduceMotion ? "none" : "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "none" }}
-                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.6, duration: 0.8, ease: "easeOut" }}
-              >
-                berpadu dalam setiap helai kain
-              </motion.span>
-            </div>
-
-          <div className="max-w-7xl mx-auto px-6 lg:pl-16 w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-20 pt-20">
+          <div className="max-w-7xl mx-auto px-4 lg:px-6 lg:pl-12 xl:pl-16 w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 xl:gap-8 items-center relative z-20 pt-16 lg:pt-20">
             {/* Left Welcome Content */}
-            <div className="lg:col-span-7 flex flex-col md:flex-row items-center gap-4 md:gap-6 text-center md:text-left justify-center lg:justify-start">
+            <div className="lg:col-span-7 flex flex-col md:flex-row items-center gap-3 md:gap-4 xl:gap-6 text-center md:text-left justify-center lg:justify-start">
               <motion.div 
-                className="w-28 h-28 md:w-36 md:h-36 lg:w-52 lg:h-52 relative shrink-0"
+                className="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-44 xl:h-44 2xl:w-52 2xl:h-52 relative shrink-0"
                 initial={{ scale: shouldReduceMotion ? 1 : 0.8, opacity: shouldReduceMotion ? 1 : 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.3, duration: 0.6 }}
@@ -155,7 +151,7 @@ export default function HomePage() {
               
               <div className="flex flex-col gap-1 items-center md:items-start">
                 <motion.span 
-                  className="font-serif text-xl md:text-2xl lg:text-3xl text-[#A37F55] font-semibold leading-none mb-1"
+                  className="font-sans text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-[#A37F55] font-semibold leading-none mb-1"
                   initial={{ x: shouldReduceMotion ? 0 : -30, opacity: shouldReduceMotion ? 1 : 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.5, duration: 0.6 }}
@@ -163,7 +159,7 @@ export default function HomePage() {
                   Selamat Datang di
                 </motion.span>
                  <motion.h1 
-                  className="font-serif font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#3D1A5A] tracking-tight leading-none whitespace-nowrap"
+                  className="font-serif font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-[#3D1A5A] tracking-tight leading-none whitespace-nowrap"
                   style={{ whiteSpace: "nowrap" }}
                   initial={{ x: shouldReduceMotion ? 0 : -30, opacity: shouldReduceMotion ? 1 : 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -196,10 +192,10 @@ export default function HomePage() {
           </div>
 
           {/* Absolute Positioned Mascot Sira Galuh at the bottom-right of the screen */}
-          <div className="absolute right-0 bottom-0 z-20 flex-row items-end gap-0 pointer-events-none select-none pr-0 hidden lg:flex">
+          <div className="absolute right-0 bottom-0 z-20 flex-row items-end gap-0 pointer-events-none select-none pr-0 hidden lg:flex overflow-visible">
             {/* Speech Bubble */}
             <motion.div
-              className="relative border-2 border-secondary-light p-0.5 rounded-[2.75rem] bg-transparent shadow-xl mb-102.5 lg:mb-112.5 -mr-7 lg:-mr-10 z-30 pointer-events-auto shrink-0"
+              className="relative border-2 border-secondary-light p-0.5 rounded-[2.75rem] bg-transparent shadow-xl mb-56 lg:mb-64 xl:mb-80 2xl:mb-108 -mr-5 lg:-mr-7 xl:-mr-10 z-30 pointer-events-auto shrink-0 sira-bubble-container"
               initial={{ scale: shouldReduceMotion ? 1 : 0.8, opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.8, duration: 0.5 }}
@@ -271,7 +267,7 @@ export default function HomePage() {
 
             {/* Sira Avatar */}
             <motion.div
-              className="w-64 h-130 md:w-80 md:h-160 lg:w-120 lg:h-200 relative shrink-0"
+              className="w-64 h-130 md:w-80 md:h-160 lg:w-80 lg:h-128 xl:w-96 xl:h-160 2xl:w-120 2xl:h-200 relative shrink-0 sira-mascot-container"
               animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
               transition={shouldReduceMotion ? {} : { repeat: Infinity, duration: 4, ease: "easeInOut" }}
             >
@@ -286,7 +282,13 @@ export default function HomePage() {
           </div>
 
           {/* Bottom Mouse Scroll indicator */}
-          <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center justify-center gap-1.5 text-[9px] font-bold text-accent-brown/60 uppercase tracking-widest pointer-events-none select-none z-20">
+          <div 
+            onClick={handleAutoScroll}
+            className={`absolute bottom-28 left-0 right-0 flex flex-col items-center justify-center gap-1.5 text-[9px] font-bold text-accent-brown/60 uppercase tracking-widest cursor-pointer select-none z-20 transition-all duration-500 hover:scale-105 hover:text-accent-brown ${
+              hasScrolled ? "opacity-0 pointer-events-none translate-y-4" : "opacity-100"
+            }`}
+            title="Klik untuk gulir ke bawah"
+          >
             <div className="w-6 h-10 rounded-full border-2 border-accent-brown/45 flex justify-center pt-2">
               <motion.div
                 className="w-1 h-2.5 bg-accent-brown rounded-full"

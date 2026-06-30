@@ -73,7 +73,7 @@ export default function IntroPage() {
       {/* 1. Main Welcome Screen Content */}
       <AnimatePresence>
         <motion.div
-          className="fixed inset-0 z-20 flex flex-col items-center justify-center gap-20 sm:gap-28 py-8"
+          className="fixed inset-0 z-20 flex flex-col items-center justify-center gap-14 sm:gap-20 xl:gap-28 py-8"
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2 }}
         >
@@ -105,57 +105,57 @@ export default function IntroPage() {
 
           {/* Header: Three Logos */}
           <motion.div 
-            className="relative z-20 flex items-center justify-center gap-3 sm:gap-5 px-6 pt-6 w-full"
+            className="relative z-20 flex items-center justify-center gap-2 sm:gap-4 xl:gap-5 px-4 sm:px-6 pt-4 sm:pt-6 w-full"
             animate={journeyStarted ? { y: -120, opacity: 0 } : { y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             {/* Logo 1: Kalsel */}
-            <div className="flex items-center gap-1.5 sm:gap-2.5">
-              <Image
-                src="/assets/logo/logo_pemkot.png"
-                alt="Prov Kalsel"
-                width={60}
-                height={60}
-                className="h-11 sm:h-14 w-auto object-contain filter drop-shadow"
-              />
-              <div className="flex flex-col text-[9px] sm:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
-                <span>Pemerintah</span>
-                <span>Provinsi</span>
-                <span>Kalimantan Selatan</span>
+              <div className="flex items-center gap-1.5 sm:gap-2.5">
+                <Image
+                  src="/assets/logo/logo_pemkot.png"
+                  alt="Prov Kalsel"
+                  width={60}
+                  height={60}
+                  className="h-9 sm:h-12 xl:h-14 w-auto object-contain filter drop-shadow"
+                />
+                <div className="flex flex-col text-[8px] sm:text-[10px] xl:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
+                  <span>Pemerintah</span>
+                  <span>Provinsi</span>
+                  <span>Kalimantan Selatan</span>
+                </div>
               </div>
-            </div>
 
             {/* Logo 2: POLIBAN */}
-            <div className="flex items-center gap-1.5 sm:gap-2.5">
-              <Image
-                src="/assets/logo/logo_poliban.png"
-                alt="POLIBAN"
-                width={60}
-                height={60}
-                className="h-11 sm:h-14 w-auto object-contain filter drop-shadow"
-              />
-              <div className="flex flex-col text-[9px] sm:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
-                <span>Politeknik</span>
-                <span>Negeri</span>
-                <span>Banjarmasin</span>
+              <div className="flex items-center gap-1.5 sm:gap-2.5">
+                <Image
+                  src="/assets/logo/logo_poliban.png"
+                  alt="POLIBAN"
+                  width={60}
+                  height={60}
+                  className="h-9 sm:h-12 xl:h-14 w-auto object-contain filter drop-shadow"
+                />
+                <div className="flex flex-col text-[8px] sm:text-[10px] xl:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
+                  <span>Politeknik</span>
+                  <span>Negeri</span>
+                  <span>Banjarmasin</span>
+                </div>
               </div>
-            </div>
 
             {/* Logo 3: KMIPN */}
-            <div className="flex items-center gap-1.5 sm:gap-2.5">
-              <Image
-                src="/assets/logo/logo_kmipn.png"
-                alt="KMIPN"
-                width={60}
-                height={60}
-                className="h-11 sm:h-14 w-auto object-contain filter drop-shadow"
-              />
-              <div className="flex flex-col text-[9px] sm:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
-                <span>Kompetisi Mahasiswa</span>
-                <span>Informatika</span>
-                <span>Politeknik Nasional</span>
+              <div className="flex items-center gap-1.5 sm:gap-2.5">
+                <Image
+                  src="/assets/logo/logo_kmipn.png"
+                  alt="KMIPN"
+                  width={60}
+                  height={60}
+                  className="h-9 sm:h-12 xl:h-14 w-auto object-contain filter drop-shadow"
+                />
+                <div className="flex flex-col text-[8px] sm:text-[10px] xl:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
+                  <span>Kompetisi Mahasiswa</span>
+                  <span>Informatika</span>
+                  <span>Politeknik Nasional</span>
+                </div>
               </div>
-            </div>
           </motion.div>
 
           {/* Middle Section: Title, Window, Button */}
@@ -171,7 +171,7 @@ export default function IntroPage() {
               }
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
-              <div className="relative w-80 sm:w-lg md:w-152 h-20 sm:h-28 md:h-38">
+              <div className="relative w-72 sm:w-120 md:w-152 h-16 sm:h-24 md:h-38">
                 <Image
                   src="/assets/logo/tulisan_sasitra.png"
                   alt="Sasitra"

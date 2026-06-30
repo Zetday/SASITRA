@@ -149,6 +149,33 @@ h1, h2, h3, h4, h5, h6 {
   scroll-margin-top: 5.5rem;
 }
 
+
+/* Sira Mascot & Speech Bubble constraints for short viewport heights (landscape laptops/large devtools open) */
+@media (max-height: 780px) and (min-width: 1024px) {
+  .sira-mascot-container {
+    height: 68vh !important;
+    width: calc(68vh * 0.6) !important;
+  }
+  .sira-bubble-container {
+    margin-bottom: 34vh !important;
+  }
+}
+
+@media (max-height: 650px) and (min-width: 1024px) {
+  .sira-mascot-container {
+    height: 60vh !important;
+    width: calc(60vh * 0.6) !important;
+  }
+  .sira-bubble-container {
+    margin-bottom: 30vh !important;
+  }
+  .sira-bubble-container p {
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+  }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -162,4 +189,3 @@ h1, h2, h3, h4, h5, h6 {
     transition-delay: 0s !important;
   }
 }
-
