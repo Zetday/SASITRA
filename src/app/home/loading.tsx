@@ -34,11 +34,11 @@ export default function HomeLoading() {
           </div>
 
           {/* Right side mascot Sira outline (Only visible on desktop lg+) */}
-          <div className="lg:col-span-5 hidden lg:flex items-end justify-end gap-3 h-[32rem] relative">
+          <div className="lg:col-span-5 hidden lg:flex items-end justify-end gap-3 h-128 relative">
             {/* Speech Bubble placeholder */}
-            <Skeleton className="w-52 h-24 rounded-[2rem] mb-48 -mr-6 z-10" />
+            <Skeleton className="w-52 h-24 rounded-4xl mb-48 -mr-6 z-10" />
             {/* Mascot placeholder */}
-            <Skeleton className="w-72 h-[32rem] rounded-[2.5rem]" />
+            <Skeleton className="w-72 h-128 rounded-[2.5rem]" />
           </div>
           
         </div>

@@ -21,7 +21,7 @@ export default function TryOnLoading() {
           {/* Upload frame */}
           <div className="flex flex-col gap-2">
             <Skeleton className="h-4 w-32" />
-            <Skeleton className="h-56 w-full rounded-[1.5rem]" />
+            <Skeleton className="h-56 w-full rounded-3xl" />
           </div>
 
           {/* Pilihan Motif */}
@@ -45,7 +45,7 @@ export default function TryOnLoading() {
         {/* Right Column: AI Try-On Preview Canvas */}
         <div className="lg:col-span-7 flex flex-col gap-4">
           <Skeleton className="h-4 w-36" />
-          <Skeleton className="h-[28rem] w-full rounded-[1.5rem] shadow-sm" />
+          <Skeleton className="h-112 w-full rounded-3xl shadow-sm" />
           
           {/* Action buttons */}
           <div className="flex gap-4 mt-2">

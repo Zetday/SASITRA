@@ -13,7 +13,7 @@ export default function CustomizerLoading() {
         {/* Left Side: 3D WebGL Viewport Box */}
         <div className="flex-1 flex flex-col items-center justify-center p-6 relative h-full">
           <div className="w-full max-w-md md:max-w-lg aspect-square flex flex-col items-center justify-center relative">
-            <Skeleton className="w-full h-full rounded-[2rem] shadow-md" />
+            <Skeleton className="w-full h-full rounded-4xl shadow-md" />
             
             {/* Spinning load status at the center of the viewport skeleton */}
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
