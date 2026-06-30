@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -26,24 +26,44 @@ export const Navbar: React.FC<NavbarProps> = ({ activeOverride }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   
   const { currentUser, logout } = useDatabase();
   
   const isDarkTheme = pathname === "/galeri" && !scrolled;
+  const lastScrollYRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      const currentScrollY = window.scrollY;
+      const lastScrollY = lastScrollYRef.current;
+
+      if (currentScrollY > 20) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
+
+      // Hide or show navbar based on scroll direction
+      if (isOpen) {
+        setVisible(true);
+      } else if (currentScrollY < 50) {
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down
+        setVisible(false);
+      } else {
+        // Scrolling up
+        setVisible(true);
+      }
+
+      lastScrollYRef.current = currentScrollY;
     };
-    // Added passive event listener - client-passive-event-listeners
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isOpen]);
 
   // Close menus on navigation inside useEffect - rerender-move-effect-to-event / rerender-derived-state-no-effect
   useEffect(() => {
@@ -74,7 +94,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeOverride }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 transform ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      } ${
         scrolled
           ? "bg-bg-cream/95 backdrop-blur-md shadow-md border-b border-secondary/15 py-3"
           : "bg-transparent py-5"
