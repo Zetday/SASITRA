@@ -77,10 +77,10 @@ export const ProsesPembuatan: React.FC = () => {
 
 
         {/* Three Step Cards (z-10) */}
-        <div className="max-w-8xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] md:h-[88vh] relative z-10 py-4">
+        <div className="max-w-6xl mx-auto px-6 w-full flex flex-col items-center justify-between h-[80vh] md:h-[85vh] max-h-[680px] relative z-10 py-4">
           
           {/* Three Step Cards (Images Only) */}
-          <div className="relative w-full flex md:grid md:grid-cols-3 gap-6 md:gap-10 items-center justify-center min-h-55 md:min-h-0 pt-6 md:pt-4">
+          <div className="relative w-full max-w-5xl flex md:grid md:grid-cols-3 gap-6 md:gap-8 items-center justify-center min-h-55 md:min-h-0 pt-4 md:pt-2">
             {PROSES_STEPS.map((step, idx) => {
               const isBlurred = activeStep !== idx;
               const cardY = idx === 0 ? card1Y : idx === 1 ? card2Y : card3Y;
