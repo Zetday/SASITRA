@@ -73,7 +73,7 @@ export default function IntroPage() {
       {/* 1. Main Welcome Screen Content */}
       <AnimatePresence>
         <motion.div
-          className="fixed inset-0 z-20 flex flex-col items-center justify-center gap-14 sm:gap-20 xl:gap-28 py-8"
+          className="fixed inset-0 z-20 flex flex-col items-center justify-between py-6 sm:py-8 md:py-12"
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2 }}
         >
@@ -105,7 +105,7 @@ export default function IntroPage() {
 
           {/* Header: Three Logos */}
           <motion.div 
-            className="relative z-20 flex items-center justify-center gap-2 sm:gap-4 xl:gap-5 px-4 sm:px-6 pt-4 sm:pt-6 w-full"
+            className="relative z-20 flex flex-wrap items-center justify-center gap-3 sm:gap-4 xl:gap-5 px-4 sm:px-6 pt-2 sm:pt-4 w-full"
             animate={journeyStarted ? { y: -120, opacity: 0 } : { y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
@@ -116,9 +116,9 @@ export default function IntroPage() {
                   alt="Prov Kalsel"
                   width={60}
                   height={60}
-                  className="h-9 sm:h-12 xl:h-14 w-auto object-contain filter drop-shadow"
+                  className="h-8 sm:h-11 xl:h-13 w-auto object-contain filter drop-shadow"
                 />
-                <div className="flex flex-col text-[8px] sm:text-[10px] xl:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
+                <div className="flex flex-col text-[7px] sm:text-[9px] xl:text-[10px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
                   <span>Pemerintah</span>
                   <span>Provinsi</span>
                   <span>Kalimantan Selatan</span>
@@ -132,9 +132,9 @@ export default function IntroPage() {
                   alt="POLIBAN"
                   width={60}
                   height={60}
-                  className="h-9 sm:h-12 xl:h-14 w-auto object-contain filter drop-shadow"
+                  className="h-8 sm:h-11 xl:h-13 w-auto object-contain filter drop-shadow"
                 />
-                <div className="flex flex-col text-[8px] sm:text-[10px] xl:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
+                <div className="flex flex-col text-[7px] sm:text-[9px] xl:text-[10px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
                   <span>Politeknik</span>
                   <span>Negeri</span>
                   <span>Banjarmasin</span>
@@ -148,9 +148,9 @@ export default function IntroPage() {
                   alt="KMIPN"
                   width={60}
                   height={60}
-                  className="h-9 sm:h-12 xl:h-14 w-auto object-contain filter drop-shadow"
+                  className="h-8 sm:h-11 xl:h-13 w-auto object-contain filter drop-shadow"
                 />
-                <div className="flex flex-col text-[8px] sm:text-[10px] xl:text-[11px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
+                <div className="flex flex-col text-[7px] sm:text-[9px] xl:text-[10px] font-bold text-accent-brown uppercase tracking-wider leading-tight border-l border-accent-brown/30 pl-2">
                   <span>Kompetisi Mahasiswa</span>
                   <span>Informatika</span>
                   <span>Politeknik Nasional</span>
@@ -159,19 +159,19 @@ export default function IntroPage() {
           </motion.div>
 
           {/* Middle Section: Title, Window, Button */}
-          <div className="relative z-20 flex flex-col items-center justify-center gap-8 md:gap-10 w-full max-w-xl px-6">
+          <div className="relative z-20 flex flex-col items-center justify-center gap-6 sm:gap-8 w-full max-w-xl px-6">
             
             {/* Title SASITRA */}
             <motion.div
-              className="flex flex-col items-center justify-center gap-3.5 w-full select-none"
-              initial={{ scale: 1, y: "-5rem", opacity: 1 }}
+              className="flex flex-col items-center justify-center gap-3 w-full select-none"
+              initial={{ scale: 1, y: "-2rem", opacity: 1 }}
               animate={journeyStarted 
-                ? { scale: 0.85, y: "-10rem", opacity: 0 } 
-                : { scale: 1, y: "-5rem", opacity: 1 }
+                ? { scale: 0.85, y: "-6rem", opacity: 0 } 
+                : { scale: 1, y: "-2rem", opacity: 1 }
               }
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
-              <div className="relative w-72 sm:w-120 md:w-152 h-16 sm:h-24 md:h-38">
+              <div className="relative w-64 sm:w-100 md:w-120 h-14 sm:h-20 md:h-28">
                 <Image
                   src="/assets/logo/tulisan_sasitra.png"
                   alt="Sasitra"
@@ -182,19 +182,19 @@ export default function IntroPage() {
               </div>
 
               {/* Tagline */}
-              <div className="flex items-center gap-3.5 w-full max-w-sm mt-1 justify-center px-4">
-                <div className="flex-1 flex items-center gap-1.5">
-                  <svg className="h-2 w-2 shrink-0 rotate-45" viewBox="0 0 10 10">
+              <div className="flex items-center gap-2.5 w-full max-w-xs sm:max-w-sm mt-1 justify-center px-4">
+                <div className="flex-1 flex items-center gap-1">
+                  <svg className="h-1.5 w-1.5 shrink-0 rotate-45" viewBox="0 0 10 10">
                     <rect x="2" y="2" width="6" height="6" fill="none" stroke="#C5960C" strokeWidth="1.2" />
                   </svg>
                   <div className="h-px bg-secondary flex-1 opacity-70" />
                 </div>
-                <span className="text-secondary font-sans text-xs sm:text-sm font-semibold tracking-wider whitespace-nowrap drop-shadow-sm">
+                <span className="text-secondary font-sans text-[10px] sm:text-xs font-semibold tracking-wider whitespace-nowrap drop-shadow-sm">
                   Menenun Kisah Sasirangan.
                 </span>
-                <div className="flex-1 flex items-center gap-1.5">
+                <div className="flex-1 flex items-center gap-1">
                   <div className="h-px bg-secondary flex-1 opacity-70" />
-                  <svg className="h-2 w-2 shrink-0 rotate-45" viewBox="0 0 10 10">
+                  <svg className="h-1.5 w-1.5 shrink-0 rotate-45" viewBox="0 0 10 10">
                     <rect x="2" y="2" width="6" height="6" fill="none" stroke="#C5960C" strokeWidth="1.2" />
                   </svg>
                 </div>
@@ -203,7 +203,7 @@ export default function IntroPage() {
 
             {/* Window Shutter S Logo Overlay */}
             <motion.div
-              className="relative h-28 w-28 sm:h-36 sm:w-36 rounded-full p-1 flex items-center justify-center shadow-md -mt-2.5 group cursor-pointer"
+              className="relative h-20 w-20 sm:h-28 sm:w-28 rounded-full p-1 flex items-center justify-center shadow-md -mt-1 group cursor-pointer"
               animate={journeyStarted ? { scale: 0.8, opacity: 0 } : { scale: 1, opacity: 1 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
               onClick={handleStartJourney}
@@ -211,8 +211,8 @@ export default function IntroPage() {
               <Image
                 src="/assets/logo/logo_sasitra_2.png"
                 alt="SASITRA S Logo"
-                width={140}
-                height={140}
+                width={110}
+                height={110}
                 className="h-[95%] w-[95%] object-contain rounded-full transition-transform duration-500 group-hover:scale-105"
               />
             </motion.div>
@@ -220,7 +220,7 @@ export default function IntroPage() {
           {/* Button: Mulai Perjalanan */}
             <motion.button
               onClick={handleStartJourney}
-              className="relative px-8 py-3.5 text-secondary-light font-serif font-semibold text-lg tracking-wide uppercase focus:outline-none transition-all active:scale-95 group overflow-hidden mt-2"
+              className="relative px-6 py-2.5 sm:px-8 sm:py-3.5 text-secondary-light font-serif font-semibold text-base sm:text-lg tracking-wide uppercase focus:outline-none transition-all active:scale-95 group overflow-hidden mt-1"
               animate={journeyStarted ? { y: 60, opacity: 0 } : { y: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
@@ -236,6 +236,9 @@ export default function IntroPage() {
               </span>
             </motion.button>
           </div>
+          
+          {/* Bottom spacer for centering the middle content */}
+          <div className="h-4 sm:h-8 md:h-12 w-0 shrink-0" />
         </motion.div>
       </AnimatePresence>
 

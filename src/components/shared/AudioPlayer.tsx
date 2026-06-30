@@ -143,7 +143,7 @@ export const AudioPlayer: React.FC = () => {
       />
 
       {/* Unified HUD Control Center */}
-      <div className="autoplay-dock fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#FFFDF9]/95 backdrop-blur-md border border-secondary-light/45 px-6 py-3 rounded-full shadow-2xl flex items-center gap-5.5 select-none pointer-events-auto transition-all">
+      <div className="autoplay-dock fixed bottom-6 left-6 z-50 bg-[#FFFDF9]/30 backdrop-blur-md border border-secondary-light/25 px-6 py-3 rounded-full shadow-2xl flex items-center gap-5.5 select-none pointer-events-auto transition-all">
         
         {/* 1. MUSIC CONTROL */}
         <button

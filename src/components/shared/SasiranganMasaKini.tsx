@@ -42,10 +42,10 @@ export const SasiranganMasaKini: React.FC = () => {
 
 
       <div className="max-w-8xl mx-auto px-6 w-full relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 xl:gap-8 items-center">
           
           {/* Left Side: Mascot and Text Description */}
-          <div className="lg:col-span-7 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+          <div className="xl:col-span-7 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
             
             {/* Mascot Avatar Sira_6 */}
             <motion.div
@@ -68,7 +68,7 @@ export const SasiranganMasaKini: React.FC = () => {
               style={shouldReduceMotion ? {} : { x: textX }}
             >
               <motion.h2 
-                className="font-serif text-5xl md:text-6xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-[#A37F55] tracking-wider mb-1 leading-none"
+                className="font-serif text-4xl sm:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-[#A37F55] tracking-wider mb-1 leading-none"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -78,7 +78,7 @@ export const SasiranganMasaKini: React.FC = () => {
               </motion.h2>
 
               <motion.h2 
-                className="font-serif text-3xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-[#A37F55] tracking-wider mb-8 relative inline-flex items-center self-center md:self-start leading-none gap-2"
+                className="font-serif text-2xl sm:text-3xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[#A37F55] tracking-wider mb-6 relative inline-flex items-center self-center md:self-start leading-none gap-2"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -90,7 +90,7 @@ export const SasiranganMasaKini: React.FC = () => {
                 </span>
               </motion.h2>
 
-              <div className="flex flex-col gap-6 max-w-lg mt-2">
+              <div className="flex flex-col gap-4 max-w-lg mt-2 text-center md:text-left">
                 <motion.p
                   className="font-sans text-sm md:text-base lg:text-lg text-[#713034] leading-relaxed font-semibold"
                   initial={{ opacity: 0, y: 20 }}
@@ -102,7 +102,7 @@ export const SasiranganMasaKini: React.FC = () => {
                 </motion.p>
 
                 <motion.p
-                  className="font-sans text-sm md:text-base lg:text-lg text-[#713034] leading-relaxed font-semibold pl-0 md:pl-16 text-center md:text-right"
+                  className="font-sans text-sm md:text-base lg:text-lg text-[#713034] leading-relaxed font-semibold pl-0 md:pl-8 lg:pl-12"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -116,7 +116,7 @@ export const SasiranganMasaKini: React.FC = () => {
           </div>
 
           {/* Right Side: Lifestyle Products Grid and Jelajah 3D Button */}
-          <div className="lg:col-span-5 flex flex-col items-center gap-8 overflow-hidden">
+          <div className="xl:col-span-5 flex flex-col items-center gap-8 overflow-hidden">
             
             {/* Products Grid Staggered */}
             <motion.div 
